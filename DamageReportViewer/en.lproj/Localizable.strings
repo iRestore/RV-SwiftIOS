@@ -1,0 +1,39 @@
+/* 
+  Localizable.strings
+  DamageReportViewer
+
+  Created by Greeshma Mullakkara on 11/12/19.
+  Copyright © 2019 iRestoreApp. All rights reserved.
+*/
+
+"USER_REJECTED_ALERT_TEXT"  = "Your request for QAManager Subscription has been declined. Please contact the Utility Admin for detail";
+
+"USER_REJECTED_ALERT_TEXT"  = "Your request for Report Viewer Subscription has been declined. Please contact the Utility Admin for detail";
+
+"USER_REVOKED_ALERT_TEXT"  = "Your subscription to Report Viewer has been revoked.  Please contact the Utility Admin for details";
+
+"USER_DEVICE_STRING_MISMATCH_TEXT" = "Report Viewer subscription with the same phone number is active on another device.";
+
+"USER_SUBMITTED_TEXT"  = "Your request for Report Viewer Subscription is waiting for Admin Approval";
+
+"FETCH_CONFIGURATION_TEXT"  = "Error in setting up the configuration.";
+
+"USER_SUBSCRIPTION_DOESNOT_EXISTS_ALERT_TEXT"  = "Your subscription to Report Viewer has been removed. Please contact the Utility Admin for detail";
+
+"ADMIN_APPROVAL_DEFAULT_TEXT" = "Thank you for registering for iRestore. The administrator will respond to your request within 48 hours and you will be notified of the response";
+
+"SELECT_UTILITY" = "Please select utility";
+
+"ALERT" = "Alert";
+
+"OK" = "OK";
+
+"CANCEL"  = "Cancel";
+
+//Signup Screen
+"EMAIL_PHONE_CANNOT_BE_BLANK" = "Email and Phone fields cannot be left blank!";
+
+"VALID_EMAIL" =  "Please enter a valid email address!";
+
+"VALID_PHONE"     = "Please enter a valid Area Code and Phone number";
+

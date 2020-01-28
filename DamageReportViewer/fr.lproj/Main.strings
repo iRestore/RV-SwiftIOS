@@ -1,0 +1,18 @@
+
+/* Class = "UITextField"; placeholder = " (xxx) xxx-xxxx"; ObjectID = "Bdv-mh-b4y"; */
+"Bdv-mh-b4y.placeholder" = " (xxx) xxx-xxxx";
+
+/* Class = "UITextField"; placeholder = "Select Utility"; ObjectID = "I1k-JJ-neX"; */
+"I1k-JJ-neX.placeholder" = "Sélectionnez l'utilitaire";
+
+/* Class = "UILabel"; text = "Emergency Power Restoration"; ObjectID = "JYF-KB-DhO"; */
+"JYF-KB-DhO.text" = "Emergency Power Restoration";
+
+/* Class = "UILabel"; text = "Faster. Better"; ObjectID = "VJE-uj-ruP"; */
+"VJE-uj-ruP.text" = "Faster. Better";
+
+/* Class = "UIButton"; normalTitle = "Sign Up"; ObjectID = "Xwv-uz-mpL"; */
+"Xwv-uz-mpL.normalTitle" = "Sign Up";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "edi-hU-xj3"; */
+"edi-hU-xj3.placeholder" = "Email";

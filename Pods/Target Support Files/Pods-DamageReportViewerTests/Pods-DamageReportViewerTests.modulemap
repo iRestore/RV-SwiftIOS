@@ -1,0 +1,6 @@
+framework module Pods_DamageReportViewerTests {
+  umbrella header "Pods-DamageReportViewerTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
