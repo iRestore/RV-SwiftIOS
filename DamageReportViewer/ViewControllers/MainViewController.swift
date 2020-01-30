@@ -18,9 +18,10 @@ struct Response {
 }
 class MainViewController:UIViewController {
     static var reportArray = [ReportData]()
+    static var isFilterAppliedInTabs = false
+    
     var damageTypeSubTypeDisplayNamesDict = [String:String]()
     static var damageMetaDataDisplayDict = [String:String]()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
@@ -47,25 +48,25 @@ class MainViewController:UIViewController {
     
     func getAllReports(page:Int,isdeleteDelta:Bool,isFilterApplied:Bool,isSortDescending:Bool,completion: @escaping (ReportStatus<Response>) -> ()) {
         var newFilterDictionary = [String:Any]()
-        if isFilterApplied == true {
-            let array =  ["fr_5_tree",
-               "fr_6_wire",
-               "vda_11_tree",
-               "vda_9_poletopequipment",
-               "fr_4_pole",
-               "fr_2_fire",
-               "fr_1_electric equipment",
-               "vda_8_pole",
-               "vda_12_wire",
-               "vda_10_splequipment",
-               "fr_3_gas equipment",
-               "vda_7_other"]
-            
-            newFilterDictionary["reportType"] = ""
-            newFilterDictionary["damageType"] = array
-            newFilterDictionary["vdaFilterDamageParts"] = []
-            newFilterDictionary["vdaFilterDamageParts"] = []
-        }
+//        if isFilterApplied == true {
+//            let array =  ["fr_5_tree",
+//               "fr_6_wire",
+//               "vda_11_tree",
+//               "vda_9_poletopequipment",
+//               "fr_4_pole",
+//               "fr_2_fire",
+//               "fr_1_electric equipment",
+//               "vda_8_pole",
+//               "vda_12_wire",
+//               "vda_10_splequipment",
+//               "fr_3_gas equipment",
+//               "vda_7_other"]
+//            
+        newFilterDictionary["reportType"] = ""
+        newFilterDictionary["damageType"] = []
+        newFilterDictionary["vdaFilterDamageParts"] = []
+        newFilterDictionary["vdaFilterDamageParts"] = []
+
       
         for (key,value)  in  DataHandler.shared.filterValueDict {
                newFilterDictionary[key] = value
@@ -103,8 +104,8 @@ class MainViewController:UIViewController {
                             if itemsArray.count > 0 {
                                 for item in itemsArray {
                                     let reportData = ReportData.init(data: item)
-                                    reportData?.damageTypeDisplayName = self.damageTypeSubTypeDisplayNamesDict[reportData?.damageType ?? ""]
-                                    reportData?.damageSubTypeDisplayName = self.damageTypeSubTypeDisplayNamesDict[reportData?.damageSubType ?? ""]
+                                    reportData?.damageTypeDisplayName = self.damageTypeSubTypeDisplayNamesDict[reportData?.damageType ?? ""] ?? "" 
+                                    reportData?.damageSubTypeDisplayName = self.damageTypeSubTypeDisplayNamesDict[reportData?.damageSubType ?? ""] ?? ""
 
                                     MainViewController.reportArray.append(reportData!)
                                 }

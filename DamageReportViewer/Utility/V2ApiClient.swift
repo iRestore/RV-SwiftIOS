@@ -90,7 +90,6 @@ class V2ApiClient {
     }
     func getAllTags(completion: @escaping (Result<APIResponse, APIError>) -> ()) {
         var newFilterDictionary = [String:Any]()
-//        newFilterDictionary["address"] = params
         do {
            let data
                = try JSONSerialization.data(withJSONObject: newFilterDictionary, options: [])
@@ -108,13 +107,13 @@ class V2ApiClient {
     }
     func getAllFeederLine(completion: @escaping (Result<APIResponse, APIError>) -> ()) {
             var newFilterDictionary = [String:Any]()
-    //        newFilterDictionary["address"] = params
             do {
                let data
                    = try JSONSerialization.data(withJSONObject: newFilterDictionary, options: [])
                 let urlString = "https://\(v2Domain)\(Constants.FEEDERLINE_V2_URL)"
                        let url = URL(string: urlString)!
-                       self.doPostRequest(url: url, requestType: "POST", postData: data){
+                self.doGetRequest(url: url){
+//                       self.doPostRequest(url: url, requestType: "POST", postData: data){
                            result in
                                print(result)
                                completion(result)

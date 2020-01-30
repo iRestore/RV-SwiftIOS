@@ -117,22 +117,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DCE12712-DF31-4F96-97FB-46CF3DC506C6"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DamageReportViewer/ViewControllers/VDADetailsViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "367"
-            endingLineNumber = "367"
-            landmarkName = "cellImageTapped(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "4563C5E6-BC05-4695-811C-EEA5A8EBA3BF"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -149,38 +133,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "19CD2850-30AC-4F28-B551-C6E4816CAB87"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DamageReportViewer/ViewControllers/MapViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "mapView(mapView:didTapInfoWindowOfMarker:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "9DE34CF7-E113-4DE7-A56C-AC42E061A3FC"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DamageReportViewer/ViewControllers/MapViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "mapView(mapView:didTapOverlay:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "2BC75DD5-170D-49DE-AC92-1ECD479C648D"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -188,8 +140,8 @@
             filePath = "DamageReportViewer/ViewControllers/NewFilterViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "464"
-            endingLineNumber = "464"
+            startingLineNumber = "637"
+            endingLineNumber = "637"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -261,38 +213,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "72F1B3C9-0D1E-4F30-9970-12298322223A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DamageReportViewer/ViewControllers/NewFilterViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "969"
-            endingLineNumber = "969"
-            landmarkName = "NewFilterViewController"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "217FA7E5-6D00-48F6-8605-26EC6F6A0197"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DamageReportViewer/ViewControllers/NewFilterViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "972"
-            endingLineNumber = "972"
-            landmarkName = "didSelectItemFromLocation(selectedDisplayString:keyName:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "346B2BE5-8D81-451C-81C8-9E83E5968195"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -300,8 +220,8 @@
             filePath = "DamageReportViewer/ViewControllers/NewFilterViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "571"
-            endingLineNumber = "571"
+            startingLineNumber = "757"
+            endingLineNumber = "757"
             landmarkName = "selectCategory(cell:cellItem:value:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -332,8 +252,8 @@
             filePath = "DamageReportViewer/ViewControllers/NewFilterViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "516"
-            endingLineNumber = "516"
+            startingLineNumber = "695"
+            endingLineNumber = "695"
             landmarkName = "selectCategory(cell:cellItem:value:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -348,8 +268,8 @@
             filePath = "DamageReportViewer/ViewControllers/NewFilterViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "690"
-            endingLineNumber = "690"
+            startingLineNumber = "887"
+            endingLineNumber = "887"
             landmarkName = "selectCategory(cell:cellItem:value:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -364,8 +284,8 @@
             filePath = "DamageReportViewer/ViewControllers/NewFilterViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "701"
-            endingLineNumber = "701"
+            startingLineNumber = "898"
+            endingLineNumber = "898"
             landmarkName = "selectCategory(cell:cellItem:value:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -380,39 +300,39 @@
             filePath = "DamageReportViewer/ViewControllers/NewFilterViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "753"
-            endingLineNumber = "753"
+            startingLineNumber = "955"
+            endingLineNumber = "955"
             landmarkName = "selectAddress(cell:cellItem:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "3CE63951-9581-450C-8895-458C49431187 - d9136d5abc39e28f"
+                  uuid = "3CE63951-9581-450C-8895-458C49431187 - 82a2870e0642bd09"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 (DamageReportViewer.Result&lt;DamageReportViewer.APIResponse, DamageReportViewer.APIError&gt;) -&gt; () in DamageReportViewer.NewFilterViewController.selectAddress(cell: DamageReportViewer.Type1Cell, cellItem: DamageReportViewer.CellItem) -&gt; ()"
                   moduleName = "DamageReportViewer"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/ReportingApp/DamageReportViewer/DamageReportViewer/ViewControllers/NewFilterViewController.swift"
+                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/DRV/RV-SwiftIOS/DamageReportViewer/ViewControllers/NewFilterViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "754"
-                  endingLineNumber = "754"
+                  startingLineNumber = "956"
+                  endingLineNumber = "956"
                   offsetFromSymbolStart = "276">
                </Location>
                <Location
-                  uuid = "3CE63951-9581-450C-8895-458C49431187 - b6cf401f2d2f2245"
+                  uuid = "3CE63951-9581-450C-8895-458C49431187 - ed7eaa4b97547dc3"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 () -&gt; () in closure #1 (DamageReportViewer.Result&lt;DamageReportViewer.APIResponse, DamageReportViewer.APIError&gt;) -&gt; () in DamageReportViewer.NewFilterViewController.selectAddress(cell: DamageReportViewer.Type1Cell, cellItem: DamageReportViewer.CellItem) -&gt; ()"
                   moduleName = "DamageReportViewer"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/ReportingApp/DamageReportViewer/DamageReportViewer/ViewControllers/NewFilterViewController.swift"
+                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/DRV/RV-SwiftIOS/DamageReportViewer/ViewControllers/NewFilterViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "755"
-                  endingLineNumber = "755"
+                  startingLineNumber = "957"
+                  endingLineNumber = "957"
                   offsetFromSymbolStart = "64">
                </Location>
             </Locations>
@@ -460,41 +380,9 @@
             filePath = "DamageReportViewer/ViewControllers/NewFilterViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "855"
-            endingLineNumber = "855"
+            startingLineNumber = "1065"
+            endingLineNumber = "1065"
             landmarkName = "getAllTags(cell:cellItem:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "60B754D4-DFD5-426B-B98B-F287443220D3"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DamageReportViewer/ViewControllers/NewFilterViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "951"
-            endingLineNumber = "951"
-            landmarkName = "didSelectItem(selectedDisplayString:keyName:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "59434812-71D5-44DD-AC1A-24EEF8D2B0A4"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DamageReportViewer/ViewControllers/ListViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
-            landmarkName = "getReports(isDeleteDelta:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -514,14 +402,14 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "18B38CBE-84EE-47B4-9A1A-4E8873122B5F - 4e918fe36fe6613e"
+                  uuid = "18B38CBE-84EE-47B4-9A1A-4E8873122B5F - e1108e004827d47a"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "DamageReportViewer.V1ApiClient.createProfile(postData: Foundation.Data, completion: (DamageReportViewer.Result&lt;DamageReportViewer.APIResponse, DamageReportViewer.APIError&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "DamageReportViewer"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/ReportingApp/DamageReportViewer/DamageReportViewer/Utility/V1ApiClient.swift"
+                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/DRV/RV-SwiftIOS/DamageReportViewer/Utility/V1ApiClient.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "162"
@@ -529,14 +417,14 @@
                   offsetFromSymbolStart = "968">
                </Location>
                <Location
-                  uuid = "18B38CBE-84EE-47B4-9A1A-4E8873122B5F - 7f826f64f04c6a2b"
+                  uuid = "18B38CBE-84EE-47B4-9A1A-4E8873122B5F - d0036e87d78ddf6f"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 (DamageReportViewer.Result&lt;DamageReportViewer.APIResponse, DamageReportViewer.APIError&gt;) -&gt; () in DamageReportViewer.V1ApiClient.createProfile(postData: Foundation.Data, completion: (DamageReportViewer.Result&lt;DamageReportViewer.APIResponse, DamageReportViewer.APIError&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "DamageReportViewer"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/ReportingApp/DamageReportViewer/DamageReportViewer/Utility/V1ApiClient.swift"
+                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/DRV/RV-SwiftIOS/DamageReportViewer/Utility/V1ApiClient.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "164"
@@ -565,65 +453,145 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "50FC7FD0-8A2F-489C-919E-B515911AE5CD"
-            shouldBeEnabled = "Yes"
+            uuid = "BE2989A8-B11E-4C2E-85A2-70511FEB369B"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DamageReportViewer/ViewControllers/DamageScopeSelectionViewController.swift"
+            filePath = "DamageReportViewer/Model/ReportData.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "init(data:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0A592313-F496-49A4-A853-5241382057D0"
-            shouldBeEnabled = "Yes"
+            uuid = "2196C3A0-033B-4363-809F-18AD88D0AE2B"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DamageReportViewer/ViewControllers/DamageScopeSelectionViewController.swift"
+            filePath = "DamageReportViewer/Model/ReportData.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "init(data:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "666B52B0-DCAA-4BFC-90BF-DC2075301E0A"
+            uuid = "A0491C1C-09EB-43C3-8B21-79A9E3D35C61"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DamageReportViewer/ViewControllers/NewFilterViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "979"
-            endingLineNumber = "979"
-            landmarkName = "NewFilterViewController"
-            landmarkType = "3">
+            startingLineNumber = "717"
+            endingLineNumber = "717"
+            landmarkName = "selectCategory(cell:cellItem:value:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2B454145-5088-4159-BE22-C29B930E5254"
+            uuid = "354E2C86-83D0-428E-A101-33E1167C9919"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DamageReportViewer/ViewControllers/DamageScopeSelectionViewController.swift"
+            filePath = "DamageReportViewer/ViewControllers/NewFilterViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "1078"
+            endingLineNumber = "1078"
+            landmarkName = "getAllTags(cell:cellItem:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "14F8F563-51C3-438F-AEC5-EA7DAB362DA5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DamageReportViewer/ViewControllers/MapViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "fetchReportsWithFilter()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "204493CC-3885-436A-930D-B388130069BC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DamageReportViewer/ViewControllers/MapViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "getReports(isDeleteDelta:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C2A6DBA3-5CF1-4AEB-8A45-4520B4BA3B74"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DamageReportViewer/ViewControllers/ListViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "viewWillAppear(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "24377F3E-A133-4C84-A9F5-F37A82F76A61"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DamageReportViewer/ViewControllers/NewFilterViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1238"
+            endingLineNumber = "1238"
+            landmarkName = "tagRemoveButtonPressed(_:tagView:sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "04FCFBC7-5A2D-4826-80E4-5A241F54C486"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DamageReportViewer/ViewControllers/NewFilterViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1237"
+            endingLineNumber = "1237"
+            landmarkName = "tagRemoveButtonPressed(_:tagView:sender:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

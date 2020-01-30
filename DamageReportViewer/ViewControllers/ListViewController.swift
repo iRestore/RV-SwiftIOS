@@ -10,6 +10,7 @@ import Firebase
 
 protocol FilterReportsDelegate {
     func  fetchReportsWithFilter()
+    func  resetFilter()
 }
 class ListViewController: MainViewController,UITableViewDelegate,UITableViewDataSource ,UIScrollViewDelegate,FilterReportsDelegate{
 
@@ -33,13 +34,14 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
         prefs.set(true, forKey: Constants.IS_SIGN_COMPLETED)
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = true
+        MainViewController.isFilterAppliedInTabs = false
         if Reachability.isConnectedToNetwork () {
             DataHandler.shared.fetchDataFromDefaults()
             let filterDict = DataHandler.shared.filterValueDict
-            if(filterDict.count < 1) {
+//            if(filterDict.count < 1) {
                 let date = Date()
                 let dateFormatter: DateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "YYYY-MM-dd"
+                dateFormatter.dateFormat = Constants.fromDateDisplayFormat
                 let dateString = dateFormatter.string(from: date)
                 DataHandler.shared.filterValueDict["toDate"] = dateString
                 
@@ -48,7 +50,7 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
                 DataHandler.shared.filterValueDict["fromDate"] = dateString1
                 
                 let dateFormatter1: DateFormatter = DateFormatter()
-                dateFormatter1.dateFormat = "MM-dd-yyyy"
+                dateFormatter1.dateFormat = Constants.fromDateDisplayFormat
                 let dateString2 = dateFormatter1.string(from: date)
                 DataHandler.shared.filterDisplayDict["toDate"] = dateString2
                 let dateString3 = dateFormatter1.string(from: thirtyDaysBeforeToday)
@@ -57,7 +59,7 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
                 self.filterBtn.setImage(UIImage.init(named: "filter_active"), for: .normal)
                 self.isFilterApplied = true
 
-            }
+//            }
             self.getDataFromFirebase()
             self.getMetaDataFromFirebase()
         }
@@ -73,9 +75,12 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
        
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        if MainViewController.isFilterAppliedInTabs == true {
+            currentPage = 1
+            self.tblView.reloadData()
+        }
+    }
     
     @IBAction func btnFilterbtnSortWithSender(_ sender: UIButton) {
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -97,6 +102,14 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
         self.isFilterApplied = true
         self.getReports(isDeleteDelta:true)
     }
+    func resetFilter() {
+        self.filterBtn.setImage(UIImage.init(named: "filter"), for: .normal)
+//        isloading = true
+//        currentPage = 1
+//        self.isFilterApplied = true
+//        self.getReports(isDeleteDelta:true)
+    }
+    
     @IBAction func btnSort(_ sender: UIButton) {
 
         if (isSortDescending == true) {

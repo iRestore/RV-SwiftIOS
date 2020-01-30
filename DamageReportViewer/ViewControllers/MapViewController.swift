@@ -10,25 +10,101 @@ import UIKit
 import CoreLocation
 import GoogleMaps
 
-class MapViewController: MainViewController,GMSMapViewDelegate {
+class MapViewController: MainViewController,GMSMapViewDelegate,FilterReportsDelegate {
     @IBOutlet var  googleMapView : GMSMapView!
+    @IBOutlet var filterBtn: UIButton!
+    var isloading: Bool = false
+    var activityIndicator =  ActivityIndicator()
     private let locationManager = CLLocationManager()
     override func viewDidLoad() {
            super.viewDidLoad()
 
     }
     override func viewDidAppear(_ animated: Bool) {
+        let filterDict = DataHandler.shared.filterValueDict
+        if(filterDict.count > 1) {
+            self.filterBtn.setImage(UIImage.init(named: "filter_active"), for: .normal)
+
+        }
+        else {
+            self.filterBtn.setImage(UIImage.init(named: "filter"), for: .normal)
+        }
         getCordinates()
       //  googleMapView.isMyLocationEnabled = true
         googleMapView.delegate = self
 
     }
     @IBAction func btnFilterClicked(_ sender:UIButton ){
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        guard let detailsController = mainStoryBoard.instantiateViewController(withIdentifier: "NewFilterViewController") as? NewFilterViewController else { return  }
+        detailsController.delegate = self
+        self.navigationController?.pushViewController(detailsController, animated: true)
         
     }
+    func fetchReportsWithFilter() {
+//            isloading = true
+//            currentPage = 1
+//            self.isFilterApplied = true
+            self.getReports(isDeleteDelta:true)
+    }
+    func resetFilter() {
+            self.filterBtn.setImage(UIImage.init(named: "filter"), for: .normal)
+    //        isloading = true
+    //        currentPage = 1
+    //        self.isFilterApplied = true
+    //        self.getReports(isDeleteDelta:true)
+    }
+    func getReports(isDeleteDelta:Bool) {
+        activityIndicator.showActivityIndicator(uiView: self.view)
+        self.isloading = true
+        MainViewController.isFilterAppliedInTabs = true
+        self.getAllReports(page: 1, isdeleteDelta: isDeleteDelta, isFilterApplied: true, isSortDescending: true)
+        {
+            result in
+            
+            DispatchQueue.main.async {
+                self.activityIndicator.hideActivityIndicator(uiView: self.view)
+                //self.isDataFinished = false
+                self.isloading = false
+            }
+            switch result {
+
+            case .Data( _):
+                DispatchQueue.main.async {
+                    self.getCordinates()
+//                    self.noReportsLabel.isHidden = true
+//                    self.tblView.isHidden = false
+//                    self.tblView.reloadData()
+//                    self.isDataFinished = true
+                }
+                break
+            case .NoData( _):
+//                if self.currentPage != 1  {
+//                    self.isloading = false
+//                }
+//                else {
+//                    DispatchQueue.main.async {
+//                        self.tblView.isHidden = true
+//                        self.noReportsLabel.isHidden = false
+//                    }
+//                }
+                break
+            case .TimeOut( _):
+                break
+            case .ServerError(let value):
+                break
+                
+                
+                
+            }
+            
+        }
+    }
+    
     func getCordinates () {
         var index = 0
         let bounds = GMSCoordinateBounds.init()
+        googleMapView.clear()
         for item in MainViewController.self.reportArray {
             if let  reportData = item as? ReportData {
                 let marker = GMSMarker.init()

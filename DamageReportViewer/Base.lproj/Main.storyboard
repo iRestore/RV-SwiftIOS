@@ -1269,13 +1269,13 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lnK-Sj-uY2">
                                 <rect key="frame" x="314" y="88" width="100" height="45"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CKT-es-sTi">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CKT-es-sTi">
                                         <rect key="frame" x="12" y="10" width="26" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="85F-zU-ABg"/>
                                             <constraint firstAttribute="width" constant="26" id="yu9-Md-M4F"/>
                                         </constraints>
-                                        <state key="normal" backgroundImage="filter"/>
+                                        <state key="normal" image="filter"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ne4-ex-Fxw">
                                         <rect key="frame" x="41" y="10" width="39" height="18"/>
@@ -1323,6 +1323,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                     </view>
                     <navigationItem key="navigationItem" id="OFz-vh-ope"/>
                     <connections>
+                        <outlet property="filterBtn" destination="CKT-es-sTi" id="Gom-xU-ON3"/>
                         <outlet property="googleMapView" destination="QXF-9V-bjI" id="WIb-3Q-VPY"/>
                     </connections>
                 </viewController>
@@ -2494,7 +2495,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gCw-Yq-n4z">
-                                <rect key="frame" x="0.0" y="1000" width="375" height="817"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="817"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" rowHeight="217.5" id="qMI-7r-vmW" customClass="DamagePartsTableViewCell" customModule="DamageReportViewer" customModuleProvider="target">
@@ -2750,7 +2751,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Qe0-dm-Mok">
-                                <rect key="frame" x="0.0" y="150" width="414" height="662"/>
+                                <rect key="frame" x="0.0" y="150" width="414" height="657"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell1" rowHeight="53" id="oJ2-dG-uZ3" customClass="Type1Cell" customModule="DamageReportViewer" customModuleProvider="target">
@@ -2802,6 +2803,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                                             <outlet property="activityIndicator" destination="Pf0-t4-Jlq" id="qOu-5c-bDV"/>
                                             <outlet property="lbltitle" destination="Fji-dc-3W5" id="CJi-T3-TO6"/>
                                             <outlet property="lblvalue" destination="33r-N9-Kal" id="K4t-6B-cto"/>
+                                            <outlet property="titleWidthConstraint" destination="Z7L-cr-zn9" id="i2N-5a-5S9"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell2" id="Jdi-k6-Pa5" customClass="Type2Cell" customModule="DamageReportViewer" customModuleProvider="target">
@@ -2820,7 +2822,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IzL-UY-Tex">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="IzL-UY-Tex">
                                                     <rect key="frame" x="360" y="6.5" width="51" height="31"/>
                                                 </switch>
                                             </subviews>
@@ -2859,7 +2861,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                                                         <constraint firstAttribute="width" constant="30" id="MOp-sP-623"/>
                                                     </constraints>
                                                 </imageView>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1C2-eB-lBz">
+                                                <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1C2-eB-lBz">
                                                     <rect key="frame" x="10" y="34.5" width="150" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="3n1-YK-VpL"/>
@@ -2938,6 +2940,33 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                                             <outlet property="lbltitle" destination="WkQ-Zn-kQo" id="kRG-3k-TZo"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell7" id="QrU-99-a8p" customClass="Type7Cell" customModule="DamageReportViewer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="269" width="414" height="15"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QrU-99-a8p" id="Dbt-dw-rJ0">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="udj-at-QcD">
+                                                    <rect key="frame" x="0.0" y="5" width="414" height="5"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="5" id="KW4-Z0-ZZN"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="udj-at-QcD" secondAttribute="trailing" id="9dx-Q9-EpF"/>
+                                                <constraint firstItem="udj-at-QcD" firstAttribute="leading" secondItem="Dbt-dw-rJ0" secondAttribute="leading" id="bh0-Ci-PHt"/>
+                                                <constraint firstAttribute="bottom" secondItem="udj-at-QcD" secondAttribute="bottom" constant="5" id="bjs-mg-Fa2"/>
+                                                <constraint firstItem="udj-at-QcD" firstAttribute="top" secondItem="Dbt-dw-rJ0" secondAttribute="top" constant="5" id="cDR-yB-vcW"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="tagView" destination="udj-at-QcD" id="NPQ-ty-BgU"/>
+                                            <outlet property="tagViewHeight" destination="KW4-Z0-ZZN" id="Bus-G5-4WT"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Damage Scope" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BW7-7R-v2f">
@@ -3002,7 +3031,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AqR-cN-gkT">
-                                <rect key="frame" x="10" y="817" width="394" height="45"/>
+                                <rect key="frame" x="10" y="812" width="394" height="45"/>
                                 <color key="backgroundColor" red="0.28825980420000002" green="0.67017269130000001" blue="0.61392444369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="qDm-jv-udW"/>
@@ -3022,7 +3051,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                             <constraint firstItem="Qe0-dm-Mok" firstAttribute="top" secondItem="5R1-xR-ACJ" secondAttribute="bottom" constant="20" id="5L9-E6-civ"/>
                             <constraint firstItem="AqR-cN-gkT" firstAttribute="top" secondItem="Qe0-dm-Mok" secondAttribute="bottom" constant="5" id="Bri-Y8-7Al"/>
                             <constraint firstItem="0gW-aD-PHi" firstAttribute="trailing" secondItem="AqR-cN-gkT" secondAttribute="trailing" constant="10" id="QvV-C8-cML"/>
-                            <constraint firstItem="c84-9m-xTo" firstAttribute="top" secondItem="AqR-cN-gkT" secondAttribute="bottom" id="Wzz-68-ypt"/>
+                            <constraint firstItem="c84-9m-xTo" firstAttribute="top" secondItem="AqR-cN-gkT" secondAttribute="bottom" constant="5" id="Wzz-68-ypt"/>
                             <constraint firstItem="5R1-xR-ACJ" firstAttribute="centerX" secondItem="fvd-Q6-HjI" secondAttribute="centerX" id="e9b-6B-WCu"/>
                             <constraint firstItem="5R1-xR-ACJ" firstAttribute="top" secondItem="BW7-7R-v2f" secondAttribute="bottom" constant="15" id="jKe-IW-VeA"/>
                             <constraint firstItem="BW7-7R-v2f" firstAttribute="leading" secondItem="0gW-aD-PHi" secondAttribute="leading" constant="10" id="mhI-5p-USm"/>
@@ -3043,7 +3072,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T7Z-fE-5jR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3671.739130434783" y="255.13392857142856"/>
+            <point key="canvasLocation" x="3671.0144927536235" y="255.13392857142856"/>
         </scene>
         <!--Multi Selection List View Controller-->
         <scene sceneID="0xK-8U-8r2">
@@ -3143,7 +3172,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="S4k-1F-bZW">
-                                <rect key="frame" x="0.0" y="144" width="414" height="718"/>
+                                <rect key="frame" x="0.0" y="124" width="414" height="738"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" rowHeight="98" id="5I7-47-BYu" customClass="HeaderCell" customModule="DamageReportViewer" customModuleProvider="target">
@@ -3228,7 +3257,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mOA-WX-Gz0">
-                                <rect key="frame" x="294" y="94" width="110" height="40"/>
+                                <rect key="frame" x="294" y="74" width="110" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="110" id="O4f-fP-Scr"/>
                                     <constraint firstAttribute="height" constant="40" id="vYn-LW-54h"/>
@@ -3242,7 +3271,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cnn-40-ILy">
-                                <rect key="frame" x="288" y="104" width="1" height="20"/>
+                                <rect key="frame" x="288" y="84" width="1" height="20"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="1" id="Pst-lx-ouM"/>
@@ -3250,7 +3279,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X3f-Gj-MHs">
-                                <rect key="frame" x="173" y="94" width="110" height="40"/>
+                                <rect key="frame" x="173" y="74" width="110" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="110" id="7uE-8H-t7F"/>
                                     <constraint firstAttribute="height" constant="40" id="abF-AW-TEp"/>
@@ -3274,7 +3303,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                             <constraint firstItem="mOA-WX-Gz0" firstAttribute="leading" secondItem="Cnn-40-ILy" secondAttribute="trailing" constant="5" id="Y75-1d-v4a"/>
                             <constraint firstItem="Cnn-40-ILy" firstAttribute="leading" secondItem="X3f-Gj-MHs" secondAttribute="trailing" constant="5" id="gJe-rx-SC9"/>
                             <constraint firstItem="mOA-WX-Gz0" firstAttribute="centerY" secondItem="Cnn-40-ILy" secondAttribute="centerY" id="gtS-ok-b48"/>
-                            <constraint firstItem="mOA-WX-Gz0" firstAttribute="top" secondItem="vep-Xp-Vpd" secondAttribute="top" constant="50" id="mfS-lf-r9C"/>
+                            <constraint firstItem="mOA-WX-Gz0" firstAttribute="top" secondItem="vep-Xp-Vpd" secondAttribute="top" constant="30" id="mfS-lf-r9C"/>
                             <constraint firstItem="S4k-1F-bZW" firstAttribute="top" secondItem="mOA-WX-Gz0" secondAttribute="bottom" constant="10" id="ncZ-KM-ntn"/>
                             <constraint firstItem="vep-Xp-Vpd" firstAttribute="trailing" secondItem="S4k-1F-bZW" secondAttribute="trailing" id="rpX-pT-qu9"/>
                             <constraint firstItem="Cnn-40-ILy" firstAttribute="centerY" secondItem="X3f-Gj-MHs" secondAttribute="centerY" id="w5y-89-F1m"/>

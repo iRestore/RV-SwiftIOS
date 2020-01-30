@@ -20,6 +20,7 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
         var selectedScopesArray = [String]()
         var selectedPartsArray = [String]()
         var selectedReportTypes = [String]()
+        var scopeDict = [String:String]()
         var delegate:ScopeDelegate?
         override func viewDidLoad() {
             navigationBarSettings()
@@ -43,36 +44,64 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
 
         }
         @objc  func backBtnClicked() {
-            self.selectedScopesArray.removeAll()
-            self.selectedPartsArray.removeAll()
-            
+            //self.selectedScopesArray.removeAll()
+            //self.selectedPartsArray.removeAll()
             var sectionIndex = 0
             for  data in self.scopeArray {
-                var selectedPartsCount = 0
                 let id = "\(data["dmgId"])"
+                let scopeName = (data["dmgCategoryKey"])
+
                 if var itemsArray = self.partsDict[id] as? [[String:Any]] {
-                    var rowIndex = 0
                     for  item  in itemsArray {
+                        let name = (item["dmgCategoryKey"]) as! String
                         if (item["isSelected"] as? Int) == 1 {
-                            self.selectedPartsArray.append(item["dmgCategoryKey"] as! String)
+                            if self.selectedPartsArray.contains(name) {
+                                
+                            }
+                            else {
+                            self.selectedPartsArray.append(name)
+                            }
+
+                        }
+                        else {
+                           if self.selectedPartsArray.contains(name) {
+                            guard let index = self.selectedPartsArray.firstIndex(of:name ) else { return  }
+                            self.selectedPartsArray.remove(at: index)
+                            }
+                           
                         }
                         
                     }
-                     if (data["isSelected"] as? Int) == 1 {
-                        self.selectedScopesArray.append(data["dmgCategoryKey"] as! String)
+                     if (data["isSelected"] as? Int) != 0 {
+                        if self.selectedScopesArray.contains(scopeName as! String) {
+                            
+                        }
+                        else {
+                            self.selectedScopesArray.append(scopeName as! String)
+                        }
+
 
                     }
+                    else {
+                        if self.selectedScopesArray.contains(scopeName as! String) {
+                            guard let index = self.selectedScopesArray.firstIndex(of:scopeName as! String ) else { return  }
+                                self.selectedScopesArray.remove(at: index)
+                                                   
+                        }
+                    }
                 }
+                
                 sectionIndex = sectionIndex +  1
             }
-            self.delegate?.didSelectScopesAndPart(scopes: self.selectedScopesArray, parts: self.selectedPartsArray)
+            self.delegate?.didSelectScopesAndPart(scopes: self.selectedScopesArray, parts: self.selectedPartsArray,scopesDict:self.scopeDict)
             self.navigationController?.popViewController(animated: true)
         }
+    
        func  fetchDataFromFireStore()  {
             activityIndicator.showActivityIndicator(uiView: self.view)
            let db = Firestore.firestore()
            let collectionName = UserDefaults.standard.value(forKey: Constants.FIREBAE_DB)
-        db.collection(collectionName as! String).whereField("damageType", in: self.selectedReportTypes).whereField("level", in: [1, 2])
+        db.collection(collectionName as! String).whereField("level", in: [1, 2])
                .addSnapshotListener { querySnapshot, error in
                    guard let documents = querySnapshot?.documents else {
                        print("Error fetching documents: \(error!)")
@@ -81,32 +110,91 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
                    self.scopeArray.removeAll()
                    for document in documents {
                        if var data = document.data() as? [String:Any] {
+                            let  level =  data["level"] as! Int
+                            let scopeName =  data["dmgCategoryKey"] as! String
+                            self.scopeDict[scopeName] = data["displayName"] as! String
                         if self.selectedReportTypes.contains(data["damageType"] as! String) {
-                           let  level =  data["level"] as! Int
-                           if level == 1 {
-                                print(data)
+                            if level == 1 {
                                 data["isSelected"] = 0
                                 self.scopeArray.append(data)
-                           }
-                           else {
-                            let  parentId = "\(data["parentId"])" as! String
-                            if var array  = self.partsDict[parentId ?? ""] as? [Any] {
-                                data["isSelected"] = 0
-                                array.append(data)
-                                self.partsDict[parentId]  = array
+                                
                             }
                             else {
-                                var newItemArray = [[String:Any]]()
-                                data["isSelected"] = 0
-                                newItemArray.append(data)
-                                self.partsDict[parentId]  = newItemArray
+                                let  parentId = "\(data["parentId"])"
+                                if var array  = self.partsDict[parentId ] as? [Any] {
+                                    data["isSelected"] = 0
+                                    array.append(data)
+                                    self.partsDict[parentId]  = array
+                                }
+                                else {
+                                    var newItemArray = [[String:Any]]()
+                                    data["isSelected"] = 0
+                                    newItemArray.append(data)
+                                    self.partsDict[parentId]  = newItemArray
+                                }
+                                
+                                
                             }
-                            
-                            
-                           }
                         }
-                       }                    // print("\(document.documentID) => \(document.data())")
-                   }
+                       }
+                    
+                }
+
+
+                
+                self.scopeArray = self.scopeArray.sorted(by: { (($0 as Dictionary<String, AnyObject>)["dmgId"] as! String).localizedCaseInsensitiveCompare(($1 as Dictionary<String, AnyObject>)["dmgId"] as! String) == ComparisonResult.orderedAscending }) ;
+                
+                var sectionIndex = 0
+                for  data in self.scopeArray {
+                    var selectedPartsCount = 0
+                    var dataCopy = data
+                    let id = "\(data["dmgId"])"
+                    let  name =  data["dmgCategoryKey"] as! String
+                    if var itemsArray = self.partsDict[id] as? [[String:Any]] {
+                        var rowIndex = 0
+                        for  item  in itemsArray {
+                            let  _name =  item["dmgCategoryKey"] as! String
+                            var itemCopy = item
+                            if self.selectedScopesArray.contains(name) {
+                                if self.selectedPartsArray.contains(_name) {
+                                    itemCopy["isSelected"] = 1
+
+                                }
+                                else {
+                                    itemCopy["isSelected"] = 0
+
+                                }
+                                
+
+                            }
+                            if (itemCopy["isSelected"] as! Int) == 1  {
+                                selectedPartsCount = selectedPartsCount + 1
+                            }
+                            itemsArray[rowIndex] = itemCopy
+                            rowIndex = rowIndex + 1
+                            
+                        }
+                        self.partsDict[id] = itemsArray
+
+                        if self.selectedScopesArray.contains(name) {
+                            if selectedPartsCount == itemsArray.count {
+                                dataCopy["isSelected"] = 1
+                            }
+                            else if selectedPartsCount >  0 {
+                                dataCopy["isSelected"] = -1
+
+                            }
+                        }
+                        else {
+                            dataCopy["isSelected"] = 0
+
+                        }
+                     
+                        
+                    }
+                    self.scopeArray [sectionIndex] = dataCopy
+                    sectionIndex = sectionIndex +  1
+                }
                 self.scopeTableView.delegate = self
                 self.scopeTableView.dataSource = self
                 self.scopeTableView.reloadData()

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ScopeDelegate  {
-    func didSelectScopesAndPart(scopes:[String],parts:[String])
+    func didSelectScopesAndPart(scopes:[String],parts:[String],scopesDict:[String:String])
 }
 
 protocol FilterDelegate  {
@@ -21,7 +21,7 @@ protocol LocationCategoryPlacesAPIDelegate  {
    func didSelectItemFromLocation(selectedDisplayString: String,keyName:String)
 }
 
-class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableViewDataSource,FilterDelegate,LocationCategoryPlacesAPIDelegate,ScopeDelegate {
+class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableViewDataSource,FilterDelegate,LocationCategoryPlacesAPIDelegate,ScopeDelegate,TagListViewDelegate {
 
  
     @IBOutlet weak var filterButton:UIButton!
@@ -48,8 +48,9 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
     var platformArray = NSMutableArray()
     var countyArray = NSMutableArray()
     var tagsArray = [[String:Any]]()
-    var FeederLinesArray = NSMutableArray()
+    var feederLinesArray = NSMutableArray()
 
+    var scopeHeightConstant :NSLayoutConstraint?
 
     
     var  locationSelectionDict = ["Zipcode":"zipcode","City":"city","County":"county","State":"state","Division":"division","Region":"region","Platform":"platform"]
@@ -57,17 +58,37 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
     override func viewDidLoad() {
         self.navigationBarSettings()
         populateTabControl()
-        datePicker?.datePickerMode = .date
-        selectTab(index: 1)
-        populateUIItems(tabIndex: 1)
-        self.filterTableView.delegate  = self
-        self.filterTableView.dataSource = self
         self.filterValueDict = DataHandler.shared.filterValueDict
         self.filterDisplayDict = DataHandler.shared.filterDisplayDict
+        datePicker?.datePickerMode = .date
+        if let reportType = self.filterValueDict["reportType"] as? String {
+            if reportType == "" {
+                selectTab(index: 1)
+                populateUIItems(tabIndex: 1)
+            }
+            else  if  reportType == "FR" {
+                selectTab(index: 2)
+                populateUIItems(tabIndex: 2)
+                
+            }
+            else {
+                selectTab(index: 3)
+                populateUIItems(tabIndex: 3)
+            }
+        }
+        else {
+            selectTab(index: 1)
+            populateUIItems(tabIndex: 1)
+        }
+
+        self.filterTableView.delegate  = self
+        self.filterTableView.dataSource = self
+
 
     }
     override func viewDidLayoutSubviews() {
-        self.tab3.roundCorners(corners:  [.topRight, .bottomRight], radius: 10.0)
+        self.filterButton.roundCorners(corners: [.topRight, .bottomRight,.topLeft,.bottomLeft], radius: 10.0)
+        self.tab3.roundCorners(corners:  [.topRight, .bottomRight], radius: 8.0)
         self.tab1.roundCorners(corners:  [.topLeft, .bottomLeft], radius: 10.0)
 
 
@@ -104,12 +125,12 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
         self.tabControllerView.layer.borderWidth = 1.0
         self.tabControllerView.layer.cornerRadius = 10.0
         self.tabControllerView.layer.borderColor  = UIColor.lightGray.cgColor
-        
-        let lineView = UIView(frame: CGRect.init(x:self.tab1.frame.size.width - 1 ,y: 0, width: self.tab1.frame.size.width - 1, height: self.tab1.frame.size.height))
+        //self.tab1.frame.size.width - 1
+        let lineView = UIView(frame: CGRect.init(x:self.tab1.frame.size.width - 1 ,y: 0, width:1 , height: self.tab1.frame.size.height))
         lineView.backgroundColor=UIColor.lightGray
         self.tab1.addSubview(lineView)
-        
-        let lineView2 = UIView(frame: CGRect.init(x:self.tab2.frame.size.width - 1 ,y: 0, width: self.tab1.frame.size.width - 1, height: self.tab2.frame.size.height))
+        //self.tab1.frame.size.width -
+        let lineView2 = UIView(frame: CGRect.init(x:self.tab2.frame.size.width - 1 ,y: 0, width:  1, height: self.tab2.frame.size.height))
         lineView2.backgroundColor=UIColor.lightGray
         self.tab2.addSubview(lineView2)
         
@@ -118,6 +139,9 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
     func populateUIItems (tabIndex :Int) {
         var item1  = CellItem.init(name: "scope", displayName: "Select Scope & Damage", type: "TYPE1", subType:"")
         item1.rowHeight = Constants.FILTER_TABLECELL_NORML_HEIGHT
+        
+        var item21  = CellItem.init(name: "tagsView", displayName: "", type: "TYPE7", subType:"")
+        item21.rowHeight = 60
         
         var item2  = CellItem.init(name: "", displayName: "", type: "TYPE4", subType:"")
         item2.rowHeight = 10
@@ -149,7 +173,7 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
         
         var item10 = CellItem.init(name: "tags", displayName: "Tags", type: "TYPE1", subType:"")
         item10.rowHeight = Constants.EXTENDING_CELL_HEIGHT
-        item10.placeHolderText = "Select Tag how to test all tags here because its not an isssue to test"
+        item10.placeHolderText = "Select Tags"
         
         
         var item11 = CellItem.init(name: "policeFireStandingBy", displayName: "Fire/Police on Standby", type: "TYPE2", subType:"")
@@ -178,11 +202,18 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
         
         var item17 = CellItem.init(name: "feederLine", displayName: "Feeder Line", type: "TYPE1", subType:"")
         item17.rowHeight = Constants.EXTENDING_CELL_HEIGHT
-        item17.placeHolderText = "select"
+        item17.placeHolderText = "Select Feeder Line"
         
         if tabIndex == 1 {
-            cellItemsArray = [item1, item2,item3, item4,item5,item6,item7,item8,item9,item10,item11,item12,item13,item14,item15,item16,item17]
+            cellItemsArray = [item1,item21, item2,item3, item4,item5,item6,item7,item8,item9,item10,item11,item12,item13,item14,item15,item16,item17]
         }
+        else if tabIndex == 2 {
+            cellItemsArray = [item1,item21, item2,item3, item4,item5,item6,item7,item8,item9,item10,item11,item12,item13,item14,item17]
+        }
+        else if tabIndex == 3 {
+             cellItemsArray = [item1,item21, item2,item3, item4,item5,item6,item7,item8,item9,item10,item11,item12,item15,item16,item17]
+        }
+
         
         
     }
@@ -263,15 +294,65 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
      @objc func reset () {
         self.filterValueDict.removeAll()
         self.filterDisplayDict.removeAll()
-         self.filterTableView.reloadData()
+        self.filterTableView.reloadData()
+        self.delegate?.resetFilter()
+
      }
      
     
     @IBAction func filter(_ sender:UIButton) {
         
+        let fromDateString = self.filterValueDict["fromDate"] as? String
+        let toDateString = self.filterValueDict["toDate"] as? String
+        if (toDateString != nil && fromDateString == nil) {
+            self.displayAlert(message: "Please Select \"To Date\"", isActionRequired: true)
+            return
+
+        }
+        else if (fromDateString != nil &&  toDateString == nil) {
+        
+            self.displayAlert(message: "Please Select \"To Date\"", isActionRequired: true)
+            return
+        }
+        
+        else if (fromDateString != nil &&  toDateString != nil) {
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat =  Constants.fromDateDisplayFormat
+            if let fromaDate = dateFormatter.date(from:fromDateString! ) {
+                if let toDate = dateFormatter.date(from:toDateString! ) {
+                    if toDate < fromaDate {
+                        self.displayAlert(message: "From Date can not be greater than To Date", isActionRequired: true)
+                        return
+
+                    }
+                }
+                
+            }
+            
+
+            
+        }
+
+
+        
+        
+        var  reportType = ""
+        if self.selectedTabsArray.count > 1 {
+            reportType = ""
+        }
+        else if self.selectedTabsArray[0] == "FR" {
+            reportType = "FR"
+        }
+        else {
+            reportType = "SDA"
+
+        }
+        self.filterValueDict["reportType"] = reportType
         DataHandler.shared.filterDisplayDict = self.filterDisplayDict
         DataHandler.shared.filterValueDict = self.filterValueDict
         self.delegate?.fetchReportsWithFilter()
+        DataHandler.shared.saveDataToDefaults()
         self.navigationController?.popViewController(animated: true)
 
         
@@ -279,7 +360,8 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
     @IBAction func tabSelected(_ sender:UIButton) {
         let tag = sender.tag
         self.selectTab(index: tag)
-        
+        self.populateUIItems(tabIndex: tag)
+        self.filterTableView.reloadData()
        // [self selectTab:tag];
         //[self populateFilterItems:tag];
         
@@ -320,13 +402,21 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
         self.view.addSubview(toolBar!)
     }
 
+    
+    @objc func switchChanged(_ sender: UISwitch?) {
+        var tag  = sender?.tag as! Int
+        let index = tag - 200
+        if let cellItem  = cellItemsArray.object(at: index) as? CellItem {
+            self.filterValueDict[cellItem.name] = sender?.isOn
+        }
+    }
     @objc func dateChanged(_ sender: UIDatePicker?) {
         var tag  = sender?.tag as! Int
         let dateFormatter = DateFormatter()
         let dateFormatter1 = DateFormatter()
 
         dateFormatter.dateFormat =  Constants.fromDateDisplayFormat
-        dateFormatter1.dateFormat =  Constants.fromDateValueFormat
+//        dateFormatter1.dateFormat =  Constants.fromDateValueFormat
 
         if let date = sender?.date {
             let displayString = dateFormatter.string(from: date)
@@ -367,6 +457,9 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                 return UITableView.automaticDimension
                 
             }
+            if cellItem.name == "tagsView" {
+                return UITableView.automaticDimension
+            }
             else {
                 rowHeight = cellItem.rowHeight
 
@@ -380,6 +473,14 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
         if let cellItem  = cellItemsArray.object(at: indexPath.row) as? CellItem {
             if (cellItem .type == "TYPE1") {
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "Cell1", for: indexPath) as?  Type1Cell {
+                    if cellItem.name == "scope" {
+                        cell.titleWidthConstraint.constant = 200
+                    }
+                    else {
+                        cell.titleWidthConstraint.constant  = 130
+
+                    }
+                    
                     cell.lbltitle.text = cellItem.displayName
                     if let value = self.filterDisplayDict[cellItem.name] as? String {
                         cell.lblvalue.text = value
@@ -404,6 +505,11 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
             else if (cellItem .type == "TYPE2") {
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "Cell2", for: indexPath) as?  Type2Cell {
                     cell.lbltitle.text = cellItem.displayName
+                    cell.yesNoSwitch.tag =  indexPath.row + 200
+                    if let value =  self.filterValueDict[cellItem.name] as? Bool {
+                        cell.yesNoSwitch.isOn = value
+                    }
+                    cell.yesNoSwitch.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
                     return cell
                 }
             }
@@ -433,6 +539,64 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                     return cell
                 }
             }
+            else if (cellItem .type == "TYPE7") {
+                if let cell = tableView.dequeueReusableCell(withIdentifier: "Cell7", for: indexPath) as?  Type7Cell {
+                    for view in cell.tagView.subviews {
+                        view.removeFromSuperview()
+                    }
+                    let tagListView  = TagListView.init(frame: CGRect.init(x: 0, y: 0, width: cell.contentView.frame.width, height: 100))
+                    tagListView.textFont = UIFont.systemFont(ofSize: 15)
+                    tagListView.textColor = UIColor.init("0X26A69A")
+                    tagListView.alignment = .left
+                    tagListView.delegate = self
+                    if let items = self.filterValueDict["damageType"] as? [String]{
+                        for item in items {
+                            
+                            if  self.selectedTabsArray.count > 1 {
+                                
+                            }
+                            
+                           else if self.selectedTabsArray[0] == "VDA"  &&
+                                item.contains("fr"){
+                                
+                                continue
+                                
+                            }
+                            else if self.selectedTabsArray[0] == "FR"  &&
+                            item.contains("vda"){
+                                     continue
+
+                            }
+                            if  let displayDict = self.filterDisplayDict["scopedict"] as? [String:String] {
+                            let displayName = displayDict[item] as! String
+                                let tag = tagListView.addTag(displayName)
+                            tag.cornerRadius = 16
+                            tag.tagBackgroundColor = .white
+                            tag.borderColor  = UIColor.init("0X26A69A")
+                            tag.borderWidth   = 1
+                                
+                            if item.contains("vda") {
+                                tag.imageName = "vda_11_tree"
+                            }
+                            else {
+                                tag.imageName = "fr_5_tree"
+                            }
+                                
+                                
+                            tag.removeIconLineColor = UIColor.init("0X26A69A")
+                            tag.enableRemoveButton = true
+
+                            }
+                        }
+                        
+                    }
+                    let size = tagListView.intrinsicContentSize
+                    cell.tagViewHeight.constant = size.height
+                    cell.tagView.addSubview(tagListView)
+                    self.scopeHeightConstant =  cell.tagViewHeight
+                    return cell
+                }
+            }
             
         }
         return UITableViewCell()
@@ -449,6 +613,15 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                     guard let detailsController = mainStoryBoard.instantiateViewController(withIdentifier: "DamageScopeSelectionViewController") as? DamageScopeSelectionViewController else { return  }
                     detailsController.selectedReportTypes = self.selectedTabsArray
                     detailsController.delegate = self
+                    detailsController.titleString = cellItem.displayName
+                    if var scopes = self.filterValueDict["damageType"] as? [String]{
+                        detailsController.selectedScopesArray = scopes
+                        
+                    }
+                    if var parts = self.filterValueDict["frFilterDamageParts"] as? [String]{
+                        detailsController.selectedPartsArray = parts
+                        
+                    }
                      self.navigationController?.pushViewController(detailsController, animated: true)
                     
                 case "selectedLocationType":
@@ -478,6 +651,12 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                                   }
                     self.getAllTags(cell: cell, cellItem: cellItem)
                     break
+                case "feederLine":
+                    guard let cell = tableView.cellForRow(at: indexPath) as? Type1Cell else {
+                                  return
+                              }
+                    self.getAllFeederLines(cell: cell, cellItem: cellItem)
+                    break
                 case "selectedCategory":
                     guard let value = self.filterDisplayDict["selectedLocationType"] as? String else {
                         return
@@ -503,7 +682,7 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
         switch(value) {
             case "Zipcode","City","State":
                      guard let detailsController = mainStoryBoard.instantiateViewController(withIdentifier: "SelectLocationCategoryController") as? SelectLocationCategoryController else { return  }
-                    detailsController.selectedCategory = value
+                     detailsController.selectedCategory = value
                      detailsController.titleString  = value
                      detailsController.delegate = self
                      detailsController.keyName = self.locationSelectionDict[value] ?? ""
@@ -529,27 +708,30 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                                     for item in itemsArray {
                                         let _item = item as [String:Any]
                                         let name = _item["division"]
-                                        self.divisionArray.add(name)
-                                        
+                                        self.divisionArray.add(name ?? "")
                                         
                                     }
                                     DispatchQueue.main.async {
-                                        if let keyName = self.locationSelectionDict[value] as? String  {
-                                        self.selectMultiselectPicker(itemsArray:  self.divisionArray , selectedItemsString:  "" , isSingleSelect: true, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
+                                        if let keyName = self.locationSelectionDict[value]  {
+                                            let selectedText = self.filterDisplayDict[keyName] as? String ?? ""
+                                            self.selectMultiselectPicker(itemsArray:  self.divisionArray , selectedItemsString:  selectedText , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
                                         }
                                     }
                                     
                                 }
                                 else {
+                                    DispatchQueue.main.async {
+
                                     if let errorMessage = responseDict["Message "] as? String {
-                                        if let keyName = self.locationSelectionDict[value] as? String  {
-                                        self.selectMultiselectPicker(itemsArray:  self.divisionArray , selectedItemsString:  "" , isSingleSelect: true, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert:true, alertText:errorMessage)
+                                        self.selectMultiselectPicker(itemsArray:  self.divisionArray , selectedItemsString:  "" , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:true, alertText:errorMessage)
+                                        
                                         }
                                     }
-                                }
                             }
+                        }
                         case .Failure(let error):
-                                if let keyName = self.locationSelectionDict[value] as? String  {
+                                DispatchQueue.main.async {
+
                                     self.selectMultiselectPicker(itemsArray:  self.divisionArray , selectedItemsString:  "" , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:true, alertText:error.errormessage ?? "No Division Found")
                                 }
                         default:
@@ -561,70 +743,80 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                     
             }
             else {
-                    if let keyName = self.locationSelectionDict[value] as? String  {
-                        self.selectMultiselectPicker(itemsArray:  self.divisionArray , selectedItemsString:  "" , isSingleSelect: true, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
+                    if let keyName = self.locationSelectionDict[value]  {
+                        DispatchQueue.main.async {
+
+                        let selectedText = self.filterDisplayDict[keyName] as? String ?? ""
+                        self.selectMultiselectPicker(itemsArray:  self.divisionArray , selectedItemsString: selectedText , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
+                        }
                     }
             }
             
         case "Region":
             
-                if  self.regionArray.count < 1 {
-                    let apiClient  = V1ApiClient.init()
-                    cell.activityIndicator.startAnimating()
-                    apiClient.getLocationCategory(categoryValue:"REGION"){
-                        result in
-                        DispatchQueue.main.async {
-                            cell.activityIndicator.stopAnimating()
-                            
-                        }
-                        switch result {
-                        case .Success(let _value):
-                            self.regionArray.removeAllObjects()
-                            if let responseDict = _value.data {
-                                if let itemsArray = responseDict["Locations"] as? [[String:Any]] {
-                                    for item in itemsArray {
-                                        let _item = item as [String:Any]
-                                        if let name = _item["region"] as? String {
-                                            self.regionArray.add(name)
-
-                                        }
+            if  self.regionArray.count < 1 {
+                let apiClient  = V1ApiClient.init()
+                cell.activityIndicator.startAnimating()
+                apiClient.getLocationCategory(categoryValue:"REGION"){
+                    result in
+                    DispatchQueue.main.async {
+                        cell.activityIndicator.stopAnimating()
+                        
+                    }
+                    switch result {
+                    case .Success(let _value):
+                        self.regionArray.removeAllObjects()
+                        if let responseDict = _value.data {
+                            if let itemsArray = responseDict["Locations"] as? [[String:Any]] {
+                                for item in itemsArray {
+                                    let _item = item as [String:Any]
+                                    if let name = _item["region"] as? String {
+                                        self.regionArray.add(name)
                                         
-                                        
-                                    }
-                                    DispatchQueue.main.async {
-                                        if let keyName = self.locationSelectionDict[value] as? String  {
-                                        self.selectMultiselectPicker(itemsArray:  self.regionArray , selectedItemsString:  "" , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
-                                        }
                                     }
                                     
+                                    
                                 }
-                                else {
-                                        if let errorMessage = responseDict["Message"] as? String {
-                                            if let keyName = self.locationSelectionDict[value] as? String  {
-                                            self.selectMultiselectPicker(itemsArray:  self.divisionArray , selectedItemsString:  "" , isSingleSelect: true, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert:true, alertText:errorMessage)
-                                            }
-                                        }
+                                DispatchQueue.main.async {
+                                    if let keyName = self.locationSelectionDict[value]  {
+                                        
+                                        let selectedText = self.filterDisplayDict[keyName] as? String ?? ""
+                                        self.selectMultiselectPicker(itemsArray:  self.regionArray , selectedItemsString:  selectedText , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
+                                    }
+                                }
+                                
+                            }
+                            else {
+                                if let errorMessage = responseDict["Message"] as? String {
+                                    DispatchQueue.main.async {
+                                        self.selectMultiselectPicker(itemsArray:  self.divisionArray , selectedItemsString:  "" , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:true, alertText:errorMessage)
+                                    }
                                 }
                             }
-
-                            
-                        case .Failure(let error):
-                                if let keyName = self.locationSelectionDict[value] as? String  {
-                                    self.selectMultiselectPicker(itemsArray:  self.regionArray , selectedItemsString:  "" , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:true, alertText:error.errormessage ?? "No Division Found")
-                                                             
-                            }
-                        default:
-                            print("hi")
                         }
+                        
+                        
+                    case .Failure(let error):
+                        DispatchQueue.main.async {
+                            self.selectMultiselectPicker(itemsArray:  self.regionArray , selectedItemsString:  "" , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:true, alertText:error.errormessage ?? "No Region Found")
+                            
+                        }
+                    default:
+                        print("hi")
                     }
-                    
-                    
-                    
+                }
+                
+                
+                
             }
             else {
-                    if let keyName = self.locationSelectionDict[value] as? String  {
-                        self.selectMultiselectPicker(itemsArray:  self.regionArray , selectedItemsString:  "" , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
+                DispatchQueue.main.async {
+
+                if let keyName = self.locationSelectionDict[value]  {
+                        let selectedText = self.filterDisplayDict[keyName] as? String ?? ""
+                        self.selectMultiselectPicker(itemsArray:  self.regionArray , selectedItemsString:  selectedText , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
                     }
+                }
            }
                 
         case "Platform":
@@ -646,14 +838,15 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                                     
                                     DispatchQueue.main.async {
                                         if let keyName = self.locationSelectionDict[value] as? String  {
-                                            self.selectMultiselectPicker(itemsArray:  self.platformArray , selectedItemsString:  "" , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
+                                            let selectedText = self.filterDisplayDict[keyName] as? String ?? ""
+                                            self.selectMultiselectPicker(itemsArray:  self.platformArray , selectedItemsString:  selectedText , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
                                         }
                                     }
                                 }
                                 else {
                                     if let errorMessage = responseDict["Message"] as? String {
-                                        if let keyName = self.locationSelectionDict[value] as? String  {
-                                            self.selectMultiselectPicker(itemsArray:  self.divisionArray , selectedItemsString:  "" , isSingleSelect: true, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert:true, alertText:errorMessage)
+                                        DispatchQueue.main.async {
+                                            self.selectMultiselectPicker(itemsArray:  self.divisionArray , selectedItemsString:  "" , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:true, alertText:errorMessage)
                                         }
                                     }
                                 }
@@ -668,10 +861,10 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
 
                              
                          case .Failure(let error):
-                                 if let keyName = self.locationSelectionDict[value] as? String  {
-                                     self.selectMultiselectPicker(itemsArray:  self.regionArray , selectedItemsString:  "" , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:true, alertText:error.errormessage ?? "No Division Found")
+                                 DispatchQueue.main.async {
+                                     self.selectMultiselectPicker(itemsArray:  self.regionArray , selectedItemsString:  "" , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:true, alertText:error.errormessage ?? "No Platform Found")
                                                               
-                             }
+                                }
                          default:
                              print("hi")
                          }
@@ -681,9 +874,13 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                      
              }
              else {
-                     if let keyName = self.locationSelectionDict[value] as? String  {
-                         self.selectMultiselectPicker(itemsArray:  self.platformArray , selectedItemsString:  "" , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
-                     }
+                    DispatchQueue.main.async {
+                        
+                        if let keyName = self.locationSelectionDict[value]  {
+                            let selectedText = self.filterDisplayDict[keyName] as? String ?? ""
+                            self.selectMultiselectPicker(itemsArray:  self.platformArray , selectedItemsString: selectedText , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
+                        }
+                    }
             }
         case "County":
                  if  self.countyArray.count < 1 {
@@ -703,26 +900,28 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                                     self.countyArray.addObjects(from: itemsArray)
                                      DispatchQueue.main.async {
                                          if let keyName = self.locationSelectionDict[value] as? String  {
-                                         self.selectMultiselectPicker(itemsArray:  self.countyArray , selectedItemsString:  "" , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
+                                            let selectedText = self.filterDisplayDict[keyName] as? String ?? ""
+                                            self.selectMultiselectPicker(itemsArray:  self.countyArray , selectedItemsString:  selectedText , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
                                          }
                                      }
                                      
                                  }
                                  else {
-                                         if let errorMessage = responseDict["Message"] as? String {
-                                             if let keyName = self.locationSelectionDict[value] as? String  {
-                                             self.selectMultiselectPicker(itemsArray:  self.countyArray , selectedItemsString:  "" , isSingleSelect: true, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert:true, alertText:errorMessage)
-                                             }
-                                         }
-                                 }
+                                    DispatchQueue.main.async {
+                                        if let errorMessage = responseDict["Message"] as? String {
+                                            
+                                            self.selectMultiselectPicker(itemsArray:  self.countyArray , selectedItemsString:  "" , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:true, alertText:errorMessage)
+                                        }
+                                    }
+                                }
                              }
 
                              
                          case .Failure(let error):
-                                 if let keyName = self.locationSelectionDict[value] as? String  {
+                                 DispatchQueue.main.async {
                                      self.selectMultiselectPicker(itemsArray:  self.countyArray , selectedItemsString:  "" , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:true, alertText:error.errormessage ?? "No Division Found")
                                                               
-                             }
+                                }
                          default:
                              print("hi")
                          }
@@ -732,9 +931,12 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                      
              }
              else {
-                     if let keyName = self.locationSelectionDict[value] as? String  {
-                         self.selectMultiselectPicker(itemsArray:  self.regionArray , selectedItemsString:  "" , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
+                    DispatchQueue.main.async {
+                        if let keyName = self.locationSelectionDict[value]  {
+                        let selectedText = self.filterDisplayDict[keyName] as? String ?? ""
+                         self.selectMultiselectPicker(itemsArray:  self.regionArray , selectedItemsString:  selectedText , isSingleSelect: true, titleString: value, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
                      }
+                    }
             }
         default:
              print("")
@@ -764,7 +966,8 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                                 if let itemsArray = arrayObj["uniqueAddressList"] as? [Any] {
                                     self.addressArray.addObjects(from: itemsArray)
                                 DispatchQueue.main.async {
-                                    self.selectMultiselectPicker(itemsArray:  self.addressArray , selectedItemsString:  "" , isSingleSelect: true, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
+                                    let selectedText = self.filterDisplayDict[cellItem.name] as? String ?? ""
+                                    self.selectMultiselectPicker(itemsArray:  self.addressArray , selectedItemsString:  selectedText , isSingleSelect: true, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
                                 }
 //                                
                             }
@@ -793,7 +996,11 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                 
         }
         else {
-                 self.selectMultiselectPicker(itemsArray:  self.addressArray , selectedItemsString:  "" , isSingleSelect: true, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert: false,alertText: "")
+                DispatchQueue.main.async {
+
+                let selectedText = self.filterDisplayDict[cellItem.name] as? String ?? ""
+                 self.selectMultiselectPicker(itemsArray:  self.addressArray , selectedItemsString:  selectedText , isSingleSelect: true, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert: false,alertText: "")
+                }
         }
     }
     
@@ -815,31 +1022,34 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                                     self.tagsArray.append(contentsOf: itemsObjArray)
                                 }
                                 if  self.tagsArray.count > 0 {
-                                    var displayItems = NSMutableArray()
+                                    let displayItems = NSMutableArray()
                                     for  item in self.tagsArray {
-                                        if self.selectedTabsArray.count > 1 {
-                                            displayItems.add(item["tag_name"])
-                                        }
-                                        else {
-                                            if self.selectedTabsArray[0] == "FR" {
-                                                if (item["tag_type"] as! String ) == "DAMAGE_REPORT" {
-                                                    displayItems.add(item["tag_name"])
+                                        displayItems.add(item["tag_name"] ?? "")
 
-                                                }
-                                            }
-                                            else {
-                                                if (item["tag_type"] as! String ) == "VDA_REPORT" {
-                                                    displayItems.add(item["tag_name"])
-
-                                                }
-                                            }
-                                        }
+//                                        if self.selectedTabsArray.count > 1 {
+//                                            displayItems.add(item["tag_name"] ?? "")
+//                                        }
+//                                        else {
+//                                            if self.selectedTabsArray[0] == "FR" {
+//                                                if (item["tag_type"] as! String ) == "DAMAGE_REPORT" {
+//                                                    displayItems.add(item["tag_name"] ?? "")
+//
+//                                                }
+//                                            }
+//                                            else {
+//                                                if (item["tag_type"] as! String ) == "VDA_REPORT" {
+//                                                    displayItems.add(item["tag_name"] ?? "")
+//
+//                                                }
+//                                            }
+//                                        }
                                      
                                         
                                     }
                                     if  displayItems.count > 0 {
                                     DispatchQueue.main.async {
-                                    self.selectMultiselectPicker(itemsArray:  displayItems , selectedItemsString:  "" , isSingleSelect: false, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
+                                        let selectedText = self.filterDisplayDict[cellItem.name] as? String ?? ""
+                                        self.selectMultiselectPicker(itemsArray:  displayItems , selectedItemsString:  selectedText , isSingleSelect: false, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
                                     }
                                     
                                     
@@ -863,43 +1073,103 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                     
                     
             }
-            else {
+        else {
             
-                         var displayItems = NSMutableArray()
-                         for  item in self.tagsArray {
-                             if self.selectedTabsArray.count > 1 {
-                                 displayItems.add(item["tag_name"])
-                             }
-                             else {
-                                 if self.selectedTabsArray[0] == "FR" {
-                                     if (item["tag_type"] as! String ) == "DAMAGE_REPORT" {
-                                         displayItems.add(item["tag_name"])
+            let displayItems = NSMutableArray()
+            for  item in self.tagsArray {
+                
+                displayItems.add(item["tag_name"] ?? "")
 
-                                     }
-                                 }
-                                 else {
-                                     if (item["tag_type"] as! String ) == "VDA_REPORT" {
-                                         displayItems.add(item["tag_name"])
-
-                                     }
-                                 }
-                             }
-                          
-                             
-                         }
-                         if  displayItems.count > 0 {
-                         DispatchQueue.main.async {
-                         self.selectMultiselectPicker(itemsArray:  displayItems , selectedItemsString:  "" , isSingleSelect: false, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
-                         }
-                         
-                         
-                     }
-                     
-                     
-
+//                if self.selectedTabsArray.count > 1 {
+//                    displayItems.add(item["tag_name"] ?? "")
+//                }
+//                else {
+//                    if self.selectedTabsArray[0] == "FR" {
+//                        if (item["tag_type"] as! String ) == "DAMAGE_REPORT" {
+//                            displayItems.add(item["tag_name"] ?? "")
+//
+//                        }
+//                    }
+//                    else {
+//                        if (item["tag_type"] as! String ) == "VDA_REPORT" {
+//                            displayItems.add(item["tag_name"] ?? "")
+//
+//                        }
+//                    }
+//                }
+                
+                
             }
+            if  displayItems.count > 0 {
+                DispatchQueue.main.async {
+                    let selectedText = self.filterDisplayDict[cellItem.name] as? String ?? ""
+                    self.selectMultiselectPicker(itemsArray:  displayItems , selectedItemsString: selectedText , isSingleSelect: false, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
+                }
+                
+                
+            }
+            
+            
+            
+        }
         }
     
+    func getAllFeederLines(cell:Type1Cell,cellItem:CellItem){
+        if  self.feederLinesArray.count < 1 {
+                    let apiClient  = V2ApiClient.init()
+                    cell.activityIndicator.startAnimating()
+                    apiClient.getAllFeederLine(){
+                        result in
+                        DispatchQueue.main.async {
+                            cell.activityIndicator.stopAnimating()
+                            
+                        }
+                        switch result {
+                        case .Success(let value):
+                            if let responseDict = value.data {
+                                self.feederLinesArray.removeAllObjects()
+                                if let itemsObjArray = responseDict["feederLines"] as? [Any] {
+                                    self.feederLinesArray.addObjects(from:itemsObjArray )
+                                }
+                                print(self.feederLinesArray)
+                                if self.feederLinesArray.count > 0 {
+                                    DispatchQueue.main.async {
+                                        let selectedText = self.filterDisplayDict[cellItem.name] as? String ?? ""
+                                        self.selectMultiselectPicker(itemsArray: self.feederLinesArray , selectedItemsString:  selectedText , isSingleSelect: true, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
+                                    }
+                                }
+                                }
+                            else {
+                                DispatchQueue.main.async {
+                                    
+                                    self.selectMultiselectPicker(itemsArray: [], selectedItemsString:  "" , isSingleSelect: true, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert:true, alertText:"No FeederLines Found")
+                                }
+                            }
+                            
+                          
+                        case .Failure(let error):
+                            DispatchQueue.main.async {
+                            self.selectMultiselectPicker(itemsArray:  [] , selectedItemsString:  "" , isSingleSelect: false, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert:true, alertText:error.errormessage ?? "No FeederLines Found")
+                            }
+                            
+                        default:
+                            print("hi")
+                        }
+                    }
+                    
+                    
+                    
+            }
+            else {
+            
+
+                         DispatchQueue.main.async {
+                            let selectedText = self.filterDisplayDict[cellItem.name] as? String ?? ""
+                            self.selectMultiselectPicker(itemsArray:  self.feederLinesArray , selectedItemsString:  selectedText , isSingleSelect: true, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
+                         }
+          
+        }
+    }
     func selectSubmittedBy(cell:Type1Cell,cellItem:CellItem){
             if  self.selectedSubmittedByArray.count < 1 {
                 let apiClient  = V2ApiClient.init()
@@ -923,13 +1193,17 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                                     
                                 }
                                 DispatchQueue.main.async {
-                                    self.selectMultiselectPicker(itemsArray:  self.selectedSubmittedByArray , selectedItemsString:  "" , isSingleSelect: true, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
+                                    let selectedText = self.filterDisplayDict[cellItem.name] as? String ?? ""
+                                    self.selectMultiselectPicker(itemsArray:  self.selectedSubmittedByArray , selectedItemsString:  selectedText , isSingleSelect: true, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert:false, alertText:"")
                                 }
                                 
                             }
                         }
                         
-                    case .Failure(let error): break
+                    case .Failure(let error):
+                        DispatchQueue.main.async {
+                            self.selectMultiselectPicker(itemsArray:  [] , selectedItemsString:  "" , isSingleSelect: false, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert:true, alertText:error.errormessage ?? "No Users Found")
+                        }
                         
                     default:
                         print("hi")
@@ -940,10 +1214,56 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                 
         }
         else {
-                 self.selectMultiselectPicker(itemsArray:  self.selectedSubmittedByArray , selectedItemsString:  "" , isSingleSelect: true, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert: false,alertText: "")
+                DispatchQueue.main.async {
+                    
+                    let selectedText = self.filterDisplayDict[cellItem.name] as? String ?? ""
+                    self.selectMultiselectPicker(itemsArray:  self.selectedSubmittedByArray , selectedItemsString:  selectedText , isSingleSelect: true, titleString: cellItem.displayName, keyName:cellItem.name,isSearchRequired:true,showAlert: false,alertText: "")
+                }
         }
     }
     
+    // MARK:  TagList
+    func tagRemoveButtonPressed(_ title: String, tagView: TagView, sender: TagListView) -> Void {
+        let text =  tagView.currentTitle
+        var scopesArray = self.filterValueDict["damageType"]  as? [String]
+        if let dict = self.filterDisplayDict["scopedict"] as? NSDictionary {
+            if let keys = dict.allKeys(for:text ) as? NSArray {
+                if keys.count > 1 {
+                    let key = keys.firstObject as! String
+                    if let index = scopesArray?.firstIndex(of: key)  {
+                        scopesArray?.remove(at: index)
+
+                    }
+                    else {
+                        let _key = keys.lastObject as! String
+                        if let index = scopesArray?.firstIndex(of: _key)  {
+                            scopesArray?.remove(at: index)
+
+                        }
+                    }
+                }
+                else  {
+                    let key = keys.firstObject as! String
+                    guard let index = scopesArray?.firstIndex(of: key) else { return   }
+                    scopesArray?.remove(at: index)
+                }
+                
+            }
+
+        }
+        self.filterValueDict["damageType"] = scopesArray
+        sender.removeTagView(tagView)
+        self.filterTableView.reloadData()
+//        let size = sender.intrinsicContentSize
+//        self.scopeHeightConstant?.constant = size.height
+//        //cell.tagViewHeight.constant = size.height
+    }
+    
+//    func tagRemoveButtonPressed(title: String, tagView: TagView, sender: TagListView) {
+//      //  sender.re
+//    }
+
+//    tagRemoveButtonPressed?(tagView.currentTitle ?? "", tagView: tagView, sender: self)
     
     // MARK:  Filter Delegate
     func didSelectItem(selectedDisplayString: String, keyName: String) {
@@ -953,6 +1273,16 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                     let value  = self.locationSelectionDict [key]
                     self.filterDisplayDict [value ?? ""] = selectedDisplayString
                 }
+
+              }
+              else if keyName == "selectedLocationType"{
+                self.filterDisplayDict [keyName] = selectedDisplayString
+
+              }
+              else if keyName == "tags"{
+                self.filterDisplayDict [keyName] = selectedDisplayString
+                self.filterValueDict [keyName] = selectedDisplayString.components(separatedBy: ",")
+
 
               }
               else{
@@ -965,23 +1295,34 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
           self.filterTableView.reloadData()
      }
     // MARK:  Location Category
-
     func didSelectItemFromLocation(selectedDisplayString: String, keyName: String) {
             if keyName != ""  && selectedDisplayString != "" {
                  self.filterDisplayDict [keyName] = selectedDisplayString
+                self.filterValueDict[keyName] = selectedDisplayString
+
             }
             self.filterTableView.reloadData()
 
        }
     
-    // MARK:  Scope
-     func didSelectScopesAndPart(scopes: [String], parts: [String]) {
+     // MARK:  Scope
+    func didSelectScopesAndPart(scopes: [String], parts: [String],scopesDict:[String:String]) {
         self.filterValueDict["damageType"] = scopes
+        self.filterDisplayDict["scopedict"] = scopesDict
         self.filterValueDict["frFilterDamageParts"] = parts
-
+        self.filterTableView.reloadData()
      }
-     
-    
+     // MARK:  Alert
+    func displayAlert(message:String,isActionRequired:Bool) {
+        DispatchQueue.main.async {
+
+            let alert = UIAlertController(title: NSLocalizedString("ALERT", comment: ""), message: message, preferredStyle: UIAlertController.Style.alert)
+        if(isActionRequired) {
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertAction.Style.default, handler: nil))
+        }
+        self.present(alert, animated: true, completion: nil)
+        }
+    }
        
 }
 extension UIButton {
@@ -1014,6 +1355,7 @@ extension UIButton {
 class Type1Cell : UITableViewCell {
     @IBOutlet weak var lbltitle: UILabel!
     @IBOutlet weak var lblvalue: UILabel!
+    @IBOutlet weak var titleWidthConstraint : NSLayoutConstraint!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
 
@@ -1021,7 +1363,7 @@ class Type1Cell : UITableViewCell {
 
 class Type2Cell : UITableViewCell {
     @IBOutlet weak var lbltitle: UILabel!
-    @IBOutlet weak var yesNoSwitch: UILabel!
+    @IBOutlet weak var yesNoSwitch: UISwitch!
 
 }
 
@@ -1046,6 +1388,12 @@ class Type6Cell : UITableViewCell {
 }
 
 
+class Type7Cell : UITableViewCell {
+    @IBOutlet  var tagView: UIView!
+    @IBOutlet weak var tagViewHeight : NSLayoutConstraint!
+
+
+}
 
 
 

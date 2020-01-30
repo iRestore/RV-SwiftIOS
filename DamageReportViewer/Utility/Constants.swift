@@ -56,7 +56,7 @@ struct  Constants
     static let SUBMITTEDBY_V2_URL = "/api/users/getUserSubscriptionDetailsByApplication"
     static let ADDRESS_V2_URL = "/api/damagereports/addressSearch"
      static let TAGS_V2_URL = "/api/damagereports/tags"
-    static let FEEDERLINE_V2_URL = "/api/damagereports/feederLine "
+    static let FEEDERLINE_V2_URL = "/api/damagereports/feederLine"
 
     //URLs and Paramters
     static let SERVER_ADRESS = "https://_SERVER_.irestore.info" //->dev //dabeta

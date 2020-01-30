@@ -17,6 +17,9 @@
 		1A36C6E523CC7CF00032C107 /* FRDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A36C6E423CC7CF00032C107 /* FRDetailsViewController.swift */; };
 		1A48712423D9B580007EBADE /* MultiSelectionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A48712323D9B57F007EBADE /* MultiSelectionListViewController.swift */; };
 		1A48712623DA1150007EBADE /* SelectLocationCategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A48712523DA1150007EBADE /* SelectLocationCategoryController.swift */; };
+		1A56C3F623E13EC400612F21 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A56C3F523E13EC400612F21 /* CloseButton.swift */; };
+		1A56C3F923E13ED200612F21 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A56C3F723E13ED100612F21 /* TagListView.swift */; };
+		1A56C3FA23E13ED200612F21 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A56C3F823E13ED200612F21 /* TagView.swift */; };
 		1A7354D423C335F800AB1299 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7354D323C335F800AB1299 /* AppDelegate.swift */; };
 		1A7354D623C4528F00AB1299 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7354D523C4528F00AB1299 /* Environment.swift */; };
 		1A7354F023C457D800AB1299 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A7354EF23C457D800AB1299 /* GoogleService-Info.plist */; };
@@ -80,6 +83,9 @@
 		1A36C6E423CC7CF00032C107 /* FRDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FRDetailsViewController.swift; sourceTree = "<group>"; };
 		1A48712323D9B57F007EBADE /* MultiSelectionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectionListViewController.swift; sourceTree = "<group>"; };
 		1A48712523DA1150007EBADE /* SelectLocationCategoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLocationCategoryController.swift; sourceTree = "<group>"; };
+		1A56C3F523E13EC400612F21 /* CloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
+		1A56C3F723E13ED100612F21 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
+		1A56C3F823E13ED200612F21 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		1A7354D323C335F800AB1299 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A7354D523C4528F00AB1299 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		1A7354EF23C457D800AB1299 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -166,6 +172,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A56C3F423E13EA500612F21 /* TagListView */ = {
+			isa = PBXGroup;
+			children = (
+				1A56C3F523E13EC400612F21 /* CloseButton.swift */,
+				1A56C3F723E13ED100612F21 /* TagListView.swift */,
+				1A56C3F823E13ED200612F21 /* TagView.swift */,
+			);
+			path = TagListView;
+			sourceTree = "<group>";
+		};
 		1A7354F123C458EA00AB1299 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +210,7 @@
 		1ADEFC0D2397B03C007B7E30 = {
 			isa = PBXGroup;
 			children = (
+				1A56C3F423E13EA500612F21 /* TagListView */,
 				1ADEFC182397B03C007B7E30 /* DamageReportViewer */,
 				1ADEFC2F2397B040007B7E30 /* DamageReportViewerTests */,
 				1ADEFC3A2397B040007B7E30 /* DamageReportViewerUITests */,
@@ -604,6 +621,8 @@
 				1A7354D423C335F800AB1299 /* AppDelegate.swift in Sources */,
 				1A36C6E523CC7CF00032C107 /* FRDetailsViewController.swift in Sources */,
 				1A7354D623C4528F00AB1299 /* Environment.swift in Sources */,
+				1A56C3F923E13ED200612F21 /* TagListView.swift in Sources */,
+				1A56C3F623E13EC400612F21 /* CloseButton.swift in Sources */,
 				1A95667923E01DD700EB32EB /* DamageScopeSelectionViewController.swift in Sources */,
 				1A1D340223C6456D0045CCCF /* ActivityIndicator.swift in Sources */,
 				1A95667523DFB04F00EB32EB /* DataHandler.swift in Sources */,
@@ -612,6 +631,7 @@
 				1ADEFC532397CBBE007B7E30 /* V1ApiClient.swift in Sources */,
 				1A7354F523C4656A00AB1299 /* ListViewController.swift in Sources */,
 				1A27AE4D23A1590500EF20C2 /* TermsConditionsViewController.swift in Sources */,
+				1A56C3FA23E13ED200612F21 /* TagView.swift in Sources */,
 				1A7354F323C45E1200AB1299 /* TabbarController.swift in Sources */,
 				1AD4127623D04E5200A0F170 /* VDADetailsViewController.swift in Sources */,
 				1A7354F923C4832300AB1299 /* SceneDelegate.swift in Sources */,
@@ -1139,7 +1159,7 @@
 			baseConfigurationReference = E3AA7ACF6D0B50F8A6E6C20D /* Pods-DamageReportViewer.release dev.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "DamageReportViewer/DamageReportViewerRelease Dev.entitlements";
+				CODE_SIGN_ENTITLEMENTS = DamageReportViewer/DamageReportViewer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Greeshma Mullakkara (VX346J6898)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
