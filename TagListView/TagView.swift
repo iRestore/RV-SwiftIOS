@@ -118,21 +118,30 @@ open class TagView: UIButton {
             reloadStyles()
         }
     }
+    var tagType:String = ""
     
     // MARK: icon
     let iconImageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 15, height: 15))
+    @IBInspectable open var enableIconButton: Bool = false {
+           didSet {
+               iconImageView.isHidden = !enableIconButton
+               updateLeftInsets()
+           }
+       }
+       
+    
     @IBInspectable open var imageName: String  = "" {
         didSet {
             iconImageView.image = UIImage.init(named: imageName)
             self.addSubview(iconImageView)
-            updateLeftInsets()
+            //updateLeftInsets()
         }
     }
-    @IBInspectable open var iconImageSize: CGFloat = 15 {
-        didSet {
-        }
-    }
-    
+//    @IBInspectable open var iconImageSize: CGFloat = 15 {
+//        didSet {
+//        }
+//    }
+//
     // MARK: remove button
     
     let removeButton = CloseButton()
@@ -199,7 +208,7 @@ open class TagView: UIButton {
 
     override open var intrinsicContentSize: CGSize {
         var size = titleLabel?.text?.size(withAttributes: [NSAttributedString.Key.font: textFont]) ?? CGSize.zero
-        size.height =  40 //textFont.pointSize + paddingY * 2 //gree
+        size.height =  textFont.pointSize + paddingY * 2 //gree
         size.width += paddingX * 2
         if size.width < size.height {
             size.width = size.height
@@ -207,13 +216,19 @@ open class TagView: UIButton {
         if enableRemoveButton {
             size.width += removeButtonIconSize + paddingX + 5
         }
-        if enableRemoveButton {
+        if enableIconButton {
             size.width += 30
         }
         return size
     }
     private func updateLeftInsets() {
-       titleEdgeInsets.left =  22
+        if enableIconButton {
+            titleEdgeInsets.left =  22
+
+        }
+        else {
+             titleEdgeInsets.left =  paddingX
+        }
     }
     
     

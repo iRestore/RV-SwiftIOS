@@ -32,7 +32,9 @@
 		1A95667723DFB13E00EB32EB /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A95667623DFB13E00EB32EB /* Reachability.swift */; };
 		1A95667923E01DD700EB32EB /* DamageScopeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A95667823E01DD700EB32EB /* DamageScopeSelectionViewController.swift */; };
 		1AA6972623D70244002E0D8D /* NewFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA6972523D70244002E0D8D /* NewFilterViewController.swift */; };
+		1AB61CED23F3018A007AC180 /* UpdateProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB61CEC23F3018A007AC180 /* UpdateProfileViewController.swift */; };
 		1AD4127623D04E5200A0F170 /* VDADetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD4127523D04E5200A0F170 /* VDADetailsViewController.swift */; };
+		1AD9647723F1A9BC0064BC4C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD9647623F1A9BC0064BC4C /* ProfileViewController.swift */; };
 		1ADEFC212397B03C007B7E30 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1ADEFC1F2397B03C007B7E30 /* Main.storyboard */; };
 		1ADEFC232397B040007B7E30 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1ADEFC222397B040007B7E30 /* Assets.xcassets */; };
 		1ADEFC262397B040007B7E30 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1ADEFC242397B040007B7E30 /* LaunchScreen.storyboard */; };
@@ -102,7 +104,9 @@
 		1A95667623DFB13E00EB32EB /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		1A95667823E01DD700EB32EB /* DamageScopeSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageScopeSelectionViewController.swift; sourceTree = "<group>"; };
 		1AA6972523D70244002E0D8D /* NewFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFilterViewController.swift; sourceTree = "<group>"; };
+		1AB61CEC23F3018A007AC180 /* UpdateProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateProfileViewController.swift; sourceTree = "<group>"; };
 		1AD4127523D04E5200A0F170 /* VDADetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VDADetailsViewController.swift; sourceTree = "<group>"; };
+		1AD9647623F1A9BC0064BC4C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1ADEFC162397B03C007B7E30 /* DamageReportViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DamageReportViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ADEFC222397B040007B7E30 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1ADEFC272397B040007B7E30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -195,6 +199,8 @@
 				1A48712323D9B57F007EBADE /* MultiSelectionListViewController.swift */,
 				1A48712523DA1150007EBADE /* SelectLocationCategoryController.swift */,
 				1A95667823E01DD700EB32EB /* DamageScopeSelectionViewController.swift */,
+				1AD9647623F1A9BC0064BC4C /* ProfileViewController.swift */,
+				1AB61CEC23F3018A007AC180 /* UpdateProfileViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -630,6 +636,8 @@
 				1AA6972623D70244002E0D8D /* NewFilterViewController.swift in Sources */,
 				1ADEFC532397CBBE007B7E30 /* V1ApiClient.swift in Sources */,
 				1A7354F523C4656A00AB1299 /* ListViewController.swift in Sources */,
+				1AD9647723F1A9BC0064BC4C /* ProfileViewController.swift in Sources */,
+				1AB61CED23F3018A007AC180 /* UpdateProfileViewController.swift in Sources */,
 				1A27AE4D23A1590500EF20C2 /* TermsConditionsViewController.swift in Sources */,
 				1A56C3FA23E13ED200612F21 /* TagView.swift in Sources */,
 				1A7354F323C45E1200AB1299 /* TabbarController.swift in Sources */,

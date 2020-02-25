@@ -45,10 +45,18 @@ class MapViewController: MainViewController,GMSMapViewDelegate,FilterReportsDele
 //            isloading = true
 //            currentPage = 1
 //            self.isFilterApplied = true
+        let filterDict = DataHandler.shared.filterValueDict
+        if filterDict.count > 1 {
+            self.filterBtn.setImage(UIImage.init(named: "filter_active"), for: .normal)
+        }
+        else {
+            self.filterBtn.setImage(UIImage.init(named: "filter"), for: .normal)
+
+        }
             self.getReports(isDeleteDelta:true)
     }
     func resetFilter() {
-            self.filterBtn.setImage(UIImage.init(named: "filter"), for: .normal)
+    //            self.filterBtn.setImage(UIImage.init(named: "filter"), for: .normal)
     //        isloading = true
     //        currentPage = 1
     //        self.isFilterApplied = true
@@ -127,8 +135,24 @@ class MapViewController: MainViewController,GMSMapViewDelegate,FilterReportsDele
         
     }
     
-    func mapView(mapView: GMSMapView!, didTapInfoWindowOfMarker marker: GMSMarker!) {
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         print("didTapInfoWindowOfMarker")
+        if let index = marker.userData as? Int {
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        let reportData:ReportData = MainViewController.reportArray[index]
+        if reportData.reportType == "SDA" {
+            guard let detailsController = mainStoryBoard.instantiateViewController(withIdentifier: "VDADetailsViewController") as? VDADetailsViewController else { return  }
+            detailsController.reportData = reportData
+            self.navigationController?.pushViewController(detailsController, animated: true)
+            
+        }
+        else {
+            guard let detailsController = mainStoryBoard.instantiateViewController(withIdentifier: "FRDetailsViewController") as? FRDetailsViewController else { return  }
+            detailsController.reportData = reportData
+            self.navigationController?.pushViewController(detailsController, animated: true)
+            
+        }
+        }
         //let storeMarker = marker as StoreMarker
         //performSegueWithIdentifier("productMenu", sender: storeMarker.store)
     }

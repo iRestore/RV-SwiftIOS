@@ -17,6 +17,10 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
     @IBOutlet var tblView: UITableView!
     @IBOutlet var noReportsLabel: UILabel!
     @IBOutlet var filterBtn: UIButton!
+    @IBOutlet weak var slideOutPanel :UIView!
+    @IBOutlet weak var userName :UILabel!
+    @IBOutlet weak var versionNum :UILabel!
+    @IBOutlet weak var profileView :UIImageView!
 
     var currentPage : Int = 1
     let isSortClicked: Bool = true
@@ -32,9 +36,10 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
         super.viewDidLoad()
         let prefs : UserDefaults = UserDefaults.standard
         prefs.set(true, forKey: Constants.IS_SIGN_COMPLETED)
-        FirebaseApp.configure()
-        Database.database().isPersistenceEnabled = true
+//        FirebaseApp.configure()
+//        Database.database().isPersistenceEnabled = true
         MainViewController.isFilterAppliedInTabs = false
+        navBarSettings()
         if Reachability.isConnectedToNetwork () {
             DataHandler.shared.fetchDataFromDefaults()
             let filterDict = DataHandler.shared.filterValueDict
@@ -66,11 +71,7 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refreshTable), for: UIControl.Event.valueChanged)
         tblView.addSubview(refreshControl)
-        self.navigationController?.isNavigationBarHidden = false
-        self.navigationItem.hidesBackButton = true
-        let navigationBarAppearace = UINavigationBar.appearance()
-        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 15.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.black]
-        self.navigationItem.title = NSLocalizedString("Damage Reports", comment: "")
+
         
        
     }
@@ -81,6 +82,16 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
             self.tblView.reloadData()
         }
     }
+    
+    func navBarSettings (){
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationItem.hidesBackButton = true
+        let navigationBarAppearace = UINavigationBar.appearance()
+        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 15.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.black]
+        self.navigationItem.title = NSLocalizedString("Damage Reports", comment: "")
+
+    }
+
     
     @IBAction func btnFilterbtnSortWithSender(_ sender: UIButton) {
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -100,10 +111,18 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
         isloading = true
         currentPage = 1
         self.isFilterApplied = true
+        let filterDict = DataHandler.shared.filterValueDict
+        if filterDict.count > 1 {
+            self.filterBtn.setImage(UIImage.init(named: "filter_active"), for: .normal)
+        }
+        else {
+            self.filterBtn.setImage(UIImage.init(named: "filter"), for: .normal)
+
+        }
         self.getReports(isDeleteDelta:true)
     }
     func resetFilter() {
-        self.filterBtn.setImage(UIImage.init(named: "filter"), for: .normal)
+//        self.filterBtn.setImage(UIImage.init(named: "filter"), for: .normal)
 //        isloading = true
 //        currentPage = 1
 //        self.isFilterApplied = true
@@ -142,13 +161,13 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
                     print("Error fetching documents: \(error!)")
                     return
                 }
-                self.damageTypeSubTypeDisplayNamesDict.removeAll()
+                MainViewController.damageTypeSubTypeDisplayNamesDict.removeAll()
                 for document in documents {
                     if let data = document.data() as? [String:Any] {
                         if let key = data["dmgCategoryKey"] as? String {
                             let displayName = data["displayName"] as? String
                             print("\(key):\(displayName)")
-                            self.damageTypeSubTypeDisplayNamesDict[key] = displayName
+                            MainViewController.damageTypeSubTypeDisplayNamesDict[key] = displayName
                         }
                          
                         
@@ -224,6 +243,10 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
             case .TimeOut( _):
                 break
             case .ServerError(let value):
+                DispatchQueue.main.async {
+                    self.tblView.isHidden = true
+                    self.noReportsLabel.isHidden = false
+                }
                 break
                 
                 
@@ -244,8 +267,11 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SimpleTableItem", for: indexPath) as!  ReportsViewCell
-            let modelObj = MainViewController.reportArray[indexPath.row]
-            cell.setCellInfo(modelObject: modelObj)
+            if  MainViewController.reportArray.count > indexPath.row {
+                let modelObj = MainViewController.reportArray[indexPath.row]
+                cell.setCellInfo(modelObject: modelObj)
+
+            }
             return cell
 
     }
@@ -280,7 +306,7 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
               self.getReports(isDeleteDelta:false)
           }
     }
-    
+
     
 }
 

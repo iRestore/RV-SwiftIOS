@@ -20,12 +20,12 @@ class MainViewController:UIViewController {
     static var reportArray = [ReportData]()
     static var isFilterAppliedInTabs = false
     
-    var damageTypeSubTypeDisplayNamesDict = [String:String]()
+    static var damageTypeSubTypeDisplayNamesDict = [String:String]()
     static var damageMetaDataDisplayDict = [String:String]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = false
-        self.navigationItem.hidesBackButton = false
+      //  self.navigationController?.isNavigationBarHidden = false
+      //  self.navigationItem.hidesBackButton = false
         let navigationBarAppearace = UINavigationBar.appearance()
         navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 15.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.black]
         self.navigationItem.title = NSLocalizedString("Damage Reports", comment: "")
@@ -38,13 +38,33 @@ class MainViewController:UIViewController {
         backButton.sizeToFit()
         leftBarBtnItem = UIBarButtonItem.init(customView: backButton)
         navigationItem.leftBarButtonItem = leftBarBtnItem
-        
+
         
     }
+
     @objc func profileBtnClicked() -> Void {
+
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        guard let profileController = mainStoryBoard.instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController else { return  }
+        profileController.image = self.captureScreenshot()
+        self.navigationController?.pushViewController(profileController, animated: false)
+
+
+        
     }
     
-    
+     func captureScreenshot() -> UIImage? {
+              let layer = UIApplication.shared.keyWindow!.layer
+              let scale = UIScreen.main.scale
+              // Creates UIImage of same size as view
+              UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale);
+              layer.render(in: UIGraphicsGetCurrentContext()!)
+              let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+              UIGraphicsEndImageContext()
+              return screenshot
+              // THIS IS TO SAVE SCREENSHOT TO PHOTOS
+              //UIImageWriteToSavedPhotosAlbum(screenshot!, nil, nil, nil)
+    }
     
     func getAllReports(page:Int,isdeleteDelta:Bool,isFilterApplied:Bool,isSortDescending:Bool,completion: @escaping (ReportStatus<Response>) -> ()) {
         var newFilterDictionary = [String:Any]()
@@ -104,8 +124,8 @@ class MainViewController:UIViewController {
                             if itemsArray.count > 0 {
                                 for item in itemsArray {
                                     let reportData = ReportData.init(data: item)
-                                    reportData?.damageTypeDisplayName = self.damageTypeSubTypeDisplayNamesDict[reportData?.damageType ?? ""] ?? "" 
-                                    reportData?.damageSubTypeDisplayName = self.damageTypeSubTypeDisplayNamesDict[reportData?.damageSubType ?? ""] ?? ""
+                                    reportData?.damageTypeDisplayName = MainViewController.damageTypeSubTypeDisplayNamesDict[reportData?.damageType ?? ""] ?? ""
+                                    reportData?.damageSubTypeDisplayName = MainViewController.damageTypeSubTypeDisplayNamesDict[reportData?.damageSubType ?? ""] ?? ""
 
                                     MainViewController.reportArray.append(reportData!)
                                 }
@@ -129,6 +149,7 @@ class MainViewController:UIViewController {
                    break
            
                }
+            
            }
             
         } catch {

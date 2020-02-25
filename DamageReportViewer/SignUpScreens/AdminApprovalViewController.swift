@@ -61,6 +61,17 @@ class AdminApprovalViewController: UIViewController {
     
     @IBAction func startAgain() -> Void {
         
+        DispatchQueue.main.async {
+            
+            let alert = UIAlertController(title: NSLocalizedString("ALERT", comment: ""), message: "Do you want to Sign Up again", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertAction.Style.default, handler: {(alert: UIAlertAction!) in
+                    self.appDelegate.clearProfile(shouldDeleteFromServer:true)
+                    }
+                ))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: UIAlertAction.Style.default, handler: nil))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     @IBAction func checkApprovalStatus() -> Void {
         

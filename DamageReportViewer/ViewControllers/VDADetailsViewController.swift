@@ -19,6 +19,8 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
 //        <#code#>
 //    }
 //
+    @IBOutlet var  tagView: UIView!
+    @IBOutlet var  tagViewHeightConstraint:NSLayoutConstraint!
 
     @IBOutlet var  damageDetailsBtn: UIButton!
     @IBOutlet var  damagePartsBtn: UIButton!
@@ -50,7 +52,7 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
     
     @IBOutlet var  tapToExpandPhotoLbl: UILabel!
     @IBOutlet var  tags: UILabel!
-    @IBOutlet var  lblTags: UILabel!
+  //  @IBOutlet var  lblTags: UILabel!
     @IBOutlet var  hasShownDirection: UILabel!
     
     @IBOutlet var  img1View:UIImageView!
@@ -284,7 +286,7 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
     @objc func setScrollViewContentSize()
     {
         
-        self.poleDetailsHeightConstraint.constant = self.lblTags.frame.origin.y + self.lblTags.frame.size.height + 2
+        self.poleDetailsHeightConstraint.constant = self.tagView.frame.origin.y + self.tagViewHeightConstraint.constant + 5
         
         self.addressViewHeightConstraint.constant = self.lblDate.frame.origin.y + self.lblDate.frame.size.height + 2
 
@@ -295,11 +297,28 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
         var str :String = ""
         if let _tagArray =  reportData?.tagArray  as?  [String] {
             if (Helper.shared.nullToNil(value:_tagArray as AnyObject ) != nil && _tagArray.count ?? 0 > 0 ){
-                str = str.appending(_tagArray.joined(separator: ","))
-                self.lblTags.text = str
+                
+                let tagListView  = TagListView.init(frame: CGRect.init(x: 0, y: 0, width: self.tagView.frame.width, height: 100))
+                tagListView.textFont = UIFont(name: "Avenir-Book", size: 15.0) ??  UIFont.systemFont(ofSize: 15)
+                tagListView.textColor = .black
+                tagListView.paddingY = 10
+                tagListView.paddingX = 15
+
+                tagListView.alignment = .left
+                for tag in _tagArray {
+                    let tag = tagListView.addTag(tag)
+                    tag.cornerRadius = 15
+                    tag.tagBackgroundColor = UIColor.init("0xe7e7e7")
+                    tag.enableRemoveButton = false
+                    tag.enableIconButton = false
+                }
+                
+                let size = tagListView.intrinsicContentSize
+                self.tagViewHeightConstraint.constant = size.height
+                self.tagView.addSubview(tagListView)
             }
             else {
-                self.lblTags.text = ""
+                self.tagViewHeightConstraint.constant = 10
                 //self.lblTags.isHidden = true
                 //self.tags.isHidden = true
 
@@ -376,35 +395,6 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
              let path = image1Url.lastPathComponent
             self.downloadImage(path: image1Url.lastPathComponent
                         , isThumbnail: false,identifier: index)
-            
-//             let _path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-//                    var filePath   = ""
-//                    let url = NSURL(fileURLWithPath: _path)
-//                    if let pathComponent = url.appendingPathComponent(path) {
-//                        filePath = pathComponent.path
-//                        let fileManager = FileManager.default
-//                        if fileManager.fileExists(atPath: filePath) {
-//                            if let image    = UIImage(contentsOfFile: filePath) as? UIImage {
-//                             cell.imgViewDmgType.image = image
-//                             if cell.imgViewDmgType.gestureRecognizers?.count ?? 0 < 1 {
-//                                 let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(VDADetailsViewController.cellImageTapped(_ :)))
-//                                 cell.imgViewDmgType.tag = indexPath.row + 1
-//                                 tap.cancelsTouchesInView = false
-//                                 cell.imgViewDmgType.addGestureRecognizer(tap)
-//                             }
-//                            }
-//                        } else {
-//                            self.downloadImage(path: path, filePath: filePath, isThumbnail: true, identifier: indexPath.row)
-//
-//                        }
-//                    } else {
-//                     self.downloadImage(path: path, filePath: filePath, isThumbnail: true, identifier: indexPath.row)
-//                    }
-//
-        
-
-
-
              }
 
         
@@ -483,7 +473,7 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
                             self.mainImgView.image = downloadedImage
                         }
                         else if (isThumbnail == true ) {
-                            if (identifier > 0 ) {
+                            if (identifier >= 0 ) {
                             let indexPath = NSIndexPath.init(row: identifier, section: 0)
                                 self.damageDetailsTableView.reloadRows(at: [(indexPath as IndexPath)], with: .none)
                             }

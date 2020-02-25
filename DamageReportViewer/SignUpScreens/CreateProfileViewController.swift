@@ -234,8 +234,9 @@ class CreateProfileViewController: UIViewController, UITextFieldDelegate {
 
                         if (isUserApproved == false) {
                             DispatchQueue.main.async {
+                                
 
-                            let nextViewController = mainStoryBoard.instantiateViewController(withIdentifier: "AdminApprovalController")
+                            let nextViewController = mainStoryBoard.instantiateViewController(withIdentifier: "AdminApprovalViewController")
                             self.navigationController?.setViewControllers([nextViewController], animated: true)
                             }
                         }
@@ -398,23 +399,7 @@ class CreateProfileViewController: UIViewController, UITextFieldDelegate {
             
         }
     }
-    
-    func saveUpdatedValues()
-    {
-        let data = prefs.value(forKey: Constants.USER_DATA_OBJECT)
-        userObj = NSKeyedUnarchiver.unarchiveObject(with: data as! Data) as! [String : Any]
-        userObj["firstName"] = firstname.text
-        userObj["lastName"] = lastname.text
-        userObj["job"] = jobTitle.text
-        userObj["organization"] = organization.text
-        userObj["city"] = city.text
-        userObj["state"] = state.text
-        userObj["county"] = county.text
-        
-        let encodedData = NSKeyedArchiver.archivedData(withRootObject: userObj)
-        prefs.set(encodedData, forKey: Constants.USER_DATA_OBJECT)
-        self.prefs.synchronize()
-    }
+
     
     func nullToNil(value : AnyObject?) -> AnyObject? {
         if value is NSNull {

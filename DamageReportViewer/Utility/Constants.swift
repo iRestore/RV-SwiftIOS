@@ -57,6 +57,8 @@ struct  Constants
     static let ADDRESS_V2_URL = "/api/damagereports/addressSearch"
      static let TAGS_V2_URL = "/api/damagereports/tags"
     static let FEEDERLINE_V2_URL = "/api/damagereports/feederLine"
+    static let GETREPORT_DETAILS_V2_URL = "/api/damagereports/details?id="
+
 
     //URLs and Paramters
     static let SERVER_ADRESS = "https://_SERVER_.irestore.info" //->dev //dabeta
@@ -66,6 +68,8 @@ struct  Constants
     static let CREATE_PROFILE_API = "/v1/common/users"
     static let UPDATE_PROFILE_API = "/v1/common/users/profile"
     static let ADMIN_APPROVAL_API = "/v1/common/subscriptions/?"
+    static let DELETE_PROFILE_API = "/v1/common/subscriptions/"
+
     static let TERMS_CONDITIONS_API = "/v1/common/subscriptions/deviceConfiguration/"
     static let IMAGE_UPLOADED_ACKNOWLEDGE  = "/v1/vda/:deviceReportId/images"
     static let SYNC_API = "/v1/common/sync/:application/?os=IOS&email=:email&phone=:phone"

@@ -49,9 +49,8 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
     var countyArray = NSMutableArray()
     var tagsArray = [[String:Any]]()
     var feederLinesArray = NSMutableArray()
-
     var scopeHeightConstant :NSLayoutConstraint?
-
+    var isSelectedOnce = false
     
     var  locationSelectionDict = ["Zipcode":"zipcode","City":"city","County":"county","State":"state","Division":"division","Region":"region","Platform":"platform"]
   
@@ -85,6 +84,9 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
         self.filterTableView.dataSource = self
 
 
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        self.isSelectedOnce  = false
     }
     override func viewDidLayoutSubviews() {
         self.filterButton.roundCorners(corners: [.topRight, .bottomRight,.topLeft,.bottomLeft], radius: 10.0)
@@ -262,24 +264,26 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
     
     func selectMultiselectPicker(itemsArray:NSMutableArray, selectedItemsString: String, isSingleSelect:Bool,titleString:String,keyName:String,isSearchRequired:Bool,
         showAlert:Bool, alertText:String) {
-        let suggestionsVC = storyboard?.instantiateViewController(withIdentifier: "MultiSelectionListViewController") as! MultiSelectionListViewController
-        suggestionsVC.items = itemsArray
-        suggestionsVC.selectedDisplayString = selectedItemsString
-        suggestionsVC.titleString = titleString
-        suggestionsVC.isSearchRequired = isSearchRequired
-        suggestionsVC.isSingleSelection = isSingleSelect
-        suggestionsVC.delegate = self
-        suggestionsVC.keyName = keyName
-        if showAlert == true {
-            suggestionsVC.shouldShowAlert = true
-            suggestionsVC.alertText = alertText
+        if self.isSelectedOnce  == false {
+            let suggestionsVC = storyboard?.instantiateViewController(withIdentifier: "MultiSelectionListViewController") as! MultiSelectionListViewController
+            suggestionsVC.items = itemsArray
+            suggestionsVC.selectedDisplayString = selectedItemsString
+            suggestionsVC.titleString = titleString
+            suggestionsVC.isSearchRequired = isSearchRequired
+            suggestionsVC.isSingleSelection = isSingleSelect
+            suggestionsVC.delegate = self
+            suggestionsVC.keyName = keyName
+            if showAlert == true {
+                suggestionsVC.shouldShowAlert = true
+                suggestionsVC.alertText = alertText
+            }
+            else {
+                suggestionsVC.shouldShowAlert = false
+                
+            }
+            self.navigationController?.pushViewController(suggestionsVC, animated: true)
+            self.isSelectedOnce  = true
         }
-        else {
-            suggestionsVC.shouldShowAlert = false
-
-        }
-        self.navigationController?.pushViewController(suggestionsVC, animated: true)
-        print("tap working")
         
     }
     
@@ -544,37 +548,38 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                     for view in cell.tagView.subviews {
                         view.removeFromSuperview()
                     }
-                    let tagListView  = TagListView.init(frame: CGRect.init(x: 0, y: 0, width: cell.contentView.frame.width, height: 100))
+                    let tagListView  = TagListView.init(frame: CGRect.init(x: 0, y: 0, width: cell.contentView.frame.width, height: 300))
                     tagListView.textFont = UIFont.systemFont(ofSize: 15)
                     tagListView.textColor = UIColor.init("0X26A69A")
                     tagListView.alignment = .left
                     tagListView.delegate = self
+                    tagListView.paddingY = 15
+
                     if let items = self.filterValueDict["damageType"] as? [String]{
                         for item in items {
-                            
+                            var tagType = item
                             if  self.selectedTabsArray.count > 1 {
                                 
                             }
-                            
                            else if self.selectedTabsArray[0] == "VDA"  &&
                                 item.contains("fr"){
-                                
+                               // tagType = "fr"
                                 continue
                                 
                             }
                             else if self.selectedTabsArray[0] == "FR"  &&
                             item.contains("vda"){
+                                    //tagType = "vda"
                                      continue
 
                             }
                             if  let displayDict = self.filterDisplayDict["scopedict"] as? [String:String] {
                             let displayName = displayDict[item] as! String
-                                let tag = tagListView.addTag(displayName)
+                            let tag = tagListView.addTag(displayName)
                             tag.cornerRadius = 16
                             tag.tagBackgroundColor = .white
                             tag.borderColor  = UIColor.init("0X26A69A")
                             tag.borderWidth   = 1
-                                
                             if item.contains("vda") {
                                 tag.imageName = "vda_11_tree"
                             }
@@ -582,14 +587,17 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                                 tag.imageName = "fr_5_tree"
                             }
                                 
-                                
+                            tag.tagType = tagType
                             tag.removeIconLineColor = UIColor.init("0X26A69A")
                             tag.enableRemoveButton = true
+                            tag.enableIconButton = true
+                               
 
                             }
                         }
                         
                     }
+                    tagListView.layoutIfNeeded()
                     let size = tagListView.intrinsicContentSize
                     cell.tagViewHeight.constant = size.height
                     cell.tagView.addSubview(tagListView)
@@ -1223,32 +1231,35 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
     }
     
     // MARK:  TagList
-    func tagRemoveButtonPressed(_ title: String, tagView: TagView, sender: TagListView) -> Void {
+    func tagRemoveButtonPressed(_ title: String,tagType:String, tagView: TagView, sender: TagListView) -> Void {
         let text =  tagView.currentTitle
         var scopesArray = self.filterValueDict["damageType"]  as? [String]
         if let dict = self.filterDisplayDict["scopedict"] as? NSDictionary {
-            if let keys = dict.allKeys(for:text ) as? NSArray {
-                if keys.count > 1 {
-                    let key = keys.firstObject as! String
-                    if let index = scopesArray?.firstIndex(of: key)  {
-                        scopesArray?.remove(at: index)
-
-                    }
-                    else {
-                        let _key = keys.lastObject as! String
-                        if let index = scopesArray?.firstIndex(of: _key)  {
-                            scopesArray?.remove(at: index)
-
-                        }
-                    }
-                }
-                else  {
-                    let key = keys.firstObject as! String
-                    guard let index = scopesArray?.firstIndex(of: key) else { return   }
+            
+                if let index = scopesArray?.firstIndex(of: tagType as! String)  {
                     scopesArray?.remove(at: index)
-                }
-                
+
             }
+//            if let keys = dict.allKeys(for:text ) as? NSArray {
+//                if keys.count > 1 {
+//                    for key in keys {
+//                        if let index = scopesArray?.firstIndex(of: key as! String)  {
+////                            if (key as! String).contains(tagType) {
+//                                scopesArray?.remove(at: index)
+//                                break
+//                            }
+//
+//                        }
+//                    }
+//
+//                }
+//                else  {
+//                    let key = keys.firstObject as! String
+//                    guard let index = scopesArray?.firstIndex(of: key) else { return   }
+//                    scopesArray?.remove(at: index)
+//                }
+//
+//            }
 
         }
         self.filterValueDict["damageType"] = scopesArray
@@ -1272,6 +1283,7 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                 if let key = filterDisplayDict["selectedLocationType"] as? String {
                     let value  = self.locationSelectionDict [key]
                     self.filterDisplayDict [value ?? ""] = selectedDisplayString
+                    self.filterValueDict [value ?? ""] = selectedDisplayString
                 }
 
               }
@@ -1291,7 +1303,11 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
 
               }
           }
-        
+         else if selectedDisplayString == "" {
+            self.filterValueDict.removeValue(forKey: keyName)
+            self.filterDisplayDict.removeValue(forKey: keyName)
+
+          }
           self.filterTableView.reloadData()
      }
     // MARK:  Location Category

@@ -29,6 +29,8 @@ target 'DamageReportViewer' do
      pod 'GoogleMaps'
      pod 'GooglePlaces'
      pod 'ImageLoader'
+     pod 'RSKImageCropper'
+
 
 
 end

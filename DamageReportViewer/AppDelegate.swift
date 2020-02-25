@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMaps
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         GMSServices.provideAPIKey("AIzaSyD6TXyRawmCPlDPLs-RASPU2SErg3aYHpY")
-        
+        FirebaseApp.configure()
+        Database.database().isPersistenceEnabled = true
         if #available(iOS 13.0, *) {
 
             
@@ -39,6 +41,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     window.rootViewController = centerNav
                 }
             }
+            else if(isOTPRequired == true ){
+                    guard let SignUp = mainStoryBoard.instantiateViewController(withIdentifier: "SignUpViewController") as? SignUpViewController else { return false }
+                        guard let otp = mainStoryBoard.instantiateViewController(withIdentifier: "OTPViewController") as? OTPViewController else { return  false}
+                        let centerNav = UINavigationController(rootViewController: SignUp)
+                        window.rootViewController = centerNav
+                        centerNav.setViewControllers([SignUp,otp], animated: true)
+                }
             else if(isSubscriptionExists == false){
                 guard let SignUp = mainStoryBoard.instantiateViewController(withIdentifier: "SignUpViewController") as? SignUpViewController else { return false }
                 guard let otp = mainStoryBoard.instantiateViewController(withIdentifier: "CreateProfileViewController") as? CreateProfileViewController else { return false }
@@ -62,8 +71,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             else {
                 if let tabbar = mainStoryBoard.instantiateViewController(withIdentifier: "TabbarController") as? TabbarController {
-                    //let centerNav = UINavigationController(rootViewController: SignUp)
                     window.rootViewController = tabbar
+                    
+//                    for vc in tabbar.viewControllers! {
+//                        if vc is UINavigationController {
+//                            if let navController = vc as? UINavigationController {
+//                                for _vc in navController.viewControllers {
+//                                             guard let _detailsController = mainStoryBoard.instantiateViewController(withIdentifier: "VDADetailsViewController") as? VDADetailsViewController else { return true }
+//
+//                                    _vc.navigationController?.pushViewController(_detailsController,
+//                                                                                 animated: true)
+//                                    break
+//
+//                                }
+//                            }
+//
+//                        }
+//                    }
+                    
+                    
+                    
                 }
             }
             
@@ -88,7 +115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         if #available(iOS 13.0, *) {
 
-
+                //self.doSync()
 
         }
         else {
@@ -96,6 +123,67 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
     }
+    func  clearProfile(shouldDeleteFromServer:Bool) {
+        
+        if shouldDeleteFromServer == true {
+            let v1APi =  V1ApiClient .init()
+            v1APi.deleteProfile() {
+                result in
+                _ = DispatchQueue.main.sync() {
+                }
+                print(result)
+                switch result {
+                    
+                case .Success(let value):
+                    print("success")
+                    break
+                case .Failure(let error):
+                    print("error")
+
+                    break
+            
+                }
+            }
+            let domain = Bundle.main.bundleIdentifier!
+            UserDefaults.standard.removePersistentDomain(forName: domain)
+            UserDefaults.standard.synchronize()
+        }
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        if let signUp = mainStoryBoard.instantiateViewController(withIdentifier: "SignUpViewController") as? SignUpViewController {
+            let centerNav = UINavigationController(rootViewController: signUp)
+            if #available(iOS 13.0, *) {
+                if let scene = UIApplication.shared.connectedScenes.first  {
+                    if let windowScene = scene as? UIWindowScene {
+                        let _window = UIWindow(windowScene: windowScene)
+                        //_window.rootViewController = centerNav
+                        UIApplication.shared.windows.first!.rootViewController = centerNav
+                        _window.makeKeyAndVisible()
+                       // scene.window
+
+                    }
+                }
+             }
+            else {
+                 window?.rootViewController = centerNav
+
+             }
+            
+        }
+
+    }
+    func displayAlert(message:String,isActionRequired:Bool) {
+        DispatchQueue.main.async {
+
+            let alert = UIAlertController(title: NSLocalizedString("ALERT", comment: ""), message: message, preferredStyle: UIAlertController.Style.alert)
+        if(isActionRequired) {
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertAction.Style.default, handler: nil))
+        }
+        self.window?.makeKeyAndVisible()
+        self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    
     func  doSync()
     {
             
@@ -137,6 +225,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                             
                                             let s3BucketName :String = configurationObj["s3Bucket"] as! String
                                             UserDefaults.standard.set(s3BucketName,forKey: Constants.BUCKET_NAME)
+                                            
+                                            let profileBucketName :String = configurationObj["profilePicBucket"] as! String
+                                            UserDefaults.standard.set(profileBucketName,forKey: Constants.PROFILE_BUCKET_NAME)
                                        
                                             if let config  = configurationObj["viewConfig"] as? [String:Any] {
                                             UserDefaults.standard.set(config,forKey: Constants.DEFAULTS_TENANT_CONFIG)
@@ -277,17 +368,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-    func displayAlert(message:String,isActionRequired:Bool) {
-        DispatchQueue.main.async {
 
-            let alert = UIAlertController(title: NSLocalizedString("ALERT", comment: ""), message: message, preferredStyle: UIAlertController.Style.alert)
-        if(isActionRequired) {
-            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertAction.Style.default, handler: nil))
-        }
-        self.window?.makeKeyAndVisible()
-        self.window?.rootViewController?.present(alert, animated: true, completion: nil)
-        }
-    }
+    
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
@@ -304,12 +386,112 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print(userInfo)
         
-        if let userInfoDict = userInfo["aps"] as? NSDictionary  {
+        if let userInfoDict = userInfo as? NSDictionary  {
+            if  let reportId = userInfoDict.value(forKey: "reportId") as? String {
+            let apiClient  = V2ApiClient.init()
+            apiClient.getDetails(reportId:reportId){
+            result in
+        
+            switch result {
+                    case .Success(let value):
+                        if let responseDict = value.data {
+                            print(responseDict)
+                            let reportData = ReportData.init(data: responseDict)
+                            reportData?.damageTypeDisplayName = MainViewController.damageTypeSubTypeDisplayNamesDict[reportData?.damageType ?? ""] ?? ""
+                            
+                            reportData?.damageSubTypeDisplayName = MainViewController.damageTypeSubTypeDisplayNamesDict[reportData?.damageSubType ?? ""] ?? ""
+                            
+                            DispatchQueue.main.async {
+                                let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+                            guard let tabbar = mainStoryBoard.instantiateViewController(withIdentifier: "TabbarController") as? TabbarController else { return }
+                                if reportData?.reportType == "SDA" {
+                                    guard let _detailsController = mainStoryBoard.instantiateViewController(withIdentifier: "VDADetailsViewController") as? VDADetailsViewController else { return }
+                                    _detailsController.reportData = reportData
+                                    if #available(iOS 13.0, *) {
+                                        if let scene = UIApplication.shared.connectedScenes.first  {
+                                            if let windowScene = scene as? UIWindowScene {
+                                                let _window = UIWindow(windowScene: windowScene)
+                                                UIApplication.shared.windows.first!.rootViewController = tabbar
+                                                _window.makeKeyAndVisible()
+                                               // scene.window
+
+                                            }
+                                        }
+                                     }
+                                    else {
+                                        self.window?.rootViewController = tabbar
+
+                                     }
+                                    for vc in tabbar.viewControllers! {
+                                        if vc is UINavigationController {
+                                            if let navController = vc as? UINavigationController {
+                                                for _vc in navController.viewControllers {
+                                                   _vc.navigationController?.pushViewController(_detailsController,
+                                                                                                 animated: true)
+                                                     return
+
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                }
+                                else {
+                                    guard let _detailsController = mainStoryBoard.instantiateViewController(withIdentifier: "FRDetailsViewController") as? FRDetailsViewController else { return  }
+                                    _detailsController.reportData = reportData
+                                    if #available(iOS 13.0, *) {
+                                        if let scene = UIApplication.shared.connectedScenes.first  {
+                                            if let windowScene = scene as? UIWindowScene {
+                                                let _window = UIWindow(windowScene: windowScene)
+                                                UIApplication.shared.windows.first!.rootViewController = tabbar
+                                                _window.makeKeyAndVisible()
+                                               // scene.window
+
+                                            }
+                                        }
+                                     }
+                                    else {
+                                        self.window?.rootViewController = tabbar
+
+                                     }
+                                    for vc in tabbar.viewControllers! {
+                                        if vc is UINavigationController {
+                                            if let navController = vc as? UINavigationController {
+                                                for _vc in navController.viewControllers {
+                                                   _vc.navigationController?.pushViewController(_detailsController,
+                                                                                                 animated: true)
+                                                     return
+
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                    
+                                    
+                                }
+
+
+                                
+                                
+                            }
+                            
+
+                        }
+                    case .Failure(let error):
+                            DispatchQueue.main.async {
+                                    
+                            }
+                                             
+                            default:
+                                    print("hi")
+                            }
             
         }
     }
         
-    
+        }
 
 }
 
+}

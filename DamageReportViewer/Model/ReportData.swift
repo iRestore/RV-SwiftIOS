@@ -145,40 +145,56 @@ class ReportData {
         if let sceneImages = data["sceneImages"] as? [[String:Any]]  {
             if sceneImages.count == 2 {
                 if let item = sceneImages[0] as? [String:Any] {
-                    self.img1URL = item["imageUrl"] as! String
-                    self.thumbnail1Path = item["thumbnailUrl"] as! String
+                    if let url = item["imageUrl"] as? String {
+                         self.img1URL = url
+                    }
+                    if let url = item["thumbnailUrl"] as? String {
+                        self.thumbnail1Path = url
+
+                    }
 
                 }
                 if let item = sceneImages[1] as? [String:Any] {
-                    self.img2URL = item["imageUrl"] as! String
-                    self.thumbnail2Path = item["thumbnailUrl"] as! String
+                   if let url = item["imageUrl"] as? String {
+                         self.img2URL = url
+                    }
+                    if let url = item["thumbnailUrl"] as? String {
+                        self.thumbnail2Path = url
+
+                    }
                 }
                
             }
             else if sceneImages.count == 1 {
                 
                 if let item = sceneImages[0] as? [String:Any] {
-                    self.img1URL = item["imageUrl"] as! String
-                    self.thumbnail1Path = item["thumbnailUrl"] as! String
+                    if let url = item["imageUrl"] as? String {
+                         self.img1URL = url
+                    }
+                    if let url = item["thumbnailUrl"] as? String {
+                        self.thumbnail1Path = url
+
+                    }
 
                 }
             }
             
         }
 
-        if ((self.thumbnail1Path != nil
-            && self.thumbnail1Path != "")
-            || ( self.thumbnail2Path != nil
-            && self.thumbnail2Path  != "" ))
-        {
-            self.imageCount = 1
-        }
-        else if(self.thumbnail1Path != nil
+      
+        if(self.thumbnail1Path != nil
                   && self.thumbnail2Path != nil
                   && self.thumbnail2Path != ""
                   && self.thumbnail1Path != ""){
             self.imageCount = 2
-        } else {
+        }  else if ((self.thumbnail1Path != nil
+                  && self.thumbnail1Path != "")
+                  || ( self.thumbnail2Path != nil
+                  && self.thumbnail2Path  != "" ))
+              {
+                  self.imageCount = 1
+              }
+        else {
             self.imageCount = 0
         }
         

@@ -47,8 +47,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate,UIPickerViewDe
         navigationController?.navigationBar.isHidden = true
         self.navigationController?.navigationItem.hidesBackButton = true
         self.navigationController?.navigationBar.isTranslucent = true
-        
-        
+        self.signUpButton.isUserInteractionEnabled = true
     }
     @IBAction func signInClicked(_ sender: UIButton) {
         let prefs : UserDefaults = UserDefaults.standard
@@ -68,6 +67,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate,UIPickerViewDe
 //                appDelegate.displayAlert(message: NSLocalizedString("SELECT_UTILITY", comment: ""), isActionRequired: true)
             }
             else {
+                sender.isUserInteractionEnabled = false
                 self.storeTenantData()
                 let  isOtpRequired = prefs.bool(forKey: Constants.IS_OTP_REQUIRED)
                 if(isOtpRequired) {
@@ -351,6 +351,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate,UIPickerViewDe
             let s3BucketName :String = configurationObj["s3Bucket"] as! String
             self.prefs.set(s3BucketName,forKey: Constants.BUCKET_NAME)
             
+            let profileBucketName :String = configurationObj["profilePicBucket"] as! String
+            UserDefaults.standard.set(profileBucketName,forKey: Constants.PROFILE_BUCKET_NAME)
+            
             if let config  = configurationObj["viewConfig"] as? [String:Any] {
                 self.prefs.set(config,forKey: Constants.DEFAULTS_TENANT_CONFIG)
 
@@ -602,7 +605,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate,UIPickerViewDe
             }
             else if(!isUserApproved) {
                 let loginVc = mainStoryBoard.instantiateViewController(withIdentifier: "SignUpViewController")
-                let nextViewController = mainStoryBoard.instantiateViewController(withIdentifier: "AdminApprovalController")
+                let nextViewController = mainStoryBoard.instantiateViewController(withIdentifier: "AdminApprovalViewController")
                 navigationController?.setViewControllers([loginVc,nextViewController], animated: true)
             }
                 

@@ -167,7 +167,7 @@ class OTPViewController: UIViewController ,UITextFieldDelegate {
                         navigationController?.setViewControllers([loginVc,nextViewController], animated: true)
                     }
                     else if(!isUserApproved) {
-                        let nextViewController = mainStoryBoard.instantiateViewController(withIdentifier: "AdminApprovalController")
+                        let nextViewController = mainStoryBoard.instantiateViewController(withIdentifier: "AdminApprovalViewController")
                         navigationController?.setViewControllers([nextViewController], animated: true)
 
                     }

@@ -16,7 +16,13 @@ enum ButtonTag : Int {
     case kTagImage1_Button = 11, kTagImage2_Button = 12,kTagImage3_Button  = 13
 
 }
-class FRDetailsViewController: UIViewController {
+class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
+
+    @IBOutlet var  damageScopeLabel: UILabel!
+    @IBOutlet var  damagePartLabel: UILabel!
+    @IBOutlet var  iconImgView: UIImageView!
+    @IBOutlet var  tagView: UIView!
+    @IBOutlet var  tagViewHeightConstraint:NSLayoutConstraint!
 
     @IBOutlet var  lblName: UILabel!
     @IBOutlet var  lblEmail: UILabel!
@@ -34,7 +40,7 @@ class FRDetailsViewController: UIViewController {
     @IBOutlet var  tapToExpandPhotoLbl: UILabel!
     @IBOutlet var  tags: UILabel!
     @IBOutlet var  lblTags: UILabel!
-    @IBOutlet var  hasShownDirection: UILabel!
+//    @IBOutlet var  hasShownDirection: UILabel!
     
     @IBOutlet var  img1View:UIImageView!
     @IBOutlet var  img2View:UIImageView!
@@ -52,11 +58,14 @@ class FRDetailsViewController: UIViewController {
     @IBOutlet var  reportDetailsScrollview:UIScrollView!
     @IBOutlet var  tapToExpandPhotoYConstraint:NSLayoutConstraint!
     @IBOutlet var  tapToExpandPhotoBottomConstraint:NSLayoutConstraint!
+
     let appDelegate: AppDelegate        = UIApplication.shared.delegate as! AppDelegate
     var activityIndicator =  ActivityIndicator()
 
     var reportData : ReportData?
-
+    var locationManager : CLLocationManager?
+    var currentLocation : CLLocation?
+    var hasShownDirection = false
     override func viewDidLoad() {
         navigationBarSettings()
         populateData()
@@ -104,9 +113,16 @@ class FRDetailsViewController: UIViewController {
 
             
         }else if (reportData?.imageCount == 2){
-            img1View.load.request(with: NSURL.fileURL(withPath: reportData?.thumbnail1Path ?? ""))
+            img1View.load.request(with: URL.init(string: (reportData?.thumbnail1Path)!) ?? "")
+
+            img3View.load.request(with: URL.init(string: (reportData?.thumbnail2Path)!) ?? "")
             
-            img2View.load.request(with: NSURL.fileURL(withPath: reportData?.thumbnail2Path ?? ""))
+            self.img1View.isHidden = false
+            self.img3View.isHidden = false
+
+            btnImg1View.isEnabled = true
+            btnImg3View.isEnabled = true
+            
             self.img2View.isHidden = true
             btnImg2View.isEnabled = false
         } else {
@@ -152,9 +168,12 @@ class FRDetailsViewController: UIViewController {
             lblDate.text = ""
         }
         
+        damageScopeLabel.text = (reportData?.damageTypeDisplayName) as! String
+        lblDamageType.text =  reportData?.damageSubTypeDisplayName
         
-        lblDamageType.text = "\((reportData?.damageTypeDisplayName)!)/ \((reportData?.damageSubTypeDisplayName)!)"
-        
+        let imageName = "\((reportData?.damageType)!)_icon"
+        iconImgView.image = UIImage.init(named: imageName)
+
         
         if var userAddressArray  = self.reportData?.userAddress?.components(separatedBy: ",") {
             userAddressArray.removeLast()
@@ -299,7 +318,7 @@ class FRDetailsViewController: UIViewController {
 //
 //        }
 //        else {
-            self.reportDetailsScrollview.contentSize = CGSize.init(width: self.reportDetailsScrollview.frame.size.width, height:  self.lblUserAddress.frame.origin.y + self.lblUserAddress.frame.size.height + 2)
+            self.reportDetailsScrollview.contentSize = CGSize.init(width: self.reportDetailsScrollview.frame.size.width, height:  (self.lblUserAddress.frame.origin.y + self.lblUserAddress.frame.size.height + 250))
 //        }
         
         
@@ -307,14 +326,32 @@ class FRDetailsViewController: UIViewController {
     
     
     func hideHeightConstraints() {
-        var str :String = ""
+        //var _ :String = ""
         if let _tagArray =  reportData?.tagArray  as?  [String] {
             if (Helper.shared.nullToNil(value:_tagArray as AnyObject ) != nil && _tagArray.count ?? 0 > 0 ){
-                str = str.appending(_tagArray.joined(separator: ","))
-                self.lblTags.text = str
+                
+                let tagListView  = TagListView.init(frame: CGRect.init(x: 0, y: 0, width: self.tagView.frame.width, height: 100))
+                tagListView.textFont = UIFont(name: "Avenir-Book", size: 15.0) ??  UIFont.systemFont(ofSize: 15)
+                tagListView.textColor = .black
+                tagListView.paddingY = 10
+                tagListView.paddingX = 15
+
+                tagListView.alignment = .left
+                for tag in _tagArray {
+                    let tag = tagListView.addTag(tag)
+                    tag.cornerRadius = 15
+                    tag.tagBackgroundColor = UIColor.init("0xe7e7e7")
+                    tag.enableRemoveButton = false
+                    tag.enableIconButton = false
+                }
+                
+                let size = tagListView.intrinsicContentSize
+                self.tagViewHeightConstraint.constant = size.height
+                self.tagView.addSubview(tagListView)
             }
             else {
-                self.lblTags.text = ""
+                 self.tagViewHeightConstraint.constant = 10
+                //self.lblTags.text = ""
                 //self.tags.text = ""
                 //lblTags.isHidden = true
                 //tags.isHidden = true
@@ -324,14 +361,57 @@ class FRDetailsViewController: UIViewController {
 
       
     }
-//    func downloadImage(path:String) {
+    //MARK: Location Delegates
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        currentLocation = locations.last
+        if(hasShownDirection){
+            self.showDirection()
+        }
+
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+
+    }
+    func  showDirection()
+    {
+        if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
+                UIApplication.shared.openURL(NSURL(string:
+                    "comgooglemaps://?saddr=&daddr=\(currentLocation?.coordinate.latitude),\(currentLocation?.coordinate.longitude)&directionsmode=driving")! as URL)
+
+            } else {
+
 //
-//    }
-
-//    #pragma mark IBAction Methods
+//            NSString* directionsURL = [NSString stringWithFormat:@"http://maps.apple.com/?saddr=%f,%f&daddr=%f,%f",[latitude floatValue], [longitude floatValue], self.reportModel.latitude, self.reportModel.longitude]; //start address(current location) and destinatin address is passed.
+//            [[UIApplication sharedApplication] openURL: [NSURL URLWithString: directionsURL]];
+        }
+        
+        
+        
+        
+        hasShownDirection = false
+    }
+    
+    @IBAction func mapsDirection(_ sender: UIButton) {
+        if(locationManager == nil) {
+            
+            locationManager = CLLocationManager.init()
+            locationManager?.requestAlwaysAuthorization()
+            locationManager?.delegate = self
+           // locationManager?.desiredAccuracy = .k
+        }
+        if(currentLocation == nil){
+               hasShownDirection = true
+               
+           }
+           else {
+                self.showDirection()
+                hasShownDirection = false
+               
+           }
+    }
     
 
-    
     @IBAction func placePhoneCall(_ sender: UIButton) {
         let phone = (self.reportData?.phone)!
         let phoneUrl = URL(string: "telprompt://\(phone)")
@@ -507,8 +587,6 @@ class FRDetailsViewController: UIViewController {
     
     func showFullImage(downloadedImage:UIImage) {
         
-//        let downloadedImage = UIImage(data: data!)
-        print(self.view.bounds)
         let newImageView = UIImageView(image: downloadedImage)
         newImageView.frame = self.view.bounds
         newImageView.backgroundColor = .black

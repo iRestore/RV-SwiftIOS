@@ -67,13 +67,32 @@ class V1ApiClient {
     }
     
     func checkApprovalStatus( completion: @escaping (Result<APIResponse, APIError>) -> ()) {
-        let _phone =  UserDefaults.standard.value(forKey: Constants.PHONE_KEY)//value(Constants.PHONE_KEY) as! String
-            let signupString = "\(v1Domain)\(Constants.ADMIN_APPROVAL_API)appIdentifier=%@=\(_phone)&application=\(Constants.applicationKey)"
+        let _phone =  UserDefaults.standard.value(forKey: Constants.PHONE_KEY) as! String
+            let signupString = "\(v1Domain)\(Constants.ADMIN_APPROVAL_API)appIdentifier=\(_phone)&application=\(Constants.applicationKey)"
                let url = URL(string: signupString)!
                self.doGetRequest(url:url){
                    result in
                        completion(result)
                }
+    }
+    
+    func deleteProfile( completion: @escaping (Result<APIResponse, APIError>) -> ()) {
+        let _email =  UserDefaults.standard.value(forKey: Constants.EMAIL_KEY) as! String
+        let _phone =  UserDefaults.standard.value(forKey: Constants.PHONE_KEY) as! String
+        
+        
+        let signupString = "\(v1Domain)\(Constants.DELETE_PROFILE_API)email=\(_email)&phone=\(_phone)&application=\(Constants.applicationKey)"
+        
+                      let url = URL(string: signupString)!
+                      self.doGetRequest(url:url){
+                          result in
+                              completion(result)
+                      }
+        self.doPostRequest(url: url, requestType: "DELETE", postData: nil){
+                  result in
+                      completion(result)
+              }
+        
     }
     func syncAPI( completion: @escaping (Result<APIResponse, APIError>) -> ())  {
         var newSignUPString = "\(v1Domain)\(Constants.SYNC_API)"
@@ -216,7 +235,7 @@ class V1ApiClient {
         }
     
     
-    func doPostRequest(url:URL,requestType:String,  postData:Data, completion: @escaping (Result<APIResponse, APIError>) -> ()){
+    func doPostRequest(url:URL,requestType:String,  postData:Data?, completion: @escaping (Result<APIResponse, APIError>) -> ()){
         
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = requestType

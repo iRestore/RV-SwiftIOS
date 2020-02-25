@@ -67,9 +67,11 @@ class MultiSelectionListViewController:UITableViewController,UISearchResultsUpda
 //
 //         self.navigationController?.navigationBar.isHidden = false
 //         self.navigationController?.navigationItem.hidesBackButton = false
-//         self.navigationController?.navigationBar.isTranslucent = false
+         self.navigationController?.navigationBar.isTranslucent = true
          
+//        self.extendedLayoutIncludesOpaqueBars = !(self.navigationController?.navigationBar.translucent ?? )
 
+        
          let navigationBarAppearace = UINavigationBar.appearance()
          navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 15.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.black]
         self.navigationItem.title = titleString // NSLocalizedString("Damage Reports", comment: "")
@@ -183,13 +185,23 @@ class MultiSelectionListViewController:UITableViewController,UISearchResultsUpda
             if let displayName = _displayName as? String {
                 if isSingleSelection == true {
                     if selectedIndexPath != nil, let prevSelectedCell =  tableView.cellForRow(at: selectedIndexPath!)
-                    {
-                        prevSelectedCell.accessoryType = .none
+                    {   if selectedIndexPath != indexPath {
+                            prevSelectedCell.accessoryType = .none
+                        }
                     }
                     self.selectedDisplayItems?.removeAll()
-                    self.selectedDisplayItems?.append(displayName)
-                    cell.accessoryType = .checkmark
-                    selectedIndexPath = indexPath
+                    if cell.accessoryType == .checkmark {
+                        cell.accessoryType = .none
+                        selectedIndexPath = nil
+                    }
+                    else {
+                        self.selectedDisplayItems?.append(displayName)
+                        cell.accessoryType = .checkmark
+                        selectedIndexPath = indexPath
+                    }
+                    
+                    //cell.accessoryType = .checkmark
+                   
                     
                 }
                 else {
@@ -200,7 +212,7 @@ class MultiSelectionListViewController:UITableViewController,UISearchResultsUpda
                     else {
                         cell.accessoryType = .checkmark
                     }
-                    //Special Case: Handling NOT Tested Senario
+                    //Special Case: Handling NOT Tested Senario in CPM
                     //*** : Begin
                     if keyName == "inspectionFrequency"{
                         //If we select "Not-Tested", unselect all other frequencies

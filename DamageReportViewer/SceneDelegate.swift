@@ -39,6 +39,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     window.rootViewController = centerNav
                 }
             }
+            else if(isOTPRequired == true){
+                guard let SignUp = mainStoryBoard.instantiateViewController(withIdentifier: "SignUpViewController") as? SignUpViewController else { return  }
+                    guard let otp = mainStoryBoard.instantiateViewController(withIdentifier: "OTPViewController") as? OTPViewController else { return  }
+                    let centerNav = UINavigationController(rootViewController: SignUp)
+                    window.rootViewController = centerNav
+                    centerNav.setViewControllers([SignUp,otp], animated: true)
+            }
             else if(isSubscriptionExists == false){
                 guard let SignUp = mainStoryBoard.instantiateViewController(withIdentifier: "SignUpViewController") as? SignUpViewController else { return  }
                 guard let otp = mainStoryBoard.instantiateViewController(withIdentifier: "CreateProfileViewController") as? CreateProfileViewController else { return  }
@@ -119,6 +126,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
+        doSync()
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
     }
@@ -140,6 +148,202 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.rootViewController?.present(alert, animated: true, completion: nil)
         }
     }
+    func  clearProfile(shouldDeleteFromServer:Bool) {
+        let v1APi =  V1ApiClient .init()
+        v1APi.deleteProfile() {
+            result in
+            _ = DispatchQueue.main.sync() {
+            }
+            print(result)
+            switch result {
+                
+            case .Success(let value):
+                print("success \(value)")
+                break
+            case .Failure(let error):
+                print("error \(error)")
+
+                break
+        
+            }
+        }
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        if let signUp = mainStoryBoard.instantiateViewController(withIdentifier: "SignUpViewController") as? SignUpViewController {
+            let centerNav = UINavigationController(rootViewController: signUp)
+            window?.rootViewController = centerNav
+        }
+
+    }
+    func doSync()
+    {
+                
+                let isSignUpDone =  UserDefaults.standard.bool(forKey: Constants.IS_SIGN_COMPLETED)
+                if isSignUpDone ==  false {
+                    return
+                }
+
+            let apiClient  = V1ApiClient.init()
+            apiClient.syncAPI{
+                result in
+                _ = DispatchQueue.main.sync() {
+                }
+                print(result)
+                switch result {
+                case .Success(let value):
+                         if let responseDict = value.data {
+                            if responseDict["Error"] as! Bool {
+                                
+                                let message =  responseDict["Message"] as! String
+                                self.displayAlert(message: message, isActionRequired: false)
+                                
+                            }
+                            else {
+                                //Reading & Saving the Tenant Data
+                                let isTenantDataExists   = responseDict["Owners"] != nil
+                                if(isTenantDataExists) {
+                                    if let _tenantObjArray   = Helper.shared.nullToNil(value: responseDict["Owners"] as AnyObject ){
+                                        let tenantObjArray:[Any] =  _tenantObjArray as! [Any]
+                                        if(tenantObjArray.count > 0) {
+                                            let tenantObj = tenantObjArray.first as! [String : Any]
+                                            UserDefaults.standard.set(tenantObj["token"], forKey: Constants.accessToken)
+                                            UserDefaults.standard.set(tenantObj["accountKey"], forKey: Constants.accountKey)
+
+                                            var configurationObj = [String :Any]()
+                                            if let _configurationObj =  Helper.shared.convertToDictionary(text: tenantObj["configuration"] as! String) {
+                                                configurationObj = _configurationObj
+                                                
+                                                
+                                                let s3BucketName :String = configurationObj["s3Bucket"] as! String
+                                                UserDefaults.standard.set(s3BucketName,forKey: Constants.BUCKET_NAME)
+                                                
+                                                let profileBucketName :String = configurationObj["profilePicBucket"] as! String
+                                                UserDefaults.standard.set(profileBucketName,forKey: Constants.PROFILE_BUCKET_NAME)
+                                           
+                                                if let config  = configurationObj["viewConfig"] as? [String:Any] {
+                                                UserDefaults.standard.set(config,forKey: Constants.DEFAULTS_TENANT_CONFIG)
+
+                                            }
+                                                
+                                                
+                                                let firebaseDB :String = configurationObj["firestoreCollection"] as! String
+                                                UserDefaults.standard.set(firebaseDB,forKey:Constants.FIREBAE_DB)
+                                            }
+                                            
+                                        }
+                                        
+                                    }
+                                }
+                                    
+    //                            if let appVersion   = responseDict["AppVersion"] as? NSArray {
+    //
+    //                                if  let appVersionObj = appVersion.firstObject as? [String : Any ]{
+    //
+    //                                    let appVersionLocal : String  = Bundle.main.object(forInfoDictionaryKey:"CFBundleShortVersionString" ) as! String
+    //
+    //                                    let appiTunesVersion  = appVersionObj["version"] as! String
+    //
+    //                                    let forceUpgrade : Int = appVersionObj["forceUpgrade"] as! Int
+    //                                    if(forceUpgrade == 1 ) && (appVersionLocal < appiTunesVersion) {
+    //                                        DispatchQueue.main.async() {
+    //                                            let alert = UIAlertController(title: "Update Available", message: String(format: "A new version of Damage Report Viewer is available. Please update to version %@ now.", appiTunesVersion), preferredStyle: UIAlertController.Style.alert)
+    //                                            alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { action in
+    //                                                if let url = URL(string: "itms-apps://itunes.apple.com/"),
+    //                                                    UIApplication.shared.canOpenURL(url){
+    //                                                    if #available(iOS 10.0, *) {
+    //                                                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    //                                                    } else {
+    //                                                        UIApplication.shared.openURL(url)
+    //                                                    }
+    //                                                }
+    //                                            }))
+    //                                            self.window?.makeKeyAndVisible()
+    //                                            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+    //                                        }
+    //                                    }
+    //                                }
+    //                            }
+                                
+                                    if let subscriptions   = responseDict["Subscription"] as? NSArray {
+
+                                    if  let subscriptObj = subscriptions.firstObject as? [String : Any ]{
+                                        
+                                        let userStatus : String = subscriptObj["subscriptionStatus"] as! String
+                                        if(userStatus == "approved" ) {
+                                            
+                                            let existingDeviceString : String = subscriptObj["deviceString"] as! String
+                                            let existingPushNotification : String = subscriptObj["pushNotificationToken"] as! String
+                                            let existingDeviceType : String = subscriptObj["deviceType"] as! String
+                                            let existingDeviceOS  : String = subscriptObj["deviceOs"] as! String
+                                            let existingDeviceModel: String = subscriptObj["deviceModel"] as! String
+                                            let existingDeviceMake: String = subscriptObj["deviceMake"] as! String
+                                            
+                                            let currentDeviceOS : String = UIDevice.current.systemVersion
+                                            let currentDeviceType  :String = UIDevice.current.systemName
+                                            let currentDeviceMake  :String = "Apple"
+                                            let currentDeviceModel  :String = UIDevice.current.model
+                                            let currentDeviceString  : String = UserDefaults.standard.object(forKey: "RandomNumber") as! String
+                                            var currentPushNotification  : String = ""
+                                            if let pushNot = UserDefaults.standard.object(forKey: Constants.pushNotificationKey) as? String {
+                                                currentPushNotification = pushNot
+                                            }
+                                            if currentDeviceString != existingDeviceString {
+                                                self.displayAlert(message: Constants.USER_DEVICE_STRING_MISMATCH_TEXT, isActionRequired: false)
+                                                return
+                                            }
+                                            else if (existingPushNotification != currentPushNotification || existingDeviceType != currentDeviceType || existingDeviceOS != currentDeviceOS || existingDeviceModel != currentDeviceModel ||   existingDeviceMake != currentDeviceMake ) {
+                                                apiClient.updateDeviceConfiguration(){
+                                                    result in
+                                                    switch result {
+                                                    case .Success(let value):  break
+                                                        case .Failure(let error):
+                                                                                      print("the error \(error.errormessage)")
+                                                
+                                                    }
+                                            //}
+                                        }
+                                         }
+                        
+                                        
+                                        
+                                    }
+                                    else if (userStatus == "revoked") {
+                                                                let alert = UIAlertController(title: "Alert", message: Constants.USER_REVOKED_ALERT_TEXT, preferredStyle: UIAlertController.Style.alert)
+                                                            self.window?.makeKeyAndVisible()
+                                                            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+                                                            
+                                                        }
+                                                        else if (userStatus == "rejected"){
+                                                            let alert = UIAlertController(title: "Alert", message: Constants.USER_REJECTED_ALERT_TEXT, preferredStyle: UIAlertController.Style.alert)
+                                                            self.window?.makeKeyAndVisible()
+                                                            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+                                                            
+                                                            return;
+                                                        }
+                                        else {
+                                                    let alert = UIAlertController(title: "Alert", message: Constants.USER_SUBSCRIPTION_DOESNOT_EXISTS_ALERT_TEXT, preferredStyle: UIAlertController.Style.alert)
+                                            self.window?.makeKeyAndVisible()
+                                            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+                                            return;
+                                        }
+                                    
+                                }
+                            
+                            }
+                         }
+           
+                         }
+                        break
+                
+     
+                            
+                case .Failure(let error):
+                                   print("the error \(error.errormessage)")
+                }
+                  
+                
+                
+            }
+        }
     
 
 }

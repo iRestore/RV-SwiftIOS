@@ -124,8 +124,23 @@ class V2ApiClient {
            
         }
     
-    
-    
+    func getDetails(reportId:String , completion: @escaping (Result<APIResponse, APIError>) -> ()) {
+                var newFilterDictionary = [String:Any]()
+                do {
+                   let data
+                       = try JSONSerialization.data(withJSONObject: newFilterDictionary, options: [])
+                    let urlString = "https://\(v2Domain)\(Constants.GETREPORT_DETAILS_V2_URL)\(reportId)"
+                           let url = URL(string: urlString)!
+                    self.doGetRequest(url: url){
+                               result in
+                                   print(result)
+                                   completion(result)
+                           }
+                } catch {
+                           print(error.localizedDescription)
+                }
+               
+            }
     
     /*
         Generic get request

@@ -9,20 +9,46 @@
 import UIKit
 import Firebase
 
-class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate,UITableViewDataSource {
+class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating {
+   
+    
         @IBOutlet weak var scopeTableView:UITableView!
+        @IBOutlet weak var searchBar:UISearchBar!
+        @IBOutlet weak var topView:UIView!
+
+        var resultSearchController = UISearchController()
+        var isSearchRequired:Bool = true
         var isFRRequired = false
         var isVDARequired = false
         var activityIndicator =  ActivityIndicator()
-        var scopeArray = [[String:Any]]()
-        var partsDict = [String:Any]()
         var titleString = ""
         var selectedScopesArray = [String]()
         var selectedPartsArray = [String]()
         var selectedReportTypes = [String]()
         var scopeDict = [String:String]()
         var delegate:ScopeDelegate?
+        var filteredItems: NSMutableArray?
+        var filteredscopeArray = [[String:Any]]()
+        var scopeArray = [[String:Any]]()
+        var partsDict = [String:Any]()
+        var filteredPartsDict = [String:Any]()
+
+
+    
+    
         override func viewDidLoad() {
+            //self.searchBar.isHidden = true
+            if isSearchRequired == true {
+                resultSearchController = ({
+                    let controller = UISearchController(searchResultsController: nil)
+                    controller.searchResultsUpdater = self as? UISearchResultsUpdating
+                    controller.dimsBackgroundDuringPresentation = false
+                    controller.searchBar.sizeToFit()
+                    self.topView.addSubview(controller.searchBar)
+                    //controller.searchBar = searchBar
+                    return controller
+                })()
+            }
             navigationBarSettings()
             fetchDataFromFireStore()
         }
@@ -204,19 +230,71 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
            }
        }
     @objc func scopeButtonTapped(_ sender: UIButton) {
-        
-        let index = sender.tag - 1
-        if  var  itemDict =  self.scopeArray[index] as? [String:Any] {
-            if (itemDict["isSelected"] as? Int) == 1 {
-                itemDict["isSelected"] = 0
-            }
-            else {
-                itemDict["isSelected"] = 1
+        if  (resultSearchController.isActive) {
+            let index = sender.tag - 1
+            if  var  itemDict =  self.filteredscopeArray[index] as? [String:Any] {
+                
+                if (itemDict["isSelected"] as? Int) == 1 {
+                    itemDict["isSelected"] = 0
+                }
+                else {
+                    itemDict["isSelected"] = 1
+                    
+                }
+                self.filteredscopeArray[index] = itemDict
+                
+                if let data = self.filteredscopeArray[index] as? [String:Any] {
+                    let id = "\(data["dmgId"])"
+                    let originalScopeArrayIndex = self.scopeArray.firstIndex(where: { ($0["dmgCategoryKey"] as? String) == data["dmgCategoryKey"] as? String})
+                    if originalScopeArrayIndex != nil &&  originalScopeArrayIndex ?? 0 >= 0 {
+                        self.scopeArray[originalScopeArrayIndex!] = itemDict
 
+                    }
+                    
+                    if var itemsArray = self.filteredPartsDict[id] as? [[String:Any]] {
+                        var index = 0
+                        for  item  in itemsArray {
+                            var itemCopy = item
+                            itemCopy["isSelected"] = itemDict["isSelected"]
+                            itemsArray[index] = itemCopy
+                            index = index +  1
+                        }
+                        self.filteredPartsDict[id] = itemsArray
+                        
+                        
+                    }
+                    //To persist the part selection
+                    if var itemsArray = self.partsDict[id] as? [[String:Any]] {
+                        var index = 0
+                        for  item  in itemsArray {
+                            var itemCopy = item
+                            itemCopy["isSelected"] = itemDict["isSelected"]
+                            itemsArray[index] = itemCopy
+                            index = index +  1
+                        }
+                        self.partsDict[id] = itemsArray
+                    }
+                    
+                    
+                    
+                }
+                self.scopeTableView.reloadData()
+                
             }
-            self.scopeArray[index] = itemDict
-
-            if let data = self.scopeArray[index] as? [String:Any] {
+        }
+        else {
+            let index = sender.tag - 1
+            if  var  itemDict =  self.scopeArray[index] as? [String:Any] {
+                if (itemDict["isSelected"] as? Int) == 1 {
+                    itemDict["isSelected"] = 0
+                }
+                else {
+                    itemDict["isSelected"] = 1
+                    
+                }
+                self.scopeArray[index] = itemDict
+                
+                if let data = self.scopeArray[index] as? [String:Any] {
                     let id = "\(data["dmgId"])"
                     if var itemsArray = self.partsDict[id] as? [[String:Any]] {
                         var index = 0
@@ -227,63 +305,143 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
                             index = index +  1
                         }
                         self.partsDict[id] = itemsArray
-
+                        
                     }
-
-
+                    
+                    
+                }
+                self.scopeTableView.reloadData()
+                
             }
-            self.scopeTableView.reloadData()
-            
         }
-        //sender.setImage(UIImage.init(named: "greenTick"), for: .normal)
     }
     
     @objc func cellButtonTapped(_ sender: UIButton) {
         print (sender.tag)
         let section = sender.tag / 100
         let row = sender.tag % 100
-        
         var sectionIndex = 0
-        for  data in self.scopeArray {
-            var selectedPartsCount = 0
-            var dataCopy = data
-            if section == sectionIndex {
-                let id = "\(data["dmgId"])"
-                if var itemsArray = self.partsDict[id] as? [[String:Any]] {
-                    var rowIndex = 0
-                    for  item  in itemsArray {
-                        var itemCopy = item
-                        if rowIndex == row{
-                            if (itemCopy["isSelected"] as! Int) == 1 {
-                                itemCopy["isSelected"] = 0
+        if  (resultSearchController.isActive) {
+
+            for  data in self.filteredscopeArray {
+                var selectedPartsCount = 0
+                var dataCopy = data
+                if section == sectionIndex {
+                    let id = "\(data["dmgId"])"
+                    if var itemsArray = self.filteredPartsDict[id] as? [[String:Any]] {
+                        var rowIndex = 0
+                        for  item  in itemsArray {
+                            var itemCopy = item
+                            if rowIndex == row{
+                                if (itemCopy["isSelected"] as! Int) == 1 {
+                                    itemCopy["isSelected"] = 0
+                                }
+                                else {
+                                    itemCopy["isSelected"] = 1
+                                }
+                                itemsArray[rowIndex] = itemCopy
+                                //break
                             }
-                            else {
-                                itemCopy["isSelected"] = 1
+                            if (itemCopy["isSelected"] as! Int)  == 1 {
+                                selectedPartsCount = selectedPartsCount + 1
                             }
-                            itemsArray[rowIndex] = itemCopy
-                            //break
+                            rowIndex = rowIndex +  1
                         }
-                        if (itemCopy["isSelected"] as! Int)  == 1 {
-                            selectedPartsCount = selectedPartsCount + 1
+                        self.filteredPartsDict[id] = itemsArray
+                        
+                        let actualCount = (self.partsDict[id] as! [[String:Any]] ) .count
+                        if ( selectedPartsCount == actualCount) {
+                            dataCopy["isSelected"] = 1
                         }
-                        rowIndex = rowIndex +  1
+                        else if selectedPartsCount > 0 {
+                            dataCopy["isSelected"] = -1
+                        }
+                        else {
+                            dataCopy["isSelected"] = 0
+                        }
+                        
                     }
-                    self.partsDict[id] = itemsArray
-                    if ( selectedPartsCount == itemsArray.count) {
-                        dataCopy["isSelected"] = 1
-                    }
-                    else if selectedPartsCount > 0 {
-                        dataCopy["isSelected"] = -1
-                    }
-                    else {
-                        dataCopy["isSelected"] = 0
+                    self.filteredscopeArray [sectionIndex] = dataCopy
+                    
+                    // We have to also select the original scopes and part
+                    if var itemsArray = self.partsDict[id] as? [[String:Any]] {
+                        let searchItemsArray = self.filteredPartsDict[id] as! [[String:Any]]
+                        var index = 0
+                        for  item  in itemsArray {
+                            for searchItem  in searchItemsArray {
+                                let itemKey = item["dmgCategoryKey"] as! String
+                                let searchitemKey = searchItem["dmgCategoryKey"] as! String
+                                if itemKey  == searchitemKey {
+                                    var itemCopy = item
+                                    itemCopy = searchItem
+                                    itemsArray[index] = itemCopy
+
+                                    
+                                }
+                                
+                            }
+                            index =  index + 1
+                            
+                            
+                        }
+                        self.partsDict[id] = itemsArray
+                        let originalScopeArrayIndex = self.scopeArray.firstIndex(where: { ($0["dmgCategoryKey"] as? String) == dataCopy["dmgCategoryKey"] as? String})
+                        if originalScopeArrayIndex != nil &&  originalScopeArrayIndex ?? 0 >= 0 {
+                            self.scopeArray[originalScopeArrayIndex!] = dataCopy
+
+                        }
+                                                
+
                     }
                     
+                    
                 }
-                self.scopeArray [sectionIndex] = dataCopy
-                
+                sectionIndex = sectionIndex +  1
             }
-            sectionIndex = sectionIndex +  1
+            
+        }
+        else {
+            for  data in self.scopeArray {
+                var selectedPartsCount = 0
+                var dataCopy = data
+                if section == sectionIndex {
+                    let id = "\(data["dmgId"])"
+                    if var itemsArray = self.partsDict[id] as? [[String:Any]] {
+                        var rowIndex = 0
+                        for  item  in itemsArray {
+                            var itemCopy = item
+                            if rowIndex == row{
+                                if (itemCopy["isSelected"] as! Int) == 1 {
+                                    itemCopy["isSelected"] = 0
+                                }
+                                else {
+                                    itemCopy["isSelected"] = 1
+                                }
+                                itemsArray[rowIndex] = itemCopy
+                                //break
+                            }
+                            if (itemCopy["isSelected"] as! Int)  == 1 {
+                                selectedPartsCount = selectedPartsCount + 1
+                            }
+                            rowIndex = rowIndex +  1
+                        }
+                        self.partsDict[id] = itemsArray
+                        if ( selectedPartsCount == itemsArray.count) {
+                            dataCopy["isSelected"] = 1
+                        }
+                        else if selectedPartsCount > 0 {
+                            dataCopy["isSelected"] = -1
+                        }
+                        else {
+                            dataCopy["isSelected"] = 0
+                        }
+                        
+                    }
+                    self.scopeArray [sectionIndex] = dataCopy
+                    
+                }
+                sectionIndex = sectionIndex +  1
+            }
         }
         self.scopeTableView.reloadData()
     }
@@ -340,16 +498,95 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
         self.scopeTableView.reloadData()
     }
 
+    //MARK: Search Delegates
+    func updateSearchResults(for searchController: UISearchController) {
+        self.filteredscopeArray.removeAll()
+        self.filteredPartsDict.removeAll()
+        let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchController.searchBar.text!)
+        let filteredArray = self.scopeArray.filter { (($0["displayName"] as? String)?.contains(searchController.searchBar.text!) ?? false )}
+        if filteredArray.count > 0 {
+            for filteredItem in filteredArray {
+                self.filteredscopeArray.append(filteredItem)
+                if let _filteredItem = filteredItem as? [String:Any] {
+                    let id = "\(_filteredItem["dmgId"])"
+                    if let itemsArray = self.partsDict[id] {
+                        self.filteredPartsDict[id] = itemsArray
+
+                    }
+
+                }
+                
+            }
+            
+        }
+
+        for item in self.scopeArray {
+            if let _item = item as? [String:Any] {
+                let id = "\(_item["dmgId"])"
+                if let itemsArray = self.partsDict[id] as? [[String:Any]]{
+                    let filteredPartsArray = itemsArray.filter { (($0["displayName"] as? String)?.contains(searchController.searchBar.text!) ?? false )}
+                    if filteredPartsArray.count > 0 {
+                        if !self.filteredscopeArray.contains{ $0["dmgCategoryKey"] as? String == _item["dmgCategoryKey"] as? String } {
+                            self.filteredscopeArray.append(_item)
+                            self.filteredPartsDict[id] = filteredPartsArray
+
+                          
+                        }
+                        
+                    }
+                }
+
+            }
+        }
+   
+        
+        self.scopeTableView.reloadData()
+
+    }
+    
     // MARK: TableView Delegate and Datasources
     func numberOfSections(in tableView: UITableView) -> Int
     {
-        return self.scopeArray.count
+        if  (resultSearchController.isActive) {
+                return self.filteredscopeArray.count
+        }
+        else{
+            return self.scopeArray.count
+        }
 
     }
     
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
+         if  (resultSearchController.isActive) {
+            let headerCell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! HeaderCell
+            if let data = self.filteredscopeArray[section] as? [String:Any] {
+                headerCell.title.text = data["displayName"] as? String
+                let imageName = "\((data["dmgCategoryKey"])!)_icon"
+                headerCell.imgView?.image = UIImage.init(named: imageName)
+                headerCell.selectButton.tag = section + 1
+                headerCell.selectButton.addTarget(self, action:  #selector(DamageScopeSelectionViewController.scopeButtonTapped(_ :)), for: .touchUpInside)
+                let isSelected = data["isSelected"] as! Int
+                if isSelected == 1 {
+                    headerCell.selectButton.setImage(UIImage.init(named: "greenTick"), for: .normal)
+
+                }
+                else if isSelected == 0 {
+                    headerCell.selectButton.setImage(UIImage.init(named: "whiteCircle"), for: .normal)
+
+                }
+                else {
+                    headerCell.selectButton.setImage(UIImage.init(named: "greenMinus"), for: .normal)
+
+                }
+                
+                    
+                
+            }
+            return headerCell
+        }
+         else {
             let headerCell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! HeaderCell
             if let data = self.scopeArray[section] as? [String:Any] {
                 headerCell.title.text = data["displayName"] as? String
@@ -375,6 +612,7 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
                 
             }
             return headerCell
+        }
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
             return 60
@@ -386,21 +624,72 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
       
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let data = self.scopeArray[section] as? [String:Any] {
-            let id = "\(data["dmgId"])"
-            if let itemsArray = self.partsDict[id] {
-                return (itemsArray as AnyObject).count
-
+        if  (resultSearchController.isActive) {
+            if let data = self.filteredscopeArray[section] as? [String:Any] {
+                let id = "\(data["dmgId"])"
+                if let itemsArray = self.filteredPartsDict[id] {
+                    return (itemsArray as AnyObject).count
+                    
+                }
+                else {
+                    return 0
+                }
             }
             else {
-               return 0
+                return 0
             }
         }
         else {
-             return 0
+            if let data = self.scopeArray[section] as? [String:Any] {
+                let id = "\(data["dmgId"])"
+                if let itemsArray = self.partsDict[id] {
+                    return (itemsArray as AnyObject).count
+                    
+                }
+                else {
+                    return 0
+                }
+            }
+            else {
+                return 0
+            }
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
+        if  (resultSearchController.isActive) {
+        
+        var cell:  ItemCell  = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)   as! ItemCell
+            if let data = self.filteredscopeArray[indexPath.section] as? [String:Any] {
+                let id = "\(data["dmgId"])"
+                if let itemsArray = self.filteredPartsDict[id] as? [[String:Any]] {
+                    if let data = itemsArray[indexPath.row] as? [String:Any]  {
+                        cell.selectButton.tag = (indexPath.section*100)+indexPath.row
+                        cell.title.text = data["displayName"] as? String
+                        let isSelected = data["isSelected"] as! Int
+                        if isSelected == 1 {
+                            cell.selectButton.setImage(UIImage.init(named: "greenTick"), for: .normal)
+
+                        }
+                        else {
+                            cell.selectButton.setImage(UIImage.init(named: "whiteCircle"), for: .normal)
+
+                        }
+                        
+                    }
+                   
+                    cell.selectButton.addTarget(self, action:  #selector(DamageScopeSelectionViewController.cellButtonTapped(_ :)), for: .touchUpInside)
+
+                }
+            
+            return cell
+            
+        }
+        return UITableViewCell()
+        }
+        else {
+        
         var cell:  ItemCell  = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath)   as! ItemCell
             if let data = self.scopeArray[indexPath.section] as? [String:Any] {
                 let id = "\(data["dmgId"])"
@@ -428,6 +717,7 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
             
         }
         return UITableViewCell()
+        }
     }
 }
 

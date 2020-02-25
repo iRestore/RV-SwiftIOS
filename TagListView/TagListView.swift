@@ -10,7 +10,7 @@ import UIKit
 
 @objc public protocol TagListViewDelegate {
     @objc optional func tagPressed(_ title: String, tagView: TagView, sender: TagListView) -> Void
-    @objc optional func tagRemoveButtonPressed(_ title: String, tagView: TagView, sender: TagListView) -> Void
+    @objc optional func tagRemoveButtonPressed(_ title: String,tagType:String, tagView: TagView, sender: TagListView) -> Void
 }
 
 @IBDesignable
@@ -409,7 +409,7 @@ open class TagListView: UIView {
     
     @objc func removeButtonPressed(_ closeButton: CloseButton!) {
         if let tagView = closeButton.tagView {
-            delegate?.tagRemoveButtonPressed?(tagView.currentTitle ?? "", tagView: tagView, sender: self)
+            delegate?.tagRemoveButtonPressed?(tagView.currentTitle ?? "",tagType:tagView.tagType ?? "", tagView: tagView, sender: self)
         }
     }
 }
