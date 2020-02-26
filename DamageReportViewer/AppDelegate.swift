@@ -9,6 +9,9 @@
 import UIKit
 import GoogleMaps
 import Firebase
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey("AIzaSyD6TXyRawmCPlDPLs-RASPU2SErg3aYHpY")
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = true
+        MSAppCenter.start("765fe5b6-99b9-4ae9-b5ea-d20951a50806", withServices:[ MSAnalytics.self, MSCrashes.self ])
         if #available(iOS 13.0, *) {
 
             
