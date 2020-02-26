@@ -178,14 +178,14 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "18B38CBE-84EE-47B4-9A1A-4E8873122B5F - e1108e004827d47a"
+                  uuid = "18B38CBE-84EE-47B4-9A1A-4E8873122B5F - 68214e04c4737eeb"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "DamageReportViewer.V1ApiClient.createProfile(postData: Foundation.Data, completion: (DamageReportViewer.Result&lt;DamageReportViewer.APIResponse, DamageReportViewer.APIError&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "DamageReportViewer"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/DRV/RV-SwiftIOS/DamageReportViewer/Utility/V1ApiClient.swift"
+                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/ReportingApp/Drv/RV-SwiftIOS/DamageReportViewer/Utility/V1ApiClient.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "181"
@@ -193,14 +193,14 @@
                   offsetFromSymbolStart = "968">
                </Location>
                <Location
-                  uuid = "18B38CBE-84EE-47B4-9A1A-4E8873122B5F - d0036e87d78ddf6f"
+                  uuid = "18B38CBE-84EE-47B4-9A1A-4E8873122B5F - 5932ae835bd975fe"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 (DamageReportViewer.Result&lt;DamageReportViewer.APIResponse, DamageReportViewer.APIError&gt;) -&gt; () in DamageReportViewer.V1ApiClient.createProfile(postData: Foundation.Data, completion: (DamageReportViewer.Result&lt;DamageReportViewer.APIResponse, DamageReportViewer.APIError&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "DamageReportViewer"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/DRV/RV-SwiftIOS/DamageReportViewer/Utility/V1ApiClient.swift"
+                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/ReportingApp/Drv/RV-SwiftIOS/DamageReportViewer/Utility/V1ApiClient.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "183"
@@ -512,6 +512,38 @@
             endingLineNumber = "141"
             landmarkName = "clearProfile(shouldDeleteFromServer:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C512C981-F0D4-4473-BCE8-7BC538D23D04 - f04a61999f38e073"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (DamageReportViewer.Result&lt;DamageReportViewer.APIResponse, DamageReportViewer.APIError&gt;) -&gt; () in DamageReportViewer.AppDelegate.clearProfile(shouldDeleteFromServer: Swift.Bool) -&gt; ()"
+                  moduleName = "DamageReportViewer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/ReportingApp/Drv/RV-SwiftIOS/DamageReportViewer/AppDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "141"
+                  endingLineNumber = "141"
+                  offsetFromSymbolStart = "572">
+               </Location>
+               <Location
+                  uuid = "C512C981-F0D4-4473-BCE8-7BC538D23D04 - f04a61999f38e073"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (DamageReportViewer.Result&lt;DamageReportViewer.APIResponse, DamageReportViewer.APIError&gt;) -&gt; () in DamageReportViewer.AppDelegate.clearProfile(shouldDeleteFromServer: Swift.Bool) -&gt; ()"
+                  moduleName = "DamageReportViewer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/ReportingApp/Drv/RV-SwiftIOS/DamageReportViewer/AppDelegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "141"
+                  endingLineNumber = "141"
+                  offsetFromSymbolStart = "636">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -674,14 +706,14 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "52667872-A21F-497D-AED7-B79FE6B96E6A - f9da48ae676b7d8a"
+                  uuid = "52667872-A21F-497D-AED7-B79FE6B96E6A - c1c7921025f7cd44"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 (DamageReportViewer.Result&lt;DamageReportViewer.APIResponse, DamageReportViewer.APIError&gt;) -&gt; () in DamageReportViewer.UpdateProfileViewController.updateInfo() -&gt; ()"
                   moduleName = "DamageReportViewer"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/DRV/RV-SwiftIOS/DamageReportViewer/ViewControllers/UpdateProfileViewController.swift"
+                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/ReportingApp/Drv/RV-SwiftIOS/DamageReportViewer/ViewControllers/UpdateProfileViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "372"
@@ -689,14 +721,14 @@
                   offsetFromSymbolStart = "264">
                </Location>
                <Location
-                  uuid = "52667872-A21F-497D-AED7-B79FE6B96E6A - f9da48ae676b7d8a"
+                  uuid = "52667872-A21F-497D-AED7-B79FE6B96E6A - c1c7921025f7cd44"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 (DamageReportViewer.Result&lt;DamageReportViewer.APIResponse, DamageReportViewer.APIError&gt;) -&gt; () in DamageReportViewer.UpdateProfileViewController.updateInfo() -&gt; ()"
                   moduleName = "DamageReportViewer"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/DRV/RV-SwiftIOS/DamageReportViewer/ViewControllers/UpdateProfileViewController.swift"
+                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/ReportingApp/Drv/RV-SwiftIOS/DamageReportViewer/ViewControllers/UpdateProfileViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "372"
@@ -722,14 +754,14 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "1A750B79-7E5A-4469-B36B-724918911744 - f9da48ae676b7d8a"
+                  uuid = "1A750B79-7E5A-4469-B36B-724918911744 - c1c7921025f7cd44"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 (DamageReportViewer.Result&lt;DamageReportViewer.APIResponse, DamageReportViewer.APIError&gt;) -&gt; () in DamageReportViewer.UpdateProfileViewController.updateInfo() -&gt; ()"
                   moduleName = "DamageReportViewer"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/DRV/RV-SwiftIOS/DamageReportViewer/ViewControllers/UpdateProfileViewController.swift"
+                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/ReportingApp/Drv/RV-SwiftIOS/DamageReportViewer/ViewControllers/UpdateProfileViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "385"
@@ -737,14 +769,14 @@
                   offsetFromSymbolStart = "1648">
                </Location>
                <Location
-                  uuid = "1A750B79-7E5A-4469-B36B-724918911744 - a6b38384af23cfc3"
+                  uuid = "1A750B79-7E5A-4469-B36B-724918911744 - 9eae593aedbf7f0d"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 () -&gt; () in closure #1 (DamageReportViewer.Result&lt;DamageReportViewer.APIResponse, DamageReportViewer.APIError&gt;) -&gt; () in DamageReportViewer.UpdateProfileViewController.updateInfo() -&gt; ()"
                   moduleName = "DamageReportViewer"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/DRV/RV-SwiftIOS/DamageReportViewer/ViewControllers/UpdateProfileViewController.swift"
+                  urlString = "file:///Users/greeshma/Documents/Greeshma/Work/Projects/iRestore/ReportingApp/Drv/RV-SwiftIOS/DamageReportViewer/ViewControllers/UpdateProfileViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "386"
