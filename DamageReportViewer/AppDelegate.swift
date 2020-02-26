@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey("AIzaSyD6TXyRawmCPlDPLs-RASPU2SErg3aYHpY")
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = true
-        MSAppCenter.start("765fe5b6-99b9-4ae9-b5ea-d20951a50806", withServices:[ MSAnalytics.self, MSCrashes.self ])
+        MSAppCenter.start("a59fe333-26a5-4ae0-8eda-a4294075690d", withServices:[ MSAnalytics.self, MSCrashes.self ])
         if #available(iOS 13.0, *) {
 
             
