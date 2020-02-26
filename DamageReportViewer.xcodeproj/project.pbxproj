@@ -45,9 +45,9 @@
 		1ADEFC512397C66C007B7E30 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEFC502397C66C007B7E30 /* Helper.swift */; };
 		1ADEFC532397CBBE007B7E30 /* V1ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEFC522397CBBE007B7E30 /* V1ApiClient.swift */; };
 		1ADEFC552397CBD9007B7E30 /* V2ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEFC542397CBD9007B7E30 /* V2ApiClient.swift */; };
-		B5FFDA08A0586B3ECFB5E819 /* Pods_DamageReportViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61A4ACE109EB76C02CE751FD /* Pods_DamageReportViewer.framework */; };
-		B6C407D12AEA5C0114828AA4 /* Pods_DamageReportViewerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 085B9C1DDE6E9F579D4D4352 /* Pods_DamageReportViewerTests.framework */; };
-		F66D0D4F716AF85CE3695FA0 /* Pods_DamageReportViewer_DamageReportViewerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDDA71A707F0E8699D43852B /* Pods_DamageReportViewer_DamageReportViewerUITests.framework */; };
+		5CC1A6C4BE45993DE27E8D9F /* Pods_DamageReportViewerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C5C7837C00760187D84432A /* Pods_DamageReportViewerTests.framework */; };
+		62D9536197582F26831F86B8 /* Pods_DamageReportViewer_DamageReportViewerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 568F6575882BDBA82E7932BD /* Pods_DamageReportViewer_DamageReportViewerUITests.framework */; };
+		9CA171A820037DC5F1A9C930 /* Pods_DamageReportViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AD6DB31BF8740A32F7A126B /* Pods_DamageReportViewer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,9 +68,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		085B9C1DDE6E9F579D4D4352 /* Pods_DamageReportViewerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DamageReportViewerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		12FC501045C428F912E161C0 /* Pods-DamageReportViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer.debug.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer.debug.xcconfig"; sourceTree = "<group>"; };
-		18F0DF6A1CA683934E9A7AAC /* Pods-DamageReportViewer.debug qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer.debug qa.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer.debug qa.xcconfig"; sourceTree = "<group>"; };
+		13CD656D49A1BD9A1AF59803 /* Pods-DamageReportViewerTests.release dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewerTests.release dev.xcconfig"; path = "Target Support Files/Pods-DamageReportViewerTests/Pods-DamageReportViewerTests.release dev.xcconfig"; sourceTree = "<group>"; };
 		1A1D33FF23C5D59C0045CCCF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		1A1D340123C6456D0045CCCF /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		1A27AE3723A0A32200EF20C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -122,30 +120,32 @@
 		1ADEFC522397CBBE007B7E30 /* V1ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V1ApiClient.swift; sourceTree = "<group>"; };
 		1ADEFC542397CBD9007B7E30 /* V2ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V2ApiClient.swift; sourceTree = "<group>"; };
 		1AFC9B7D23DE908700AF8A59 /* DamageReportViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DamageReportViewer.entitlements; sourceTree = "<group>"; };
-		214C02EA80D3AD691AB512EF /* Pods-DamageReportViewer-DamageReportViewerUITests.release qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer-DamageReportViewerUITests.release qa.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests.release qa.xcconfig"; sourceTree = "<group>"; };
-		2A4890E93C5498C5382615B3 /* Pods-DamageReportViewer-DamageReportViewerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer-DamageReportViewerUITests.release.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests.release.xcconfig"; sourceTree = "<group>"; };
-		2B8D669042F72263A7BE9BF4 /* Pods-DamageReportViewerTests.debug beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewerTests.debug beta.xcconfig"; path = "Target Support Files/Pods-DamageReportViewerTests/Pods-DamageReportViewerTests.debug beta.xcconfig"; sourceTree = "<group>"; };
-		2F3E02F1C8C33BFEA630EACB /* Pods-DamageReportViewerTests.debug dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewerTests.debug dev.xcconfig"; path = "Target Support Files/Pods-DamageReportViewerTests/Pods-DamageReportViewerTests.debug dev.xcconfig"; sourceTree = "<group>"; };
-		3BA969FA07A386F0ABD3FE91 /* Pods-DamageReportViewer-DamageReportViewerUITests.release beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer-DamageReportViewerUITests.release beta.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests.release beta.xcconfig"; sourceTree = "<group>"; };
-		43562BEE2E1D720B3AB3B610 /* Pods-DamageReportViewerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewerTests.release.xcconfig"; path = "Target Support Files/Pods-DamageReportViewerTests/Pods-DamageReportViewerTests.release.xcconfig"; sourceTree = "<group>"; };
-		496E118323FCB5AAA6135B67 /* Pods-DamageReportViewerTests.release qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewerTests.release qa.xcconfig"; path = "Target Support Files/Pods-DamageReportViewerTests/Pods-DamageReportViewerTests.release qa.xcconfig"; sourceTree = "<group>"; };
-		4C3B4EAE82310FDC3ACDA261 /* Pods-DamageReportViewer.release qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer.release qa.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer.release qa.xcconfig"; sourceTree = "<group>"; };
-		5A4427EC4A28D96A1480B88A /* Pods-DamageReportViewerTests.release dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewerTests.release dev.xcconfig"; path = "Target Support Files/Pods-DamageReportViewerTests/Pods-DamageReportViewerTests.release dev.xcconfig"; sourceTree = "<group>"; };
-		61A4ACE109EB76C02CE751FD /* Pods_DamageReportViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DamageReportViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C96998818D5B64496DAD9BD /* Pods-DamageReportViewer.release beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer.release beta.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer.release beta.xcconfig"; sourceTree = "<group>"; };
-		7A8ED880DDA066577BA1EFC5 /* Pods-DamageReportViewer.debug dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer.debug dev.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer.debug dev.xcconfig"; sourceTree = "<group>"; };
-		88BF4CB71B2894B52145CD6D /* Pods-DamageReportViewer.debug beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer.debug beta.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer.debug beta.xcconfig"; sourceTree = "<group>"; };
-		99C0D4508EF4D265F33E4D52 /* Pods-DamageReportViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer.release.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer.release.xcconfig"; sourceTree = "<group>"; };
-		9D0FCDEBAD351C08EE045C1B /* Pods-DamageReportViewerTests.release beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewerTests.release beta.xcconfig"; path = "Target Support Files/Pods-DamageReportViewerTests/Pods-DamageReportViewerTests.release beta.xcconfig"; sourceTree = "<group>"; };
-		C1318F29CC9440618B8A7414 /* Pods-DamageReportViewerTests.debug qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewerTests.debug qa.xcconfig"; path = "Target Support Files/Pods-DamageReportViewerTests/Pods-DamageReportViewerTests.debug qa.xcconfig"; sourceTree = "<group>"; };
-		C63EC1F7E23EE4A91FD8A6E8 /* Pods-DamageReportViewer-DamageReportViewerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer-DamageReportViewerUITests.debug.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		CA45F39F04CB5BA51412D432 /* Pods-DamageReportViewer-DamageReportViewerUITests.release dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer-DamageReportViewerUITests.release dev.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests.release dev.xcconfig"; sourceTree = "<group>"; };
-		CEC198624D6799F93C60800C /* Pods-DamageReportViewer-DamageReportViewerUITests.debug beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer-DamageReportViewerUITests.debug beta.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests.debug beta.xcconfig"; sourceTree = "<group>"; };
-		DDDA71A707F0E8699D43852B /* Pods_DamageReportViewer_DamageReportViewerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DamageReportViewer_DamageReportViewerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF25D7D64251F212223CF61A /* Pods-DamageReportViewerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewerTests.debug.xcconfig"; path = "Target Support Files/Pods-DamageReportViewerTests/Pods-DamageReportViewerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		E3AA7ACF6D0B50F8A6E6C20D /* Pods-DamageReportViewer.release dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer.release dev.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer.release dev.xcconfig"; sourceTree = "<group>"; };
-		EA73799D0C64EE9B7EB8DDD3 /* Pods-DamageReportViewer-DamageReportViewerUITests.debug dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer-DamageReportViewerUITests.debug dev.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests.debug dev.xcconfig"; sourceTree = "<group>"; };
-		F61293DD6CEDAEA718203FB1 /* Pods-DamageReportViewer-DamageReportViewerUITests.debug qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer-DamageReportViewerUITests.debug qa.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests.debug qa.xcconfig"; sourceTree = "<group>"; };
+		29CF5CBC99334BB209E5DC23 /* Pods-DamageReportViewer.debug beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer.debug beta.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer.debug beta.xcconfig"; sourceTree = "<group>"; };
+		2E59F4384AC2CC014AF25A44 /* Pods-DamageReportViewer.release beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer.release beta.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer.release beta.xcconfig"; sourceTree = "<group>"; };
+		3AD6DB31BF8740A32F7A126B /* Pods_DamageReportViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DamageReportViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D7D3026C0F9F3FD00E502C0 /* Pods-DamageReportViewer.debug dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer.debug dev.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer.debug dev.xcconfig"; sourceTree = "<group>"; };
+		408CC69DE5629ABFAB13EDD0 /* Pods-DamageReportViewerTests.release qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewerTests.release qa.xcconfig"; path = "Target Support Files/Pods-DamageReportViewerTests/Pods-DamageReportViewerTests.release qa.xcconfig"; sourceTree = "<group>"; };
+		45E611D46F872254BD1E9A1D /* Pods-DamageReportViewer.debug qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer.debug qa.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer.debug qa.xcconfig"; sourceTree = "<group>"; };
+		48310309D4CA5F19C5630728 /* Pods-DamageReportViewerTests.release beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewerTests.release beta.xcconfig"; path = "Target Support Files/Pods-DamageReportViewerTests/Pods-DamageReportViewerTests.release beta.xcconfig"; sourceTree = "<group>"; };
+		49379D4B6F3A1C699C2EAB55 /* Pods-DamageReportViewer-DamageReportViewerUITests.debug dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer-DamageReportViewerUITests.debug dev.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests.debug dev.xcconfig"; sourceTree = "<group>"; };
+		4C5C7837C00760187D84432A /* Pods_DamageReportViewerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DamageReportViewerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		568F6575882BDBA82E7932BD /* Pods_DamageReportViewer_DamageReportViewerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DamageReportViewer_DamageReportViewerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A094B1D815247E1D2B0C9FE /* Pods-DamageReportViewerTests.debug beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewerTests.debug beta.xcconfig"; path = "Target Support Files/Pods-DamageReportViewerTests/Pods-DamageReportViewerTests.debug beta.xcconfig"; sourceTree = "<group>"; };
+		5F76688728704300CDC22F54 /* Pods-DamageReportViewer-DamageReportViewerUITests.debug beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer-DamageReportViewerUITests.debug beta.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests.debug beta.xcconfig"; sourceTree = "<group>"; };
+		60F539B77DDE760C78E9B86B /* Pods-DamageReportViewer-DamageReportViewerUITests.release dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer-DamageReportViewerUITests.release dev.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests.release dev.xcconfig"; sourceTree = "<group>"; };
+		88A714EC17988E36B9FE4948 /* Pods-DamageReportViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer.debug.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer.debug.xcconfig"; sourceTree = "<group>"; };
+		898CA6DFEE4ABF1067D7D97B /* Pods-DamageReportViewer-DamageReportViewerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer-DamageReportViewerUITests.release.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		8CBCEDA1714CD935136FFD9E /* Pods-DamageReportViewerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewerTests.debug.xcconfig"; path = "Target Support Files/Pods-DamageReportViewerTests/Pods-DamageReportViewerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		907D08AFACADFEDF3AEB028A /* Pods-DamageReportViewer-DamageReportViewerUITests.debug qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer-DamageReportViewerUITests.debug qa.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests.debug qa.xcconfig"; sourceTree = "<group>"; };
+		97046AEB3AE111C31450FA9C /* Pods-DamageReportViewerTests.debug dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewerTests.debug dev.xcconfig"; path = "Target Support Files/Pods-DamageReportViewerTests/Pods-DamageReportViewerTests.debug dev.xcconfig"; sourceTree = "<group>"; };
+		9FBDA6A6C54E6FEC952380D6 /* Pods-DamageReportViewer.release dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer.release dev.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer.release dev.xcconfig"; sourceTree = "<group>"; };
+		A2D88DC6D56BDD1FC4126541 /* Pods-DamageReportViewerTests.debug qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewerTests.debug qa.xcconfig"; path = "Target Support Files/Pods-DamageReportViewerTests/Pods-DamageReportViewerTests.debug qa.xcconfig"; sourceTree = "<group>"; };
+		C2EE08B513D9492F6041402A /* Pods-DamageReportViewer-DamageReportViewerUITests.release qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer-DamageReportViewerUITests.release qa.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests.release qa.xcconfig"; sourceTree = "<group>"; };
+		D7142A9C42CEF547810B1018 /* Pods-DamageReportViewer-DamageReportViewerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer-DamageReportViewerUITests.debug.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		E322A255B0F04F0C0C0C1071 /* Pods-DamageReportViewer-DamageReportViewerUITests.release beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer-DamageReportViewerUITests.release beta.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests.release beta.xcconfig"; sourceTree = "<group>"; };
+		EE4F386019C144F9F9B3ED37 /* Pods-DamageReportViewer.release qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer.release qa.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer.release qa.xcconfig"; sourceTree = "<group>"; };
+		F1F140C913236AB903060247 /* Pods-DamageReportViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewer.release.xcconfig"; path = "Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer.release.xcconfig"; sourceTree = "<group>"; };
+		FFC3E53D800D9CDBB5EA0F1F /* Pods-DamageReportViewerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DamageReportViewerTests.release.xcconfig"; path = "Target Support Files/Pods-DamageReportViewerTests/Pods-DamageReportViewerTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,7 +153,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5FFDA08A0586B3ECFB5E819 /* Pods_DamageReportViewer.framework in Frameworks */,
+				9CA171A820037DC5F1A9C930 /* Pods_DamageReportViewer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,7 +161,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6C407D12AEA5C0114828AA4 /* Pods_DamageReportViewerTests.framework in Frameworks */,
+				5CC1A6C4BE45993DE27E8D9F /* Pods_DamageReportViewerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,7 +169,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F66D0D4F716AF85CE3695FA0 /* Pods_DamageReportViewer_DamageReportViewerUITests.framework in Frameworks */,
+				62D9536197582F26831F86B8 /* Pods_DamageReportViewer_DamageReportViewerUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,7 +222,7 @@
 				1ADEFC3A2397B040007B7E30 /* DamageReportViewerUITests */,
 				1ADEFC172397B03C007B7E30 /* Products */,
 				8AC9004BF3A9EF25CDC835D4 /* Pods */,
-				4FA680B324A006FBF5B4DE26 /* Frameworks */,
+				6C572A118E460847997BC5CD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -305,12 +305,12 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
-		4FA680B324A006FBF5B4DE26 /* Frameworks */ = {
+		6C572A118E460847997BC5CD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				61A4ACE109EB76C02CE751FD /* Pods_DamageReportViewer.framework */,
-				DDDA71A707F0E8699D43852B /* Pods_DamageReportViewer_DamageReportViewerUITests.framework */,
-				085B9C1DDE6E9F579D4D4352 /* Pods_DamageReportViewerTests.framework */,
+				3AD6DB31BF8740A32F7A126B /* Pods_DamageReportViewer.framework */,
+				568F6575882BDBA82E7932BD /* Pods_DamageReportViewer_DamageReportViewerUITests.framework */,
+				4C5C7837C00760187D84432A /* Pods_DamageReportViewerTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -318,30 +318,30 @@
 		8AC9004BF3A9EF25CDC835D4 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				12FC501045C428F912E161C0 /* Pods-DamageReportViewer.debug.xcconfig */,
-				99C0D4508EF4D265F33E4D52 /* Pods-DamageReportViewer.release.xcconfig */,
-				C63EC1F7E23EE4A91FD8A6E8 /* Pods-DamageReportViewer-DamageReportViewerUITests.debug.xcconfig */,
-				2A4890E93C5498C5382615B3 /* Pods-DamageReportViewer-DamageReportViewerUITests.release.xcconfig */,
-				DF25D7D64251F212223CF61A /* Pods-DamageReportViewerTests.debug.xcconfig */,
-				43562BEE2E1D720B3AB3B610 /* Pods-DamageReportViewerTests.release.xcconfig */,
-				88BF4CB71B2894B52145CD6D /* Pods-DamageReportViewer.debug beta.xcconfig */,
-				7A8ED880DDA066577BA1EFC5 /* Pods-DamageReportViewer.debug dev.xcconfig */,
-				18F0DF6A1CA683934E9A7AAC /* Pods-DamageReportViewer.debug qa.xcconfig */,
-				E3AA7ACF6D0B50F8A6E6C20D /* Pods-DamageReportViewer.release dev.xcconfig */,
-				4C3B4EAE82310FDC3ACDA261 /* Pods-DamageReportViewer.release qa.xcconfig */,
-				6C96998818D5B64496DAD9BD /* Pods-DamageReportViewer.release beta.xcconfig */,
-				CEC198624D6799F93C60800C /* Pods-DamageReportViewer-DamageReportViewerUITests.debug beta.xcconfig */,
-				EA73799D0C64EE9B7EB8DDD3 /* Pods-DamageReportViewer-DamageReportViewerUITests.debug dev.xcconfig */,
-				F61293DD6CEDAEA718203FB1 /* Pods-DamageReportViewer-DamageReportViewerUITests.debug qa.xcconfig */,
-				CA45F39F04CB5BA51412D432 /* Pods-DamageReportViewer-DamageReportViewerUITests.release dev.xcconfig */,
-				214C02EA80D3AD691AB512EF /* Pods-DamageReportViewer-DamageReportViewerUITests.release qa.xcconfig */,
-				3BA969FA07A386F0ABD3FE91 /* Pods-DamageReportViewer-DamageReportViewerUITests.release beta.xcconfig */,
-				2B8D669042F72263A7BE9BF4 /* Pods-DamageReportViewerTests.debug beta.xcconfig */,
-				2F3E02F1C8C33BFEA630EACB /* Pods-DamageReportViewerTests.debug dev.xcconfig */,
-				C1318F29CC9440618B8A7414 /* Pods-DamageReportViewerTests.debug qa.xcconfig */,
-				5A4427EC4A28D96A1480B88A /* Pods-DamageReportViewerTests.release dev.xcconfig */,
-				496E118323FCB5AAA6135B67 /* Pods-DamageReportViewerTests.release qa.xcconfig */,
-				9D0FCDEBAD351C08EE045C1B /* Pods-DamageReportViewerTests.release beta.xcconfig */,
+				88A714EC17988E36B9FE4948 /* Pods-DamageReportViewer.debug.xcconfig */,
+				29CF5CBC99334BB209E5DC23 /* Pods-DamageReportViewer.debug beta.xcconfig */,
+				3D7D3026C0F9F3FD00E502C0 /* Pods-DamageReportViewer.debug dev.xcconfig */,
+				45E611D46F872254BD1E9A1D /* Pods-DamageReportViewer.debug qa.xcconfig */,
+				F1F140C913236AB903060247 /* Pods-DamageReportViewer.release.xcconfig */,
+				9FBDA6A6C54E6FEC952380D6 /* Pods-DamageReportViewer.release dev.xcconfig */,
+				EE4F386019C144F9F9B3ED37 /* Pods-DamageReportViewer.release qa.xcconfig */,
+				2E59F4384AC2CC014AF25A44 /* Pods-DamageReportViewer.release beta.xcconfig */,
+				D7142A9C42CEF547810B1018 /* Pods-DamageReportViewer-DamageReportViewerUITests.debug.xcconfig */,
+				5F76688728704300CDC22F54 /* Pods-DamageReportViewer-DamageReportViewerUITests.debug beta.xcconfig */,
+				49379D4B6F3A1C699C2EAB55 /* Pods-DamageReportViewer-DamageReportViewerUITests.debug dev.xcconfig */,
+				907D08AFACADFEDF3AEB028A /* Pods-DamageReportViewer-DamageReportViewerUITests.debug qa.xcconfig */,
+				898CA6DFEE4ABF1067D7D97B /* Pods-DamageReportViewer-DamageReportViewerUITests.release.xcconfig */,
+				60F539B77DDE760C78E9B86B /* Pods-DamageReportViewer-DamageReportViewerUITests.release dev.xcconfig */,
+				C2EE08B513D9492F6041402A /* Pods-DamageReportViewer-DamageReportViewerUITests.release qa.xcconfig */,
+				E322A255B0F04F0C0C0C1071 /* Pods-DamageReportViewer-DamageReportViewerUITests.release beta.xcconfig */,
+				8CBCEDA1714CD935136FFD9E /* Pods-DamageReportViewerTests.debug.xcconfig */,
+				5A094B1D815247E1D2B0C9FE /* Pods-DamageReportViewerTests.debug beta.xcconfig */,
+				97046AEB3AE111C31450FA9C /* Pods-DamageReportViewerTests.debug dev.xcconfig */,
+				A2D88DC6D56BDD1FC4126541 /* Pods-DamageReportViewerTests.debug qa.xcconfig */,
+				FFC3E53D800D9CDBB5EA0F1F /* Pods-DamageReportViewerTests.release.xcconfig */,
+				13CD656D49A1BD9A1AF59803 /* Pods-DamageReportViewerTests.release dev.xcconfig */,
+				408CC69DE5629ABFAB13EDD0 /* Pods-DamageReportViewerTests.release qa.xcconfig */,
+				48310309D4CA5F19C5630728 /* Pods-DamageReportViewerTests.release beta.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -353,12 +353,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1ADEFC402397B040007B7E30 /* Build configuration list for PBXNativeTarget "DamageReportViewer" */;
 			buildPhases = (
-				17EFC481C7C722F187F4664B /* [CP] Check Pods Manifest.lock */,
+				636AC28832B4FF45C8A9B242 /* [CP] Check Pods Manifest.lock */,
 				1ADEFC122397B03C007B7E30 /* Sources */,
 				1ADEFC132397B03C007B7E30 /* Frameworks */,
 				1ADEFC142397B03C007B7E30 /* Resources */,
-				5FE78566BEB403AA65F06A50 /* [CP] Embed Pods Frameworks */,
-				BE8F19A34FBA4D746A2221EF /* [CP] Copy Pods Resources */,
+				D94FAE35572C42E7F8E0CF13 /* [CP] Embed Pods Frameworks */,
+				19224C90F5F53E39FABE74E7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -373,7 +373,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1ADEFC432397B040007B7E30 /* Build configuration list for PBXNativeTarget "DamageReportViewerTests" */;
 			buildPhases = (
-				7E7E68102A596D4AA742B130 /* [CP] Check Pods Manifest.lock */,
+				447C4338D70B3F928C534ABB /* [CP] Check Pods Manifest.lock */,
 				1ADEFC282397B040007B7E30 /* Sources */,
 				1ADEFC292397B040007B7E30 /* Frameworks */,
 				1ADEFC2A2397B040007B7E30 /* Resources */,
@@ -392,12 +392,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1ADEFC462397B040007B7E30 /* Build configuration list for PBXNativeTarget "DamageReportViewerUITests" */;
 			buildPhases = (
-				8ED234C07182B4F1D4E6F5ED /* [CP] Check Pods Manifest.lock */,
+				46637BD6D6AEBEB5A7D53F85 /* [CP] Check Pods Manifest.lock */,
 				1ADEFC332397B040007B7E30 /* Sources */,
 				1ADEFC342397B040007B7E30 /* Frameworks */,
 				1ADEFC352397B040007B7E30 /* Resources */,
-				256277909A06CF162D5DB94D /* [CP] Embed Pods Frameworks */,
-				BE4EBA39703F4336817B3001 /* [CP] Copy Pods Resources */,
+				33B47969001FCDF0708E1A1D /* [CP] Embed Pods Frameworks */,
+				21D15F4DF02EE79FAD6BE996 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -483,29 +483,41 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		17EFC481C7C722F187F4664B /* [CP] Check Pods Manifest.lock */ = {
+		19224C90F5F53E39FABE74E7 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-DamageReportViewer-checkManifestLockResult.txt",
+				"${PODS_ROOT}/Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		256277909A06CF162D5DB94D /* [CP] Embed Pods Frameworks */ = {
+		21D15F4DF02EE79FAD6BE996 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		33B47969001FCDF0708E1A1D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -522,24 +534,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5FE78566BEB403AA65F06A50 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7E7E68102A596D4AA742B130 /* [CP] Check Pods Manifest.lock */ = {
+		447C4338D70B3F928C534ABB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -561,7 +556,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8ED234C07182B4F1D4E6F5ED /* [CP] Check Pods Manifest.lock */ = {
+		46637BD6D6AEBEB5A7D53F85 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -583,38 +578,43 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BE4EBA39703F4336817B3001 /* [CP] Copy Pods Resources */ = {
+		636AC28832B4FF45C8A9B242 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DamageReportViewer-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DamageReportViewer-DamageReportViewerUITests/Pods-DamageReportViewer-DamageReportViewerUITests-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BE8F19A34FBA4D746A2221EF /* [CP] Copy Pods Resources */ = {
+		D94FAE35572C42E7F8E0CF13 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DamageReportViewer/Pods-DamageReportViewer-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -783,7 +783,7 @@
 		};
 		1A7354D823C4548500AB1299 /* Debug QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 18F0DF6A1CA683934E9A7AAC /* Pods-DamageReportViewer.debug qa.xcconfig */;
+			baseConfigurationReference = 45E611D46F872254BD1E9A1D /* Pods-DamageReportViewer.debug qa.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = DamageReportViewer/DamageReportViewer.entitlements;
@@ -806,9 +806,9 @@
 		};
 		1A7354D923C4548500AB1299 /* Debug QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C1318F29CC9440618B8A7414 /* Pods-DamageReportViewerTests.debug qa.xcconfig */;
+			baseConfigurationReference = A2D88DC6D56BDD1FC4126541 /* Pods-DamageReportViewerTests.debug qa.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
@@ -829,9 +829,9 @@
 		};
 		1A7354DA23C4548500AB1299 /* Debug QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F61293DD6CEDAEA718203FB1 /* Pods-DamageReportViewer-DamageReportViewerUITests.debug qa.xcconfig */;
+			baseConfigurationReference = 907D08AFACADFEDF3AEB028A /* Pods-DamageReportViewer-DamageReportViewerUITests.debug qa.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
 				INFOPLIST_FILE = DamageReportViewerUITests/Info.plist;
@@ -912,7 +912,7 @@
 		};
 		1A7354DC23C4548C00AB1299 /* Debug Dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7A8ED880DDA066577BA1EFC5 /* Pods-DamageReportViewer.debug dev.xcconfig */;
+			baseConfigurationReference = 3D7D3026C0F9F3FD00E502C0 /* Pods-DamageReportViewer.debug dev.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = DamageReportViewer/DamageReportViewer.entitlements;
@@ -935,9 +935,9 @@
 		};
 		1A7354DD23C4548C00AB1299 /* Debug Dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2F3E02F1C8C33BFEA630EACB /* Pods-DamageReportViewerTests.debug dev.xcconfig */;
+			baseConfigurationReference = 97046AEB3AE111C31450FA9C /* Pods-DamageReportViewerTests.debug dev.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
@@ -958,9 +958,9 @@
 		};
 		1A7354DE23C4548C00AB1299 /* Debug Dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EA73799D0C64EE9B7EB8DDD3 /* Pods-DamageReportViewer-DamageReportViewerUITests.debug dev.xcconfig */;
+			baseConfigurationReference = 49379D4B6F3A1C699C2EAB55 /* Pods-DamageReportViewer-DamageReportViewerUITests.debug dev.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
 				INFOPLIST_FILE = DamageReportViewerUITests/Info.plist;
@@ -1041,7 +1041,7 @@
 		};
 		1A7354E023C4549700AB1299 /* Debug Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 88BF4CB71B2894B52145CD6D /* Pods-DamageReportViewer.debug beta.xcconfig */;
+			baseConfigurationReference = 29CF5CBC99334BB209E5DC23 /* Pods-DamageReportViewer.debug beta.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = DamageReportViewer/DamageReportViewer.entitlements;
@@ -1064,9 +1064,9 @@
 		};
 		1A7354E123C4549700AB1299 /* Debug Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B8D669042F72263A7BE9BF4 /* Pods-DamageReportViewerTests.debug beta.xcconfig */;
+			baseConfigurationReference = 5A094B1D815247E1D2B0C9FE /* Pods-DamageReportViewerTests.debug beta.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
@@ -1087,9 +1087,9 @@
 		};
 		1A7354E223C4549700AB1299 /* Debug Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEC198624D6799F93C60800C /* Pods-DamageReportViewer-DamageReportViewerUITests.debug beta.xcconfig */;
+			baseConfigurationReference = 5F76688728704300CDC22F54 /* Pods-DamageReportViewer-DamageReportViewerUITests.debug beta.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
 				INFOPLIST_FILE = DamageReportViewerUITests/Info.plist;
@@ -1164,7 +1164,7 @@
 		};
 		1A7354E423C4549F00AB1299 /* Release Dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E3AA7ACF6D0B50F8A6E6C20D /* Pods-DamageReportViewer.release dev.xcconfig */;
+			baseConfigurationReference = 9FBDA6A6C54E6FEC952380D6 /* Pods-DamageReportViewer.release dev.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = DamageReportViewer/DamageReportViewer.entitlements;
@@ -1187,9 +1187,9 @@
 		};
 		1A7354E523C4549F00AB1299 /* Release Dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5A4427EC4A28D96A1480B88A /* Pods-DamageReportViewerTests.release dev.xcconfig */;
+			baseConfigurationReference = 13CD656D49A1BD9A1AF59803 /* Pods-DamageReportViewerTests.release dev.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
@@ -1210,9 +1210,9 @@
 		};
 		1A7354E623C4549F00AB1299 /* Release Dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CA45F39F04CB5BA51412D432 /* Pods-DamageReportViewer-DamageReportViewerUITests.release dev.xcconfig */;
+			baseConfigurationReference = 60F539B77DDE760C78E9B86B /* Pods-DamageReportViewer-DamageReportViewerUITests.release dev.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
 				INFOPLIST_FILE = DamageReportViewerUITests/Info.plist;
@@ -1287,7 +1287,7 @@
 		};
 		1A7354E823C454A400AB1299 /* Release QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4C3B4EAE82310FDC3ACDA261 /* Pods-DamageReportViewer.release qa.xcconfig */;
+			baseConfigurationReference = EE4F386019C144F9F9B3ED37 /* Pods-DamageReportViewer.release qa.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = DamageReportViewer/DamageReportViewer.entitlements;
@@ -1310,9 +1310,9 @@
 		};
 		1A7354E923C454A400AB1299 /* Release QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 496E118323FCB5AAA6135B67 /* Pods-DamageReportViewerTests.release qa.xcconfig */;
+			baseConfigurationReference = 408CC69DE5629ABFAB13EDD0 /* Pods-DamageReportViewerTests.release qa.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
@@ -1333,9 +1333,9 @@
 		};
 		1A7354EA23C454A400AB1299 /* Release QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 214C02EA80D3AD691AB512EF /* Pods-DamageReportViewer-DamageReportViewerUITests.release qa.xcconfig */;
+			baseConfigurationReference = C2EE08B513D9492F6041402A /* Pods-DamageReportViewer-DamageReportViewerUITests.release qa.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
 				INFOPLIST_FILE = DamageReportViewerUITests/Info.plist;
@@ -1410,7 +1410,7 @@
 		};
 		1A7354EC23C454AC00AB1299 /* Release Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6C96998818D5B64496DAD9BD /* Pods-DamageReportViewer.release beta.xcconfig */;
+			baseConfigurationReference = 2E59F4384AC2CC014AF25A44 /* Pods-DamageReportViewer.release beta.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = DamageReportViewer/DamageReportViewer.entitlements;
@@ -1433,9 +1433,9 @@
 		};
 		1A7354ED23C454AC00AB1299 /* Release Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9D0FCDEBAD351C08EE045C1B /* Pods-DamageReportViewerTests.release beta.xcconfig */;
+			baseConfigurationReference = 48310309D4CA5F19C5630728 /* Pods-DamageReportViewerTests.release beta.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
@@ -1456,9 +1456,9 @@
 		};
 		1A7354EE23C454AC00AB1299 /* Release Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3BA969FA07A386F0ABD3FE91 /* Pods-DamageReportViewer-DamageReportViewerUITests.release beta.xcconfig */;
+			baseConfigurationReference = E322A255B0F04F0C0C0C1071 /* Pods-DamageReportViewer-DamageReportViewerUITests.release beta.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
 				INFOPLIST_FILE = DamageReportViewerUITests/Info.plist;
@@ -1595,7 +1595,7 @@
 		};
 		1ADEFC412397B040007B7E30 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 12FC501045C428F912E161C0 /* Pods-DamageReportViewer.debug.xcconfig */;
+			baseConfigurationReference = 88A714EC17988E36B9FE4948 /* Pods-DamageReportViewer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = DamageReportViewer/DamageReportViewer.entitlements;
@@ -1618,7 +1618,7 @@
 		};
 		1ADEFC422397B040007B7E30 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 99C0D4508EF4D265F33E4D52 /* Pods-DamageReportViewer.release.xcconfig */;
+			baseConfigurationReference = F1F140C913236AB903060247 /* Pods-DamageReportViewer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = DamageReportViewer/DamageReportViewer.entitlements;
@@ -1641,9 +1641,9 @@
 		};
 		1ADEFC442397B040007B7E30 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF25D7D64251F212223CF61A /* Pods-DamageReportViewerTests.debug.xcconfig */;
+			baseConfigurationReference = 8CBCEDA1714CD935136FFD9E /* Pods-DamageReportViewerTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
@@ -1664,9 +1664,9 @@
 		};
 		1ADEFC452397B040007B7E30 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43562BEE2E1D720B3AB3B610 /* Pods-DamageReportViewerTests.release.xcconfig */;
+			baseConfigurationReference = FFC3E53D800D9CDBB5EA0F1F /* Pods-DamageReportViewerTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
@@ -1687,9 +1687,9 @@
 		};
 		1ADEFC472397B040007B7E30 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C63EC1F7E23EE4A91FD8A6E8 /* Pods-DamageReportViewer-DamageReportViewerUITests.debug.xcconfig */;
+			baseConfigurationReference = D7142A9C42CEF547810B1018 /* Pods-DamageReportViewer-DamageReportViewerUITests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
 				INFOPLIST_FILE = DamageReportViewerUITests/Info.plist;
@@ -1708,9 +1708,9 @@
 		};
 		1ADEFC482397B040007B7E30 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2A4890E93C5498C5382615B3 /* Pods-DamageReportViewer-DamageReportViewerUITests.release.xcconfig */;
+			baseConfigurationReference = 898CA6DFEE4ABF1067D7D97B /* Pods-DamageReportViewer-DamageReportViewerUITests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
 				INFOPLIST_FILE = DamageReportViewerUITests/Info.plist;
