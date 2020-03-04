@@ -3136,7 +3136,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="S4k-1F-bZW">
-                                <rect key="frame" x="0.0" y="149" width="414" height="713"/>
+                                <rect key="frame" x="0.0" y="134" width="414" height="728"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" rowHeight="98" id="5I7-47-BYu" customClass="HeaderCell" customModule="DamageReportViewer" customModuleProvider="target">
@@ -3220,44 +3220,58 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mOA-WX-Gz0">
-                                <rect key="frame" x="294" y="99" width="110" height="40"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m9K-TU-yMQ">
+                                <rect key="frame" x="0.0" y="94" width="414" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mOA-WX-Gz0">
+                                        <rect key="frame" x="294" y="0.0" width="110" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="110" id="O4f-fP-Scr"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
+                                        <state key="normal" title="Deselect All">
+                                            <color key="titleColor" red="0.28825980420000002" green="0.67017269130000001" blue="0.61392444369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deselecctAllScopes:" destination="5om-6o-EEn" eventType="touchUpInside" id="ydF-Ce-kJ3"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cnn-40-ILy">
+                                        <rect key="frame" x="291" y="7" width="1" height="26"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="1" id="Pst-lx-ouM"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X3f-Gj-MHs">
+                                        <rect key="frame" x="179" y="0.0" width="110" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="110" id="7uE-8H-t7F"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
+                                        <state key="normal" title="Select All">
+                                            <color key="titleColor" red="0.28825980420000002" green="0.67017269130000001" blue="0.61392444369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="selectAllScopes:" destination="5om-6o-EEn" eventType="touchUpInside" id="qtL-fE-yOR"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="110" id="O4f-fP-Scr"/>
-                                    <constraint firstAttribute="height" constant="40" id="vYn-LW-54h"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
-                                <state key="normal" title="Deselect All">
-                                    <color key="titleColor" red="0.28825980420000002" green="0.67017269130000001" blue="0.61392444369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="deselecctAllScopes:" destination="5om-6o-EEn" eventType="touchUpInside" id="ydF-Ce-kJ3"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cnn-40-ILy">
-                                <rect key="frame" x="288" y="109" width="1" height="20"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="1" id="Pst-lx-ouM"/>
-                                    <constraint firstAttribute="height" constant="20" id="ohs-zZ-CNa"/>
+                                    <constraint firstItem="X3f-Gj-MHs" firstAttribute="centerY" secondItem="m9K-TU-yMQ" secondAttribute="centerY" id="1LW-7u-Xzm"/>
+                                    <constraint firstItem="mOA-WX-Gz0" firstAttribute="bottom" secondItem="X3f-Gj-MHs" secondAttribute="bottom" id="7AT-z0-S3K"/>
+                                    <constraint firstItem="Cnn-40-ILy" firstAttribute="centerY" secondItem="X3f-Gj-MHs" secondAttribute="centerY" id="7dq-KO-f62"/>
+                                    <constraint firstAttribute="height" constant="40" id="B0q-jL-O0o"/>
+                                    <constraint firstAttribute="trailing" secondItem="mOA-WX-Gz0" secondAttribute="trailing" constant="10" id="C0d-Ce-zW4"/>
+                                    <constraint firstItem="mOA-WX-Gz0" firstAttribute="top" secondItem="X3f-Gj-MHs" secondAttribute="top" id="Fv4-as-dUs"/>
+                                    <constraint firstItem="mOA-WX-Gz0" firstAttribute="top" secondItem="m9K-TU-yMQ" secondAttribute="top" id="VIL-Zw-csX"/>
+                                    <constraint firstAttribute="bottom" secondItem="mOA-WX-Gz0" secondAttribute="bottom" id="gLn-dd-406"/>
+                                    <constraint firstItem="Cnn-40-ILy" firstAttribute="top" secondItem="m9K-TU-yMQ" secondAttribute="top" constant="7" id="lEG-UY-SQ6"/>
+                                    <constraint firstItem="mOA-WX-Gz0" firstAttribute="leading" secondItem="Cnn-40-ILy" secondAttribute="trailing" constant="2" id="rQJ-U0-vdh"/>
+                                    <constraint firstItem="Cnn-40-ILy" firstAttribute="leading" secondItem="X3f-Gj-MHs" secondAttribute="trailing" constant="2" id="y72-sO-mje"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X3f-Gj-MHs">
-                                <rect key="frame" x="173" y="99" width="110" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="110" id="7uE-8H-t7F"/>
-                                    <constraint firstAttribute="height" constant="40" id="abF-AW-TEp"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="110" id="mxj-im-W7q"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="qSO-yM-QiS"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
-                                <state key="normal" title="Select All">
-                                    <color key="titleColor" red="0.28825980420000002" green="0.67017269130000001" blue="0.61392444369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="selectAllScopes:" destination="5om-6o-EEn" eventType="touchUpInside" id="qtL-fE-yOR"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1sR-qU-PRJ">
                                 <rect key="frame" x="0.0" y="44" width="414" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -3268,23 +3282,22 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="vep-Xp-Vpd" firstAttribute="trailing" secondItem="mOA-WX-Gz0" secondAttribute="trailing" constant="10" id="0kd-Vb-rPA"/>
-                            <constraint firstItem="mOA-WX-Gz0" firstAttribute="top" secondItem="1sR-qU-PRJ" secondAttribute="bottom" constant="5" id="3f1-aO-xRG"/>
+                            <constraint firstAttribute="trailing" secondItem="m9K-TU-yMQ" secondAttribute="trailing" id="23K-vk-iI1"/>
+                            <constraint firstItem="S4k-1F-bZW" firstAttribute="top" secondItem="m9K-TU-yMQ" secondAttribute="bottom" id="A9a-fY-Yeh"/>
                             <constraint firstItem="1sR-qU-PRJ" firstAttribute="leading" secondItem="vep-Xp-Vpd" secondAttribute="leading" id="AEg-8h-bri"/>
                             <constraint firstItem="1sR-qU-PRJ" firstAttribute="top" secondItem="vep-Xp-Vpd" secondAttribute="top" id="HcH-bT-bBt"/>
                             <constraint firstItem="S4k-1F-bZW" firstAttribute="bottom" secondItem="vep-Xp-Vpd" secondAttribute="bottom" id="JnI-jx-Ysf"/>
                             <constraint firstItem="S4k-1F-bZW" firstAttribute="leading" secondItem="vep-Xp-Vpd" secondAttribute="leading" id="NTt-uf-YHO"/>
-                            <constraint firstItem="mOA-WX-Gz0" firstAttribute="leading" secondItem="Cnn-40-ILy" secondAttribute="trailing" constant="5" id="Y75-1d-v4a"/>
-                            <constraint firstItem="Cnn-40-ILy" firstAttribute="leading" secondItem="X3f-Gj-MHs" secondAttribute="trailing" constant="5" id="gJe-rx-SC9"/>
-                            <constraint firstItem="mOA-WX-Gz0" firstAttribute="centerY" secondItem="Cnn-40-ILy" secondAttribute="centerY" id="gtS-ok-b48"/>
+                            <constraint firstItem="m9K-TU-yMQ" firstAttribute="top" secondItem="1sR-qU-PRJ" secondAttribute="bottom" id="Uy5-dU-zt3"/>
+                            <constraint firstItem="m9K-TU-yMQ" firstAttribute="leading" secondItem="vep-Xp-Vpd" secondAttribute="leading" id="d6q-qv-Clk"/>
                             <constraint firstItem="vep-Xp-Vpd" firstAttribute="trailing" secondItem="1sR-qU-PRJ" secondAttribute="trailing" id="lun-wZ-hbP"/>
-                            <constraint firstItem="S4k-1F-bZW" firstAttribute="top" secondItem="mOA-WX-Gz0" secondAttribute="bottom" constant="10" id="ncZ-KM-ntn"/>
                             <constraint firstItem="vep-Xp-Vpd" firstAttribute="trailing" secondItem="S4k-1F-bZW" secondAttribute="trailing" id="rpX-pT-qu9"/>
-                            <constraint firstItem="Cnn-40-ILy" firstAttribute="centerY" secondItem="X3f-Gj-MHs" secondAttribute="centerY" id="w5y-89-F1m"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vep-Xp-Vpd"/>
                     </view>
                     <connections>
+                        <outlet property="deSelectSelectView" destination="m9K-TU-yMQ" id="S0H-cf-orr"/>
+                        <outlet property="deSelectSelectViewHeightConstraint" destination="B0q-jL-O0o" id="Lje-Li-9gp"/>
                         <outlet property="scopeTableView" destination="S4k-1F-bZW" id="jIZ-zs-w2w"/>
                         <outlet property="topView" destination="1sR-qU-PRJ" id="BOg-k1-xSd"/>
                     </connections>
