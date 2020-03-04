@@ -168,8 +168,8 @@ class UpdateProfileViewController: UIViewController,UITableViewDataSource,UITabl
         
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationItem.hidesBackButton = false
-        self.navigationController?.navigationBar.isTranslucent = false
-        
+        self.navigationController?.navigationBar.isTranslucent = true
+
         let navigationBarAppearace = UINavigationBar.appearance()
         navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 15.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.black]
         self.navigationItem.title = NSLocalizedString("Update Profile", comment: "")

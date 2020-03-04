@@ -9,12 +9,13 @@
 import UIKit
 import Firebase
 
-class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating {
+class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate,UITableViewDataSource,UISearchResultsUpdating,UISearchBarDelegate {
    
     
         @IBOutlet weak var scopeTableView:UITableView!
-        @IBOutlet weak var searchBar:UISearchBar!
         @IBOutlet weak var topView:UIView!
+        @IBOutlet weak var deSelectSelectViewHeightConstraint: NSLayoutConstraint!
+        @IBOutlet weak var deSelectSelectView: UIView!
 
         var resultSearchController = UISearchController()
         var isSearchRequired:Bool = true
@@ -44,6 +45,7 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
                     controller.searchResultsUpdater = self as? UISearchResultsUpdating
                     controller.dimsBackgroundDuringPresentation = false
                     controller.searchBar.sizeToFit()
+                    controller.searchBar.delegate = self
                     self.topView.addSubview(controller.searchBar)
                     //controller.searchBar = searchBar
                     return controller
@@ -342,13 +344,42 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
                                 itemsArray[rowIndex] = itemCopy
                                 //break
                             }
-                            if (itemCopy["isSelected"] as! Int)  == 1 {
-                                selectedPartsCount = selectedPartsCount + 1
-                            }
+                        
                             rowIndex = rowIndex +  1
                         }
                         self.filteredPartsDict[id] = itemsArray
+
                         
+                    }
+                    
+                    // We have to also select the original scopes and part
+                    if var itemsArray = self.partsDict[id] as? [[String:Any]] {
+                        let searchItemsArray = self.filteredPartsDict[id] as! [[String:Any]]
+                        var index = 0
+                        for  item  in itemsArray {
+                            var itemCopy = item
+
+                            for searchItem  in searchItemsArray {
+                                let itemKey = item["dmgCategoryKey"] as! String
+                                let searchitemKey = searchItem["dmgCategoryKey"] as! String
+
+                                if itemKey  == searchitemKey {
+                                    itemCopy = searchItem
+                                    itemsArray[index] = itemCopy
+                                    
+                                }
+                               
+                                
+                                
+                            }
+                            if (itemCopy["isSelected"] as! Int)  == 1 {
+                                        selectedPartsCount = selectedPartsCount + 1
+                            }
+                            index =  index + 1
+                            
+                            
+                        }
+                        self.partsDict[id] = itemsArray
                         let actualCount = (self.partsDict[id] as! [[String:Any]] ) .count
                         if ( selectedPartsCount == actualCount) {
                             dataCopy["isSelected"] = 1
@@ -359,32 +390,7 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
                         else {
                             dataCopy["isSelected"] = 0
                         }
-                        
-                    }
-                    self.filteredscopeArray [sectionIndex] = dataCopy
-                    
-                    // We have to also select the original scopes and part
-                    if var itemsArray = self.partsDict[id] as? [[String:Any]] {
-                        let searchItemsArray = self.filteredPartsDict[id] as! [[String:Any]]
-                        var index = 0
-                        for  item  in itemsArray {
-                            for searchItem  in searchItemsArray {
-                                let itemKey = item["dmgCategoryKey"] as! String
-                                let searchitemKey = searchItem["dmgCategoryKey"] as! String
-                                if itemKey  == searchitemKey {
-                                    var itemCopy = item
-                                    itemCopy = searchItem
-                                    itemsArray[index] = itemCopy
-
-                                    
-                                }
-                                
-                            }
-                            index =  index + 1
-                            
-                            
-                        }
-                        self.partsDict[id] = itemsArray
+                        self.filteredscopeArray [sectionIndex] = dataCopy
                         let originalScopeArrayIndex = self.scopeArray.firstIndex(where: { ($0["dmgCategoryKey"] as? String) == dataCopy["dmgCategoryKey"] as? String})
                         if originalScopeArrayIndex != nil &&  originalScopeArrayIndex ?? 0 >= 0 {
                             self.scopeArray[originalScopeArrayIndex!] = dataCopy
@@ -499,11 +505,24 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
     }
 
     //MARK: Search Delegates
+//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar){
+//        print("Hi")
+//
+//    }
     func updateSearchResults(for searchController: UISearchController) {
         self.filteredscopeArray.removeAll()
         self.filteredPartsDict.removeAll()
-        let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchController.searchBar.text!)
-        let filteredArray = self.scopeArray.filter { (($0["displayName"] as? String)?.contains(searchController.searchBar.text!) ?? false )}
+        if resultSearchController.isActive {
+            self.deSelectSelectViewHeightConstraint.constant = 0
+            self.deSelectSelectView.isHidden = true
+        }
+        else {
+            self.deSelectSelectViewHeightConstraint.constant = 40
+            self.deSelectSelectView.isHidden = false
+        }
+
+        let lowercasedSearchString = searchController.searchBar.text?.lowercased()
+        let filteredArray = self.scopeArray.filter { (($0["displayName"] as? String)?.lowercased().contains(lowercasedSearchString!) ?? false )}
         if filteredArray.count > 0 {
             for filteredItem in filteredArray {
                 self.filteredscopeArray.append(filteredItem)
@@ -519,12 +538,12 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
             }
             
         }
-
         for item in self.scopeArray {
             if let _item = item as? [String:Any] {
                 let id = "\(_item["dmgId"])"
                 if let itemsArray = self.partsDict[id] as? [[String:Any]]{
-                    let filteredPartsArray = itemsArray.filter { (($0["displayName"] as? String)?.contains(searchController.searchBar.text!) ?? false )}
+                    print(itemsArray)
+                    let filteredPartsArray = itemsArray.filter { (($0["displayName"] as? String)?.lowercased().contains(lowercasedSearchString!) ?? false )}
                     if filteredPartsArray.count > 0 {
                         if !self.filteredscopeArray.contains{ $0["dmgCategoryKey"] as? String == _item["dmgCategoryKey"] as? String } {
                             self.filteredscopeArray.append(_item)
@@ -539,7 +558,6 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
             }
         }
    
-        
         self.scopeTableView.reloadData()
 
     }
