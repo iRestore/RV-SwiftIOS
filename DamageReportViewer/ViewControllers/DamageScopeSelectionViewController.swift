@@ -39,6 +39,7 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
     
         override func viewDidLoad() {
             //self.searchBar.isHidden = true
+
             if isSearchRequired == true {
                 resultSearchController = ({
                     let controller = UISearchController(searchResultsController: nil)
@@ -47,9 +48,13 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
                     controller.searchBar.sizeToFit()
                     controller.searchBar.delegate = self
                     self.topView.addSubview(controller.searchBar)
+                     controller.searchBar.setValue("Done", forKey: "cancelButtonText")
+
                     //controller.searchBar = searchBar
                     return controller
                 })()
+               
+
             }
             navigationBarSettings()
             fetchDataFromFireStore()
