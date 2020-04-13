@@ -171,8 +171,11 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
         damageScopeLabel.text = (reportData?.damageTypeDisplayName) as! String
         lblDamageType.text =  reportData?.damageSubTypeDisplayName
         
-        let imageName = "\((reportData?.damageType)!)_icon"
-        iconImgView.image = UIImage.init(named: imageName)
+        if let type = reportData?.damageType as? String {
+            let imageName = "\(type)_icon"
+            iconImgView.image = UIImage.init(named: imageName)
+
+        }
 
         
         if var userAddressArray  = self.reportData?.userAddress?.components(separatedBy: ",") {
@@ -269,8 +272,10 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
         let marker = GMSMarker.init()
         marker.position = CLLocationCoordinate2D.init(latitude: placeCord.latitude, longitude: placeCord.longitude)
         marker.map = googleMapView
-        let pinName = "pin_\((reportData?.damageType)!)"
-        marker.icon = UIImage.init(named: pinName)
+        if let type  = reportData?.damageType as?  String {
+            let pinName = "pin_\((reportData?.damageType)!)"
+            marker.icon = UIImage.init(named: pinName)
+        }
         
   
     }

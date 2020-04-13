@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -2335,7 +2335,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Isn-dW-PJ3">
-                                                        <rect key="frame" x="333" y="131.5" width="32" height="32"/>
+                                                        <rect key="frame" x="333" y="136.5" width="32" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="QkP-7h-AU9"/>
                                                         </constraints>
@@ -2345,7 +2345,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z5X-cH-4tH">
-                                                        <rect key="frame" x="333" y="191.5" width="32" height="32"/>
+                                                        <rect key="frame" x="333" y="196.5" width="32" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="e1q-HT-cdg"/>
                                                         </constraints>
@@ -2392,7 +2392,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                                                 <rect key="frame" x="0.0" y="647" width="375" height="150"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tqJ-qK-rog">
-                                                        <rect key="frame" x="333" y="108" width="32" height="32"/>
+                                                        <rect key="frame" x="343" y="118" width="22" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="tqJ-qK-rog" secondAttribute="height" multiplier="1:1" id="OVt-s8-egJ"/>
                                                         </constraints>
@@ -2826,7 +2826,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                                                     </constraints>
                                                 </imageView>
                                                 <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1C2-eB-lBz">
-                                                    <rect key="frame" x="10" y="34.5" width="150" height="20"/>
+                                                    <rect key="frame" x="10" y="34.5" width="150" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="3n1-YK-VpL"/>
                                                     </constraints>

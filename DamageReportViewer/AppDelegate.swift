@@ -14,7 +14,7 @@ import AppCenterAnalytics
 import AppCenterCrashes
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -24,7 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MSAppCenter.start("a59fe333-26a5-4ae0-8eda-a4294075690d", withServices:[ MSAnalytics.self, MSCrashes.self ])
         if #available(iOS 13.0, *) {
 
-            
+            UIApplication.shared.registerForRemoteNotifications()
+            UNUserNotificationCenter.current().delegate = self
             
         }
         else {
@@ -205,6 +206,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             switch result {
             case .Success(let value):
                      if let responseDict = value.data {
+                        print(responseDict)
                         if responseDict["Error"] as! Bool {
                             
                             let message =  responseDict["Message"] as! String
@@ -497,5 +499,129 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
 }
+
+    
+    func  userNotificationCenter(_ center:UNUserNotificationCenter, willPresent notification:UNNotification,withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        print("hi")
+        completionHandler([.alert,.sound])
+    }
+    
+    
+    func  userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print(response)
+        if #available(iOS 13.0, *) {
+
+        if let userInfoDict = response.notification.request.content.userInfo as? NSDictionary {
+                    if  let reportId = userInfoDict.value(forKey: "reportId") as? String {
+                    let apiClient  = V2ApiClient.init()
+                    apiClient.getDetails(reportId:reportId){
+                    result in
+                
+                    switch result {
+                            case .Success(let value):
+                                if let responseDict = value.data {
+                                    print(responseDict)
+                                    let reportData = ReportData.init(data: responseDict)
+                                    reportData?.damageTypeDisplayName = MainViewController.damageTypeSubTypeDisplayNamesDict[reportData?.damageType ?? ""] ?? ""
+                                    
+                                    reportData?.damageSubTypeDisplayName = MainViewController.damageTypeSubTypeDisplayNamesDict[reportData?.damageSubType ?? ""] ?? ""
+                                    
+                                    DispatchQueue.main.async {
+                                        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+                                    guard let tabbar = mainStoryBoard.instantiateViewController(withIdentifier: "TabbarController") as? TabbarController else { return }
+                                        if reportData?.reportType == "SDA" {
+                                            guard let _detailsController = mainStoryBoard.instantiateViewController(withIdentifier: "VDADetailsViewController") as? VDADetailsViewController else { return }
+                                            _detailsController.reportData = reportData
+                                            if #available(iOS 13.0, *) {
+                                                if let scene = UIApplication.shared.connectedScenes.first  {
+                                                    if let windowScene = scene as? UIWindowScene {
+                                                        let _window = UIWindow(windowScene: windowScene)
+                                                        UIApplication.shared.windows.first!.rootViewController = tabbar
+                                                        _window.makeKeyAndVisible()
+                                                       // scene.window
+
+                                                    }
+                                                }
+                                             }
+                                            else {
+                                                self.window?.rootViewController = tabbar
+
+                                             }
+                                            for vc in tabbar.viewControllers! {
+                                                if vc is UINavigationController {
+                                                    if let navController = vc as? UINavigationController {
+                                                        for _vc in navController.viewControllers {
+                                                           _vc.navigationController?.pushViewController(_detailsController,
+                                                                                                         animated: true)
+                                                             return
+
+                                                        }
+                                                    }
+
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            guard let _detailsController = mainStoryBoard.instantiateViewController(withIdentifier: "FRDetailsViewController") as? FRDetailsViewController else { return  }
+                                            _detailsController.reportData = reportData
+                                            if #available(iOS 13.0, *) {
+                                                if let scene = UIApplication.shared.connectedScenes.first  {
+                                                    if let windowScene = scene as? UIWindowScene {
+                                                        let _window = UIWindow(windowScene: windowScene)
+                                                        UIApplication.shared.windows.first!.rootViewController = tabbar
+                                                        _window.makeKeyAndVisible()
+                                                       // scene.window
+
+                                                    }
+                                                }
+                                             }
+                                            else {
+                                                self.window?.rootViewController = tabbar
+
+                                             }
+                                            for vc in tabbar.viewControllers! {
+                                                if vc is UINavigationController {
+                                                    if let navController = vc as? UINavigationController {
+                                                        for _vc in navController.viewControllers {
+                                                           _vc.navigationController?.pushViewController(_detailsController,
+                                                                                                         animated: true)
+                                                             return
+
+                                                        }
+                                                    }
+
+                                                }
+                                            }
+                                            
+                                            
+                                        }
+
+
+                                        
+                                        
+                                    }
+                                    
+
+                                }
+                            case .Failure(let error):
+                                    DispatchQueue.main.async {
+                                            
+                                    }
+                                                     
+                                    default:
+                                            print("hi")
+                                    }
+                    
+                }
+            }
+                
+                }
+      
+        }
+    }
+        
+
+    
 
 }

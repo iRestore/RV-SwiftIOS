@@ -134,7 +134,7 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
             activityIndicator.showActivityIndicator(uiView: self.view)
            let db = Firestore.firestore()
            let collectionName = UserDefaults.standard.value(forKey: Constants.FIREBAE_DB)
-        db.collection(collectionName as! String).whereField("level", in: [1, 2])
+        db.collection(collectionName as! String).whereField("level", in: [1, 2]).order(by: "sortOrder", descending: false)
                .addSnapshotListener { querySnapshot, error in
                    guard let documents = querySnapshot?.documents else {
                        print("Error fetching documents: \(error!)")
@@ -142,6 +142,7 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
                    }
                    self.scopeArray.removeAll()
                    for document in documents {
+                        print(document.data())
                        if var data = document.data() as? [String:Any] {
                             let  level =  data["level"] as! Int
                             let scopeName =  data["dmgCategoryKey"] as! String
@@ -175,7 +176,7 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
 
 
                 
-                self.scopeArray = self.scopeArray.sorted(by: { (($0 as Dictionary<String, AnyObject>)["dmgId"] as! String).localizedCaseInsensitiveCompare(($1 as Dictionary<String, AnyObject>)["dmgId"] as! String) == ComparisonResult.orderedAscending }) ;
+                self.scopeArray = self.scopeArray.sorted(by: { (($0 as Dictionary<String, AnyObject>)["sortOrder"] as! String).localizedStandardCompare(($1 as Dictionary<String, AnyObject>)["sortOrder"] as! String) == ComparisonResult.orderedAscending }) ;
                 
                 var sectionIndex = 0
                 for  data in self.scopeArray {
