@@ -10,7 +10,7 @@ import GoogleMaps
 import MapKit
 import ImageLoader
 import AWSS3
-class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate {
 //    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        <#code#>
 //    }
@@ -52,8 +52,6 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
     
     @IBOutlet var  tapToExpandPhotoLbl: UILabel!
     @IBOutlet var  tags: UILabel!
-  //  @IBOutlet var  lblTags: UILabel!
-    @IBOutlet var  hasShownDirection: UILabel!
     
     @IBOutlet var  img1View:UIImageView!
     @IBOutlet var  img2View:UIImageView!
@@ -82,11 +80,15 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
     @IBOutlet var  poleDetailsHeightConstraint:NSLayoutConstraint!
     @IBOutlet var  addressViewHeightConstraint:NSLayoutConstraint!
     @IBOutlet var  scrollViewConstraint:NSLayoutConstraint!
+    
 
+    
     let appDelegate: AppDelegate        = UIApplication.shared.delegate as! AppDelegate
     var activityIndicator =  ActivityIndicator()
-
     var reportData : ReportData?
+    var locationManager : CLLocationManager?
+    var currentLocation : CLLocation?
+    var hasShownDirection: Bool!
 
     override func viewDidLoad() {
         navigationBarSettings()
@@ -364,6 +366,11 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
         let activityItems = [text]
         if let av =  UIActivityViewController.init(activityItems: activityItems, applicationActivities: nil) as? UIActivityViewController {
             av.excludedActivityTypes =  [.airDrop]
+            if (UI_USER_INTERFACE_IDIOM() == .pad) {
+                       av.popoverPresentationController?.sourceView = sender as! UIView
+                       av.popoverPresentationController?.sourceRect =  sender.bounds
+                       av.popoverPresentationController?.permittedArrowDirections = [.down]
+            }
             self.present(av, animated: true, completion: nil)
         }
     }
@@ -683,6 +690,77 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
 
     }
   
+    //MARK: Location Delegates
+    @IBAction func mapsDirection(_ sender: UIButton) {
+        if(locationManager == nil) {
+            
+            locationManager = CLLocationManager.init()
+            locationManager?.requestAlwaysAuthorization()
+            locationManager?.delegate = self
+            if CLLocationManager.locationServicesEnabled() {
+                locationManager?.requestAlwaysAuthorization()
+                locationManager?.startUpdatingLocation()
+            }
+            
+        }
+        if let latLong = self.getAddressDict() as? CLLocation  {
+            currentLocation = latLong
+        }
+        if(currentLocation == nil){
+            hasShownDirection = true
+            
+        }
+        else {
+            self.showDirection()
+            hasShownDirection = false
+            
+        }
+    }
+        func  showDirection()
+        {
+            if let lat = currentLocation?.coordinate.latitude , let long = currentLocation?.coordinate.longitude {
+            if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
+                    UIApplication.shared.openURL(NSURL(string:
+                        "comgooglemaps://?saddr=&daddr=\(lat),\(long)&directionsmode=driving")! as URL)
+
+                } else {
+
+    //
+    //            NSString* directionsURL = [NSString stringWithFormat:@"http://maps.apple.com/?saddr=%f,%f&daddr=%f,%f",[latitude floatValue], [longitude floatValue], self.reportModel.latitude, self.reportModel.longitude]; //start address(current location) and destinatin address is passed.
+    //            [[UIApplication sharedApplication] openURL: [NSURL URLWithString: directionsURL]];
+            }
+                }
+            
+            
+            
+            hasShownDirection = false
+        }
+    func getAddressDict() -> CLLocation? {
+        var currentLocation: CLLocation
+        
+        if( CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
+            
+            if let loc = locationManager?.location {
+                
+                currentLocation = loc
+                return currentLocation
+                
+            }
+            else{
+                return nil
+            }
+            
+        }
+        else {
+            return nil
+            
+            
+        }
+    }
+    
+    
+    
 }
 class DamagePartsTableViewCell : UITableViewCell {
     @IBOutlet var  lblPart: UILabel!

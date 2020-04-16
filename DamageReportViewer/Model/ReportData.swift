@@ -84,7 +84,6 @@ class ReportData {
 
 
         if let sceneDetails = data["sceneDetails"] as? [String:Any] {
-            print(sceneDetails)
             self.comments = sceneDetails["comments"] as? String
            
             if let policeStandBy = sceneDetails["policeFireStandingBy"] as? Bool {
@@ -130,7 +129,6 @@ class ReportData {
             
         }
         if let partDetails = data["damagedPartDetails"] as? [String:Any] {
-            print(partDetails)
 
             if let items = partDetails["damageData"] as?  [[String:Any]] {
                 for item in items {
@@ -288,7 +286,9 @@ class ReportData {
                     if (dataKey == "address.resolvedAddress" ||  dataKey == "address.userAddress" ){
                         guard let key = item?["key"] as? String else { return }
                          if let address = data["address"] as? [String:Any] {
-                            if var userAddressArray = (address[key] as? String)?.components(separatedBy: ",") {
+                            if var addressKey = address[key] as? String {
+                                addressKey = addressKey.replacingOccurrences(of: "\n", with: ",")
+                            if var userAddressArray = (addressKey as? String)?.components(separatedBy: ",") {
                                 userAddressArray.removeLast()
                                 var count = 0
                                 var addressString = ""
@@ -301,6 +301,7 @@ class ReportData {
                                 }
                                 self.columnValues.append(addressString)
                             }
+                        }
                         }
                         
                     }
@@ -330,7 +331,7 @@ class ReportData {
                     
                 }
         }
-            print(self.columnValues)
+//            print(self.columnValues)
 
         }
 

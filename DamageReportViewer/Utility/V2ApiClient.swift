@@ -215,7 +215,13 @@ class V2ApiClient {
 //        }
         
         getDataFromRequest(from: request as URLRequest) { data, response, error in
-            guard let data = data, error == nil else { return }
+            guard let data = data, error == nil else {
+                print("Error")
+                let _error = APIError(errormessage:"Errpor" )
+                completion(Result.Failure(_error))
+                return
+                
+            }
             do {
                if let obj:[String:Any] = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] {
                     let response = APIResponse(data: obj)

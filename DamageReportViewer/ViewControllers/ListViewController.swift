@@ -166,7 +166,7 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
                     if let data = document.data() as? [String:Any] {
                         if let key = data["dmgCategoryKey"] as? String {
                             let displayName = data["displayName"] as? String
-                            print("\(key):\(displayName)")
+//                            print("\(key):\(displayName)")
                             MainViewController.damageTypeSubTypeDisplayNamesDict[key] = displayName
                         }
                          
@@ -193,7 +193,8 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
                     if let data = document.data() as? [String:Any] {
                         if let key = data["dmgCategoryKey"] as? String {
                             let displayName = data["displayName"] as? String
-                            print("\(key):\(displayName)")
+                            print("\(data):\(displayName)")
+                            
                             MainViewController.self.damageMetaDataDisplayDict[key] = displayName
                         }
                          

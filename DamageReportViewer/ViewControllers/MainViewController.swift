@@ -112,7 +112,7 @@ class MainViewController:UIViewController {
            apiClient.getReports(postData: data) {
                result in
              
-               print(result)
+//               print(result)
                 if (isdeleteDelta == true ) {
                     MainViewController.self.reportArray.removeAll()
                 }
@@ -124,10 +124,26 @@ class MainViewController:UIViewController {
                             if itemsArray.count > 0 {
                                 for item in itemsArray {
                                     let reportData = ReportData.init(data: item)
-                                    reportData?.damageTypeDisplayName = MainViewController.damageTypeSubTypeDisplayNamesDict[reportData?.damageType ?? ""] ?? ""
-                                    reportData?.damageSubTypeDisplayName = MainViewController.damageTypeSubTypeDisplayNamesDict[reportData?.damageSubType ?? ""] ?? ""
+                                    
+                                     let damageTypeDisplayName = MainViewController.damageTypeSubTypeDisplayNamesDict[reportData?.damageType ?? ""]
+                                    
+                                    let damageSubTypeDisplayName = MainViewController.damageTypeSubTypeDisplayNamesDict[reportData?.damageSubType ?? ""]
+                                    
+                                    if damageTypeDisplayName != nil  &&  damageTypeDisplayName != "" && damageSubTypeDisplayName != nil && damageSubTypeDisplayName != ""  {
+                                         reportData?.damageTypeDisplayName = damageTypeDisplayName!
+                                         reportData?.damageSubTypeDisplayName = damageSubTypeDisplayName!
+                                        MainViewController.reportArray.append(reportData!)
 
-                                    MainViewController.reportArray.append(reportData!)
+                                    }
+                                    else {
+                                        print(reportData)
+                                    }
+
+//
+//
+//                                    reportData?.damageTypeDisplayName = MainViewController.damageTypeSubTypeDisplayNamesDict[reportData?.damageType ?? ""] ?? ""
+//                                    reportData?.damageSubTypeDisplayName = MainViewController.damageTypeSubTypeDisplayNamesDict[reportData?.damageSubType ?? ""] ?? ""
+
                                 }
                                 let response = Response.init(message: "")
                                 completion(ReportStatus.Data(response))

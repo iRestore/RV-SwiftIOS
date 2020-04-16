@@ -16,7 +16,7 @@ enum ButtonTag : Int {
     case kTagImage1_Button = 11, kTagImage2_Button = 12,kTagImage3_Button  = 13
 
 }
-class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
+class FRDetailsViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate {
 
     @IBOutlet var  damageScopeLabel: UILabel!
     @IBOutlet var  damagePartLabel: UILabel!
@@ -67,6 +67,7 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
     var currentLocation : CLLocation?
     var hasShownDirection = false
     override func viewDidLoad() {
+        googleMapView.delegate = self
         navigationBarSettings()
         populateData()
     }
@@ -105,7 +106,15 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
         
         self.perform(#selector(setScrollViewContentSize), with: nil, afterDelay: 1.0)
         if (reportData?.imageCount == 1) {
-            img2View.load.request(with: URL.init(string: (reportData?.thumbnail1Path)!) ?? "")
+            
+            let image1Url:NSString = reportData?.thumbnail1Path as? NSString ?? ""
+            self.downloadImage(path: image1Url.lastPathComponent
+                , isThumbnail: true,identifier: 2)
+            
+//            self.downloadImage(path: (reportData?.thumbnail1Path)!, isThumbnail: true, identifier: 1)
+//            img2View.load.request(with: URL.init(string: (reportData?.thumbnail1Path)!) ?? "")
+            
+            
             btnImg1View.isEnabled = false
             btnImg3View.isEnabled = false
             self.img1View.isHidden = true
@@ -113,9 +122,18 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
 
             
         }else if (reportData?.imageCount == 2){
-            img1View.load.request(with: URL.init(string: (reportData?.thumbnail1Path)!) ?? "")
+            let image1Url:NSString = reportData?.thumbnail1Path as? NSString ?? ""
+            self.downloadImage(path: image1Url.lastPathComponent
+                , isThumbnail: true,identifier: 1)
+            
+            let image2Url:NSString = reportData?.thumbnail2Path as? NSString ?? ""
+            self.downloadImage(path: image2Url.lastPathComponent
+                , isThumbnail: true,identifier: 3)
+            
+            
+//            img1View.load.request(with: URL.init(string: (reportData?.thumbnail1Path)!) ?? "")
 
-            img3View.load.request(with: URL.init(string: (reportData?.thumbnail2Path)!) ?? "")
+//            img3View.load.request(with: URL.init(string: (reportData?.thumbnail2Path)!) ?? "")
             
             self.img1View.isHidden = false
             self.img3View.isHidden = false
@@ -380,9 +398,10 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
     }
     func  showDirection()
     {
+        if let lat = currentLocation?.coordinate.latitude , let long = currentLocation?.coordinate.longitude {
         if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
                 UIApplication.shared.openURL(NSURL(string:
-                    "comgooglemaps://?saddr=&daddr=\(currentLocation?.coordinate.latitude),\(currentLocation?.coordinate.longitude)&directionsmode=driving")! as URL)
+                    "comgooglemaps://?saddr=&daddr=\(lat),\(long)&directionsmode=driving")! as URL)
 
             } else {
 
@@ -390,12 +409,37 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
 //            NSString* directionsURL = [NSString stringWithFormat:@"http://maps.apple.com/?saddr=%f,%f&daddr=%f,%f",[latitude floatValue], [longitude floatValue], self.reportModel.latitude, self.reportModel.longitude]; //start address(current location) and destinatin address is passed.
 //            [[UIApplication sharedApplication] openURL: [NSURL URLWithString: directionsURL]];
         }
-        
+            }
         
         
         
         hasShownDirection = false
     }
+    func getAddressDict() -> CLLocation?
+       {
+           var currentLocation: CLLocation
+           
+           if( CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+               CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
+               
+               if let loc = locationManager?.location {
+                   
+                   currentLocation = loc
+                    return currentLocation
+
+               }
+               else{
+                    return nil
+                }
+              
+           }
+           else {
+              return nil
+
+               
+           }
+       }
+    
     
     @IBAction func mapsDirection(_ sender: UIButton) {
         if(locationManager == nil) {
@@ -403,16 +447,23 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
             locationManager = CLLocationManager.init()
             locationManager?.requestAlwaysAuthorization()
             locationManager?.delegate = self
-           // locationManager?.desiredAccuracy = .k
+            if CLLocationManager.locationServicesEnabled() {
+                locationManager?.requestAlwaysAuthorization()
+                locationManager?.startUpdatingLocation()
+            }
+            
+        }
+        if let latLong = self.getAddressDict() as? CLLocation  {
+            currentLocation = latLong
         }
         if(currentLocation == nil){
                hasShownDirection = true
-               
+
            }
            else {
                 self.showDirection()
                 hasShownDirection = false
-               
+
            }
     }
     
@@ -445,7 +496,13 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
         let activityItems = [text]
         if let av =  UIActivityViewController.init(activityItems: activityItems, applicationActivities: nil) as? UIActivityViewController {
             av.excludedActivityTypes =  [.airDrop]
+            if (UI_USER_INTERFACE_IDIOM() == .pad) {
+                av.popoverPresentationController?.sourceView = sender as! UIView
+                av.popoverPresentationController?.sourceRect =  sender.bounds
+                av.popoverPresentationController?.permittedArrowDirections = [.down]
+            }
             self.present(av, animated: true, completion: nil)
+
         }
     }
     
@@ -465,7 +522,8 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
                 return;   // return if image is not available for that thumbnail.
             }
             else {
-                self.downloadImage(path:image1Url.lastPathComponent )
+                self.downloadImage(path: image1Url.lastPathComponent,isThumbnail:false,identifier:-1)
+               // self.downloadImage(path:image1Url.lastPathComponent ) //gree
 
             }
             
@@ -480,11 +538,14 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
                     return;
                 }
                 else if thumbNail1 != "" {
-                    self.downloadImage(path:image1Url.lastPathComponent )
+                    self.downloadImage(path: image1Url.lastPathComponent,isThumbnail:false,identifier:-1)
+
+                    //self.downloadImage(path:image1Url.lastPathComponent )//gree
 
                 }
                 else {
-                    self.downloadImage(path:image2Url.lastPathComponent )
+                    self.downloadImage(path: image2Url.lastPathComponent,isThumbnail:false,identifier:-1)
+                    //self.downloadImage(path:image2Url.lastPathComponent )//gree
 
                 }
             
@@ -495,7 +556,7 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
                 return;   // return if image is not available for that thumbnail.
             }
             else {
-                self.downloadImage(path:image2Url.lastPathComponent )
+                //self.downloadImage(path:image2Url.lastPathComponent )//gree
 
             }
             
@@ -504,12 +565,9 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
     }
 
     
-//    @objc func backBtnClicked() -> Void {
-//    }
-//
-    func downloadImage(path: String) {
+    func downloadImage(path: String,isThumbnail:Bool,identifier:Int) {
         
-    let _path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let _path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         var filePath   = ""
         let url = NSURL(fileURLWithPath: _path)
         if let pathComponent = url.appendingPathComponent(path) {
@@ -517,19 +575,37 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
             let fileManager = FileManager.default
             if fileManager.fileExists(atPath: filePath) {
                 if let image    = UIImage(contentsOfFile: filePath) as? UIImage {
-                    self.showFullImage(downloadedImage: image)
+                    if isThumbnail == true {
+                        if identifier == 1 {
+                            self.img1View.image = image
+                        }
+                        else if identifier == 2 {
+                            self.img2View.image = image
+
+                        }
+                        else {
+                            self.img3View.image = image
+
+                        }
+                        //self.mainImgView.image = image
+
+                    }
+                    else {
+                        self.showFullImage(downloadedImage: image)
+
+                    }
 
                 }
                 //print("FILE AVAILABLE")
             } else {
-                self.downloadImage(path:path, filePath:filePath)
+                self.downloadImage(path:path, filePath:filePath,isThumbnail: isThumbnail,identifier: identifier)
             }
         } else {
-            self.downloadImage(path:path, filePath:filePath)
+            self.downloadImage(path:path, filePath:filePath,isThumbnail: isThumbnail,identifier:identifier)
         }
 
     }
-    func downloadImage(path:String, filePath:String){
+    func downloadImage(path:String, filePath:String,isThumbnail:Bool,identifier:Int){
         self.activityIndicator.showActivityIndicator(uiView: self.view)
         var dnldCompletionHandler: AWSS3TransferUtilityDownloadCompletionHandlerBlock?
         let credentialProvider = AWSCognitoCredentialsProvider(regionType: .USEast1, identityPoolId: Constants.AWS_COGNITO_POOL_ID)
@@ -537,9 +613,12 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
         AWSServiceManager.default().defaultServiceConfiguration = configuration
         
         let fileURL = URL(fileURLWithPath: path)
-        let S3BucketName = UserDefaults.standard.value(forKey: Constants.BUCKET_NAME) as! String
-        
-        var S3BucketNamethumb = "\(S3BucketName)-thumbnails"
+        var S3BucketName = UserDefaults.standard.value(forKey: Constants.BUCKET_NAME) as! String
+        if isThumbnail == true {
+            //var S3BucketNamethumb = "\(S3BucketName)-thumbnails"
+            S3BucketName = "\(S3BucketName)-thumbnails"
+
+        }
 
         var bucketFolder:String = ""
         if let  _bucketFolder = UserDefaults.standard.value(forKey: Constants.accountKey) {
@@ -556,15 +635,47 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
                     print("Error: \(error!)")
                 }
                 else{
+                    
+                                                                                              
+                                    
                     //Set your image
                     if let downloadedImage = UIImage(data: data!) as? UIImage {
-                        self.showFullImage(downloadedImage:downloadedImage)
+                        if (isThumbnail == true ){
+                            if( identifier == 1) {
+                                self.img1View.image = downloadedImage
+                            }
+                            else if( identifier == 2) {
+                               self.img2View.image = downloadedImage
+                            }
+                            else if( identifier == 3) {
+                                self.img3View.image = downloadedImage
+
+                            }
+                        }
+                        else{
+                            self.showFullImage(downloadedImage:downloadedImage)
+
+                        }
+//                        if (isThumbnail == true  && identifier == 1) {
+//                            self.mainImgView.image = downloadedImage
+//                        }
+//                        else if (isThumbnail == true ) {
+//                            if (identifier >= 0 ) {
+//                            let indexPath = NSIndexPath.init(row: identifier, section: 0)
+//                                self.damageDetailsTableView.reloadRows(at: [(indexPath as IndexPath)], with: .none)
+//                            }
+//                        }
+//                        else{
+//                            self.showFullImage(downloadedImage:downloadedImage)
+//                        }
 
                     }
                     do {
                         // writes the image data to disk
+                        if (isThumbnail == false){
                         try data?.write(to: NSURL.init(fileURLWithPath: filePath) as URL)
                         print("file saved")
+                        }
                     } catch {
                         print("error saving file:", error)
                     }
@@ -589,6 +700,88 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
         }
         
     }
+//    func downloadImage(path: String) {
+//
+//    let _path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+//        var filePath   = ""
+//        let url = NSURL(fileURLWithPath: _path)
+//        if let pathComponent = url.appendingPathComponent(path) {
+//            filePath = pathComponent.path
+//            let fileManager = FileManager.default
+//            if fileManager.fileExists(atPath: filePath) {
+//                if let image    = UIImage(contentsOfFile: filePath) as? UIImage {
+//                    self.showFullImage(downloadedImage: image)
+//
+//                }
+//                //print("FILE AVAILABLE")
+//            } else {
+//                self.downloadImage(path:path, filePath:filePath)
+//            }
+//        } else {
+//            self.downloadImage(path:path, filePath:filePath)
+//        }
+//
+//    }
+//    func downloadImage(path:String, filePath:String){
+//        self.activityIndicator.showActivityIndicator(uiView: self.view)
+//        var dnldCompletionHandler: AWSS3TransferUtilityDownloadCompletionHandlerBlock?
+//        let credentialProvider = AWSCognitoCredentialsProvider(regionType: .USEast1, identityPoolId: Constants.AWS_COGNITO_POOL_ID)
+//        let configuration = AWSServiceConfiguration(region: .USEast1, credentialsProvider: credentialProvider)
+//        AWSServiceManager.default().defaultServiceConfiguration = configuration
+//
+//        let fileURL = URL(fileURLWithPath: path)
+//        let S3BucketName = UserDefaults.standard.value(forKey: Constants.BUCKET_NAME) as! String
+//
+//        var S3BucketNamethumb = "\(S3BucketName)-thumbnails"
+//
+//        var bucketFolder:String = ""
+//        if let  _bucketFolder = UserDefaults.standard.value(forKey: Constants.accountKey) {
+//            bucketFolder = _bucketFolder as! String
+//        }
+//        let S3DownloadKeyName : String = bucketFolder + fileURL.path
+//        let expression = AWSS3TransferUtilityDownloadExpression()
+//
+//        dnldCompletionHandler = { (task, location, data, error) -> Void in
+//            DispatchQueue.main.sync(execute: {
+//                self.activityIndicator.hideActivityIndicator(uiView: self.view)
+//                if ((error) != nil){
+//                    print("Failed with error")
+//                    print("Error: \(error!)")
+//                }
+//                else{
+//                    //Set your image
+//                    if let downloadedImage = UIImage(data: data!) as? UIImage {
+//                        self.showFullImage(downloadedImage:downloadedImage)
+//
+//                    }
+//                    do {
+//                        // writes the image data to disk
+//                        try data?.write(to: NSURL.init(fileURLWithPath: filePath) as URL)
+//                        print("file saved")
+//                    } catch {
+//                        print("error saving file:", error)
+//                    }
+//                    // Define identifier
+//                    let notificationName = Notification.Name("NotificationImageDownload")
+//                    NotificationCenter.default.post(name: notificationName, object: nil)
+//
+//                }
+//            })
+//        }
+//
+//        let transferUtility = AWSS3TransferUtility.default()
+//        transferUtility.downloadData(fromBucket: S3BucketName, key: S3DownloadKeyName, expression: expression, completionHandler: dnldCompletionHandler).continueWith { (task) -> AnyObject? in
+//            if let error = task.error {
+//                self.activityIndicator.hideActivityIndicator(uiView: self.view)
+//                print("Error: \(error.localizedDescription)")
+//            }
+//            if let _ = task.result {
+//                print("Download Starting!")
+//            }
+//            return nil
+//        }
+//
+//    }
     
     func showFullImage(downloadedImage:UIImage) {
         
@@ -618,6 +811,99 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate {
         print(sender.view)
         sender.view?.superview?.removeFromSuperview()
     }
+    
+//    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+//
+//   // if marker.title != nil {
+//
+//        let mapViewHeight = mapView.frame.size.height
+//        let mapViewWidth = mapView.frame.size.width
+//
+//
+//        let container = UIView()
+//        container.frame = CGRect(x: mapViewWidth - 100, y: mapViewHeight - 63, width: 65, height: 35)
+//        container.backgroundColor = UIColor.white
+//        self.view.addSubview(container)
+//
+//        let googleMapsButton = CustomButton()
+//        googleMapsButton.setTitle("", for: .normal)
+//        googleMapsButton.setImage(UIImage(named: "googlemaps"), for: .normal)
+//        googleMapsButton.setTitleColor(UIColor.blue, for: .normal)
+//        googleMapsButton.frame = CGRect(x: mapViewWidth - 80, y: mapViewHeight - 70, width: 50, height: 50)
+//        googleMapsButton.addTarget(self, action: #selector(markerClick(sender:)), for: .touchUpInside)
+//        googleMapsButton.gps = String(marker.position.latitude) + "," + String(marker.position.longitude)
+//        googleMapsButton.setTitle(marker.title, for: .normal)
+//        googleMapsButton.tag = 0
+//
+//        let directionsButton = CustomButton()
+//
+//            directionsButton.setTitle("", for: .normal)
+//            directionsButton.setImage(UIImage(named: "maps_icon"), for: .normal)
+//                directionsButton.setTitleColor(UIColor.blue, for: .normal)
+//                directionsButton.frame = CGRect(x: mapViewWidth - 110, y: mapViewHeight - 70, width: 50, height: 50)
+//                directionsButton.addTarget(self, action: #selector(markerClick(sender:)), for: .touchUpInside)
+//                directionsButton.gps = String(marker.position.latitude) + "," + String(marker.position.longitude)
+//                directionsButton.setTitle(marker.title, for: .normal)
+//                directionsButton.tag = 1
+//                //self.view.addSubview(googleMapsButton)
+//                self.view.addSubview(directionsButton)
+//           // }
+//            return true
+//        }
+//        @objc func markerClick(sender: CustomButton) {
+//        let fullGPS = sender.gps
+//        let fullGPSArr = fullGPS.split(separator: ",")
+//
+//        let lat1 : String = String(fullGPSArr[0])
+//        let lng1 : String = String(fullGPSArr[1])
+//
+//
+//        let latitude = Double(lat1) as! CLLocationDegrees
+//        let longitude = Double(lng1) as! CLLocationDegrees
+//
+//        if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
+//
+//            if (sender.tag == 1) {
+//                let url = URL(string: "comgooglemaps://?saddr=&daddr=\(latitude),\(longitude)&directionsmode=driving")
+//                UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+//            } else if (sender.tag == 0) {
+//                let url = URL(string:"comgooglemaps://?center=\(latitude),\(longitude)&zoom=14&views=traffic&q=\(latitude),\(longitude)")
+//                UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+//            }
+//
+//        } else {
+//            let regionDistance:CLLocationDistance = 10000
+//                    let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
+//            let regionSpan = MKCoordinateRegion(center: coordinates, latitudinalMeters: regionDistance, longitudinalMeters: regionDistance)
+//                    var options = NSObject()
+//                    if (sender.tag == 1) {
+//                        options = [
+//                            MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
+//                            MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span),
+//                            MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving
+//                            ] as NSObject
+//                    } else if (sender.tag == 0) {
+//                        options = [
+//                            MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
+//                            MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)
+//                            ] as NSObject
+//                    }
+//
+//                    let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+//                    let mapItem = MKMapItem(placemark: placemark)
+//                    mapItem.name = sender.title(for: .normal)
+//                    mapItem.openInMaps(launchOptions: options as? [String : AnyObject])
+//                }
+//            }
+
 }
 
 
+class CustomButton: UIButton {
+    var gps = ""
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        //TODO: Code for our button
+    }
+}

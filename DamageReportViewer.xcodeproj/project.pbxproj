@@ -15,6 +15,9 @@
 		1A27AE4C23A1590500EF20C2 /* CreateProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A27AE4923A1590400EF20C2 /* CreateProfileViewController.swift */; };
 		1A27AE4D23A1590500EF20C2 /* TermsConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A27AE4A23A1590400EF20C2 /* TermsConditionsViewController.swift */; };
 		1A36C6E523CC7CF00032C107 /* FRDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A36C6E423CC7CF00032C107 /* FRDetailsViewController.swift */; };
+		1A3910322448663E009EF70F /* Beta_Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A3910312448663E009EF70F /* Beta_Info.plist */; };
+		1A3910342448664E009EF70F /* Qa_Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A3910332448664D009EF70F /* Qa_Info.plist */; };
+		1A39103624486658009EF70F /* Dev_Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A39103524486658009EF70F /* Dev_Info.plist */; };
 		1A48712423D9B580007EBADE /* MultiSelectionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A48712323D9B57F007EBADE /* MultiSelectionListViewController.swift */; };
 		1A48712623DA1150007EBADE /* SelectLocationCategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A48712523DA1150007EBADE /* SelectLocationCategoryController.swift */; };
 		1A56C3F623E13EC400612F21 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A56C3F523E13EC400612F21 /* CloseButton.swift */; };
@@ -81,6 +84,9 @@
 		1A27AE4923A1590400EF20C2 /* CreateProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateProfileViewController.swift; sourceTree = "<group>"; };
 		1A27AE4A23A1590400EF20C2 /* TermsConditionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsConditionsViewController.swift; sourceTree = "<group>"; };
 		1A36C6E423CC7CF00032C107 /* FRDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FRDetailsViewController.swift; sourceTree = "<group>"; };
+		1A3910312448663E009EF70F /* Beta_Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Beta_Info.plist; sourceTree = "<group>"; };
+		1A3910332448664D009EF70F /* Qa_Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Qa_Info.plist; sourceTree = "<group>"; };
+		1A39103524486658009EF70F /* Dev_Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Dev_Info.plist; sourceTree = "<group>"; };
 		1A48712323D9B57F007EBADE /* MultiSelectionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectionListViewController.swift; sourceTree = "<group>"; };
 		1A48712523DA1150007EBADE /* SelectLocationCategoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLocationCategoryController.swift; sourceTree = "<group>"; };
 		1A56C3F523E13EC400612F21 /* CloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
@@ -254,6 +260,9 @@
 				1A7354FB23C589CC00AB1299 /* QA.xcconfig */,
 				1A7354FC23C589DA00AB1299 /* Beta.xcconfig */,
 				1A7354FD23C589F300AB1299 /* Prod.xcconfig */,
+				1A39103524486658009EF70F /* Dev_Info.plist */,
+				1A3910312448663E009EF70F /* Beta_Info.plist */,
+				1A3910332448664D009EF70F /* Qa_Info.plist */,
 				1ADEFC272397B040007B7E30 /* Info.plist */,
 				1A7354EF23C457D800AB1299 /* GoogleService-Info.plist */,
 			);
@@ -460,9 +469,12 @@
 			files = (
 				1ADEFC262397B040007B7E30 /* LaunchScreen.storyboard in Resources */,
 				1A27AE4523A0C48C00EF20C2 /* Localizable.strings in Resources */,
+				1A39103624486658009EF70F /* Dev_Info.plist in Resources */,
+				1A3910322448663E009EF70F /* Beta_Info.plist in Resources */,
 				1A7354F023C457D800AB1299 /* GoogleService-Info.plist in Resources */,
 				1ADEFC232397B040007B7E30 /* Assets.xcassets in Resources */,
 				1ADEFC212397B03C007B7E30 /* Main.storyboard in Resources */,
+				1A3910342448664E009EF70F /* Qa_Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -785,12 +797,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 45E611D46F872254BD1E9A1D /* Pods-DamageReportViewer.debug qa.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				CODE_SIGN_ENTITLEMENTS = DamageReportViewer/DamageReportViewer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Greeshma Mullakkara (VX346J6898)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
-				INFOPLIST_FILE = DamageReportViewer/Info.plist;
+				INFOPLIST_FILE = DamageReportViewer/Qa_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -914,12 +926,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3D7D3026C0F9F3FD00E502C0 /* Pods-DamageReportViewer.debug dev.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_ENTITLEMENTS = DamageReportViewer/DamageReportViewer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Greeshma Mullakkara (VX346J6898)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
-				INFOPLIST_FILE = DamageReportViewer/Info.plist;
+				INFOPLIST_FILE = DamageReportViewer/Dev_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1043,12 +1055,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 29CF5CBC99334BB209E5DC23 /* Pods-DamageReportViewer.debug beta.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-3";
 				CODE_SIGN_ENTITLEMENTS = DamageReportViewer/DamageReportViewer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Greeshma Mullakkara (VX346J6898)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
-				INFOPLIST_FILE = DamageReportViewer/Info.plist;
+				INFOPLIST_FILE = DamageReportViewer/Beta_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1166,12 +1178,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9FBDA6A6C54E6FEC952380D6 /* Pods-DamageReportViewer.release dev.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_ENTITLEMENTS = DamageReportViewer/DamageReportViewer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Greeshma Mullakkara (VX346J6898)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
-				INFOPLIST_FILE = DamageReportViewer/Info.plist;
+				INFOPLIST_FILE = DamageReportViewer/Dev_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1289,12 +1301,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EE4F386019C144F9F9B3ED37 /* Pods-DamageReportViewer.release qa.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				CODE_SIGN_ENTITLEMENTS = DamageReportViewer/DamageReportViewer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Greeshma Mullakkara (VX346J6898)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
-				INFOPLIST_FILE = DamageReportViewer/Info.plist;
+				INFOPLIST_FILE = DamageReportViewer/Qa_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1412,12 +1424,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2E59F4384AC2CC014AF25A44 /* Pods-DamageReportViewer.release beta.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-3";
 				CODE_SIGN_ENTITLEMENTS = DamageReportViewer/DamageReportViewer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Greeshma Mullakkara (VX346J6898)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 43GLD63SWH;
-				INFOPLIST_FILE = DamageReportViewer/Info.plist;
+				INFOPLIST_FILE = DamageReportViewer/Beta_Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
