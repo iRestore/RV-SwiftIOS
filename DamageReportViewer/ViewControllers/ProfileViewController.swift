@@ -81,7 +81,8 @@ class  ProfileViewController : UIViewController {
         backButton = UIButton.init(type: UIButton.ButtonType.custom)
         backButton.setImage(UIImage.init(named: "profile"), for: UIControl.State.normal)
         backButton.addTarget(self, action: #selector(profileBtnClicked), for: .touchUpInside)
-        backButton.sizeToFit()
+        backButton.frame.size = CGSize.init(width: 50, height: 50)
+        backButton.contentHorizontalAlignment = .left
         leftBarBtnItem = UIBarButtonItem.init(customView: backButton)
         navigationItem.leftBarButtonItem = leftBarBtnItem
         

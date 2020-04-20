@@ -10,14 +10,16 @@ import UIKit
 import CoreLocation
 import GoogleMaps
 
-class MapViewController: MainViewController,GMSMapViewDelegate,FilterReportsDelegate {
+class MapViewController: MainViewController,GMSMapViewDelegate,FilterReportsDelegate,CLLocationManagerDelegate {
     @IBOutlet var  googleMapView : GMSMapView!
     @IBOutlet var filterBtn: UIButton!
     var isloading: Bool = false
     var activityIndicator =  ActivityIndicator()
+    var currentLocation : CLLocation?
     private let locationManager = CLLocationManager()
     override func viewDidLoad() {
            super.viewDidLoad()
+            enableCurrentLocation()
 
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -30,10 +32,53 @@ class MapViewController: MainViewController,GMSMapViewDelegate,FilterReportsDele
             self.filterBtn.setImage(UIImage.init(named: "filter"), for: .normal)
         }
         getCordinates()
-      //  googleMapView.isMyLocationEnabled = true
         googleMapView.delegate = self
+        //googleMapView.isMyLocationEnabled = true
 
     }
+    
+    func enableCurrentLocation() {
+        
+        if(locationManager == nil) {
+            
+            locationManager.requestAlwaysAuthorization()
+            locationManager.delegate = self
+            if CLLocationManager.locationServicesEnabled() {
+                locationManager.requestAlwaysAuthorization()
+                locationManager.startUpdatingLocation()
+            }
+            
+        }
+        if let latLong = self.getAddressDict() as? CLLocation  {
+            currentLocation = latLong
+        }
+    }
+    func getAddressDict() -> CLLocation?
+       {
+           var currentLocation: CLLocation
+           
+           if( CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+               CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
+               
+               if let loc = locationManager.location {
+                   
+                   currentLocation = loc
+                    return currentLocation
+
+               }
+               else{
+                    return nil
+                }
+              
+           }
+           else {
+              return nil
+
+               
+           }
+       }
+    
+    
     @IBAction func btnFilterClicked(_ sender:UIButton ){
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
         guard let detailsController = mainStoryBoard.instantiateViewController(withIdentifier: "NewFilterViewController") as? NewFilterViewController else { return  }
@@ -130,7 +175,10 @@ class MapViewController: MainViewController,GMSMapViewDelegate,FilterReportsDele
            
 
         }
-        googleMapView.animate(with: GMSCameraUpdate.fit(bounds))
+        let camera = GMSCameraPosition.camera(withLatitude: currentLocation?.coordinate.latitude ?? 0, longitude: currentLocation?.coordinate.longitude ?? 0, zoom: 10)
+        googleMapView?.camera = camera
+        googleMapView?.animate(to: camera)
+       // googleMapView.animate(with: GMSCameraUpdate.fit(bounds))
         
         
     }

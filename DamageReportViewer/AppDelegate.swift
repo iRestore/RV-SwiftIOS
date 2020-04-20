@@ -120,7 +120,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationDidBecomeActive(_ application: UIApplication) {
         if #available(iOS 13.0, *) {
 
-                //self.doSync()
 
         }
         else {

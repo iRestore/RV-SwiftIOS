@@ -44,7 +44,7 @@ open class TagView: UIButton {
             titleLabel?.lineBreakMode = titleLineBreakMode
         }
     }
-    @IBInspectable open var paddingY: CGFloat = 10 {
+    @IBInspectable open var paddingY: CGFloat = 3 {
         didSet {
             titleEdgeInsets.top = paddingY
             titleEdgeInsets.bottom = paddingY
@@ -121,7 +121,7 @@ open class TagView: UIButton {
     var tagType:String = ""
     
     // MARK: icon
-    let iconImageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 15, height: 15))
+    let iconImageView = UIImageView.init(frame: CGRect.init(x: 0, y: 0, width: 20, height: 20))
     @IBInspectable open var enableIconButton: Bool = false {
            didSet {
                iconImageView.isHidden = !enableIconButton
@@ -249,9 +249,9 @@ open class TagView: UIButton {
             removeButton.frame.size.height = self.frame.height
             removeButton.frame.origin.y = 0
         }
-        iconImageView.frame.size.width = 15
+        iconImageView.frame.size.width = 20
         iconImageView.frame.origin.x = 10
-        iconImageView.frame.size.height = 15
+        iconImageView.frame.size.height = 20
         iconImageView.frame.origin.y =  (self.frame.height)/2 - (iconImageView.frame.height)/2
         
     }

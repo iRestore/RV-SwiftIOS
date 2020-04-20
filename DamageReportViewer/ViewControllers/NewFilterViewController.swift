@@ -107,7 +107,8 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
         backButton = UIButton.init(type: UIButton.ButtonType.custom)
         backButton.setImage(UIImage.init(named: "back_green"), for: UIControl.State.normal)
         backButton.addTarget(self, action: #selector(backBtnOnClick), for: .touchUpInside)
-        backButton.sizeToFit()
+        backButton.frame.size = CGSize.init(width: 50, height: 50)
+        backButton.contentHorizontalAlignment = .left
         leftBarBtnItem = UIBarButtonItem.init(customView: backButton)
         self.navigationItem.leftBarButtonItem = leftBarBtnItem
         
@@ -184,36 +185,38 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
         var item12 = CellItem.init(name: "roadBlocked", displayName: "Road Blocked", type: "TYPE2", subType:"")
         item12.rowHeight = Constants.EXTENDING_CELL_HEIGHT
         
-        var item13 = CellItem.init(name: "", displayName: "FR Filter", type: "TYPE5", subType:"")
-        item13.rowHeight = 30
-        item13.iconImageName = "fr_5_tree"
+        var item13  = CellItem.init(name: "", displayName: "", type: "TYPE4", subType:"")
+        item13.rowHeight = 10
         
-        var item14 = CellItem.init(name: "viewAcknowledged", displayName: "Include Acknowledged Reports", type: "TYPE2", subType:"")
-        item14.rowHeight = Constants.FILTER_TABLECELL_NORML_HEIGHT
+        
+        var item14 = CellItem.init(name: "", displayName: "FR Filter", type: "TYPE5", subType:"")
+        item14.rowHeight = 30
+        item14.iconImageName = "fr_5_tree"
+        
+        var item15 = CellItem.init(name: "viewAcknowledged", displayName: "Include Acknowledged Reports", type: "TYPE2", subType:"")
+        item15.rowHeight = Constants.FILTER_TABLECELL_NORML_HEIGHT
                
-        var item15 = CellItem.init(name: "", displayName: "VDA Filter", type: "TYPE5", subType:"")
-        item15.rowHeight = 30
-        item15.iconImageName = "vda_11_tree"
+        var item16 = CellItem.init(name: "", displayName: "VDA Filter", type: "TYPE5", subType:"")
+        item16.rowHeight = 30
+        item16.iconImageName = "vda_11_tree"
 
         
-//        var item16 = CellItem.init(name: "", displayName: "Feeder Line", type: "TYPE2", subType:"")
-//        item16.rowHeight = Constants.FILTER_TABLECELL_NORML_HEIGHT
-//
-        var item16 = CellItem.init(name: "wireGuardStandingBy", displayName: "Wire Guard On Standby", type: "TYPE2", subType:"")
-        item16.rowHeight = Constants.FILTER_TABLECELL_NORML_HEIGHT
+
+        var item17 = CellItem.init(name: "wireGuardStandingBy", displayName: "Wire Guard On Standby", type: "TYPE2", subType:"")
+        item17.rowHeight = Constants.FILTER_TABLECELL_NORML_HEIGHT
         
-        var item17 = CellItem.init(name: "feederLine", displayName: "Feeder Line", type: "TYPE1", subType:"")
-        item17.rowHeight = Constants.EXTENDING_CELL_HEIGHT
-        item17.placeHolderText = "Select Feeder Line"
+        var item18 = CellItem.init(name: "feederLine", displayName: "Feeder Line", type: "TYPE1", subType:"")
+        item18.rowHeight = Constants.EXTENDING_CELL_HEIGHT
+        item18.placeHolderText = "Select Feeder Line"
         
         if tabIndex == 1 {
-            cellItemsArray = [item1,item21, item2,item3, item4,item5,item6,item7,item8,item9,item10,item11,item12,item13,item14,item15,item16,item17]
+            cellItemsArray = [item1,item21, item2,item3, item4,item5,item6,item7,item8,item9,item10,item11,item12,item13,item14,item15,item16,item17,item18]
         }
         else if tabIndex == 2 {
-            cellItemsArray = [item1,item21, item2,item3, item4,item5,item6,item7,item8,item9,item10,item11,item12,item13,item14,item17]
+            cellItemsArray = [item1,item21, item2,item3, item4,item5,item6,item7,item8,item9,item10,item11,item12,item13,item14,item15,item18]
         }
         else if tabIndex == 3 {
-             cellItemsArray = [item1,item21, item2,item3, item4,item5,item6,item7,item8,item9,item10,item11,item12,item15,item16,item17]
+             cellItemsArray = [item1,item21, item2,item3, item4,item5,item6,item7,item8,item9,item10,item11,item12,item13,item16,item17,item18]
         }
 
         
@@ -549,7 +552,7 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                         view.removeFromSuperview()
                     }
                     let tagListView  = TagListView.init(frame: CGRect.init(x: 0, y: 0, width: cell.contentView.frame.width, height: 300))
-                    tagListView.textFont = UIFont.systemFont(ofSize: 15)
+                    tagListView.textFont = UIFont(name: "Avenir-Medium", size: 14.0) ??  UIFont.systemFont(ofSize: 15)
                     tagListView.textColor = UIColor.init("0X26A69A")
                     tagListView.alignment = .left
                     tagListView.delegate = self
@@ -576,7 +579,7 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
                             if  let displayDict = self.filterDisplayDict["scopedict"] as? [String:String] {
                             let displayName = displayDict[item] as! String
                             let tag = tagListView.addTag(displayName)
-                            tag.cornerRadius = 16
+                            tag.cornerRadius = 21
                             tag.tagBackgroundColor = .white
                             tag.borderColor  = UIColor.init("0X26A69A")
                             tag.borderWidth   = 1

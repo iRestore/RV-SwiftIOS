@@ -71,7 +71,8 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
             backButton = UIButton.init(type: UIButton.ButtonType.custom)
             backButton.setImage(UIImage.init(named: "back_green"), for: UIControl.State.normal)
             backButton.addTarget(self, action: #selector(backBtnClicked), for: .touchUpInside)
-            backButton.sizeToFit()
+            backButton.frame.size = CGSize.init(width: 50, height: 50)
+            backButton.contentHorizontalAlignment = .left
             leftBarBtnItem = UIBarButtonItem.init(customView: backButton)
             self.navigationItem.leftBarButtonItem = leftBarBtnItem
 
@@ -134,7 +135,7 @@ class  DamageScopeSelectionViewController : UIViewController,UITableViewDelegate
             activityIndicator.showActivityIndicator(uiView: self.view)
            let db = Firestore.firestore()
            let collectionName = UserDefaults.standard.value(forKey: Constants.FIREBAE_DB)
-        db.collection(collectionName as! String).whereField("level", in: [1, 2]).order(by: "sortOrder", descending: false)
+            db.collection(collectionName as! String).whereField("level", in: [1, 2]).order(by: "sortOrder", descending: false)
                .addSnapshotListener { querySnapshot, error in
                    guard let documents = querySnapshot?.documents else {
                        print("Error fetching documents: \(error!)")

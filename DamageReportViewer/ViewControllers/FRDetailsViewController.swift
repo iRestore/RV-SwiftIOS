@@ -85,15 +85,18 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate,GMSMap
         
 
         let navigationBarAppearace = UINavigationBar.appearance()
-        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 15.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.black]
-        self.navigationItem.title = NSLocalizedString("Damage Reports", comment: "")
+        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir", size: 20.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.init("0x363636")]
+        self.navigationItem.title = NSLocalizedString("Damage Detail Report", comment: "")
         
         var backButton: UIButton
         var leftBarBtnItem : UIBarButtonItem
         backButton = UIButton.init(type: UIButton.ButtonType.custom)
+        backButton.frame.size = CGSize.init(width: 50, height: 50)
+        backButton.contentHorizontalAlignment = .left
+
+        // add image
         backButton.setImage(UIImage.init(named: "back_green"), for: UIControl.State.normal)
         backButton.addTarget(self, action: #selector(backBtnClicked), for: .touchUpInside)
-        backButton.sizeToFit()
         leftBarBtnItem = UIBarButtonItem.init(customView: backButton)
         self.navigationItem.leftBarButtonItem = leftBarBtnItem
 
@@ -196,33 +199,34 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate,GMSMap
         }
 
         
-        if var userAddressArray  = self.reportData?.userAddress?.components(separatedBy: ",") {
-            userAddressArray.removeLast()
-            var count = 0
-            var addressString = ""
-            for st in userAddressArray {
-                if (count == 1 ) {
-                    addressString =  addressString.appending("\n")
-                    
-                }
-                else {
-                    if (count == 1 ) {
-                        addressString =  addressString.appending(st.trimmingCharacters(in: CharacterSet.whitespaces))
-                        
-                    }
-                    else {
-                        addressString =  addressString.appending(st)
-                    }
-                    
-                }
-                count = count + 1
-                
-            }
-            lblUserAddress.text = addressString
-            
-        }
+//        if var userAddressArray  = self.reportData?.userAddress?.components(separatedBy: ",") {
+//            userAddressArray.removeLast()
+//            var count = 0
+//            var addressString = ""
+//            for st in userAddressArray {
+//                if (count == 1 ) {
+//                    addressString =  addressString.appending("\n")
+//                    
+//                }
+//                else {
+//                    if (count == 1 ) {
+//                        let trimmedSt =  st.trimmingCharacters(in: .whitespaces)
+//                        addressString =  addressString.appending(trimmedSt)
+//                        
+//                    }
+//                    else {
+//                        addressString =  addressString.appending(st)
+//                    }
+//                    
+//                }
+//                count = count + 1
+//                
+//            }
+//            lblUserAddress.text = addressString
+//            
+//        }
         
-        if var resolvedAddressArray  = self.reportData?.resolvedAddress?.components(separatedBy: ",")
+        if var resolvedAddressArray  = self.reportData?.userAddress?.components(separatedBy: ",")
         {
             print(resolvedAddressArray)
             resolvedAddressArray.removeLast()
@@ -231,24 +235,25 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate,GMSMap
             for st in resolvedAddressArray {
                 if (count == 1 ) {
                     addressString =  addressString.appending("\n")
-                    
+
                 }
-                    //resolvedAddressArray
-                else {
-                    if (count == 1 ) {
-                        addressString =  addressString.appending(st.trimmingCharacters(in: CharacterSet.whitespaces))
-                        
-                    }
-                    else {
-                        addressString =  addressString.appending(st)
-                    }
-                    
-                }
-                count = count + 1
                 
+                if (count == 1 ) {
+                        let trimmedSt =  st.trimmingCharacters(in: .whitespaces)
+                        addressString =  addressString.appending(trimmedSt)
+
+                }
+                else {
+                        addressString =  addressString.appending(st)
+                }
+
+                count = count + 1
+
             }
             lblDeviceAddress.text = addressString
-            
+            lblUserAddress.text = addressString //for time being
+
+
         }
         
         
@@ -354,8 +359,8 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate,GMSMap
             if (Helper.shared.nullToNil(value:_tagArray as AnyObject ) != nil && _tagArray.count ?? 0 > 0 ){
                 
                 let tagListView  = TagListView.init(frame: CGRect.init(x: 0, y: 0, width: self.tagView.frame.width, height: 100))
-                tagListView.textFont = UIFont(name: "Avenir-Book", size: 15.0) ??  UIFont.systemFont(ofSize: 15)
-                tagListView.textColor = .black
+                tagListView.textFont = UIFont(name: "Avenir-Medium", size: 14.0) ??  UIFont.systemFont(ofSize: 15)
+                tagListView.textColor = UIColor.init("0x666666")
                 tagListView.paddingY = 10
                 tagListView.paddingX = 15
 
@@ -363,7 +368,7 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate,GMSMap
                 for tag in _tagArray {
                     let tag = tagListView.addTag(tag)
                     tag.cornerRadius = 15
-                    tag.tagBackgroundColor = UIColor.init("0xe7e7e7")
+                    tag.tagBackgroundColor = UIColor.init("0xF0F0F0") //UIColor.init("0xe7e7e7")
                     tag.enableRemoveButton = false
                     tag.enableIconButton = false
                 }

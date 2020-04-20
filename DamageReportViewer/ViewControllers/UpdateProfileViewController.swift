@@ -179,7 +179,8 @@ class UpdateProfileViewController: UIViewController,UITableViewDataSource,UITabl
         backButton = UIButton.init(type: UIButton.ButtonType.custom)
         backButton.setImage(UIImage.init(named: "back_green"), for: UIControl.State.normal)
         backButton.addTarget(self, action: #selector(UpdateProfileViewController.backButtonClicked), for: .touchUpInside)
-        backButton.sizeToFit()
+        backButton.frame.size = CGSize.init(width: 50, height: 50)
+        backButton.contentHorizontalAlignment = .left
         leftBarBtnItem = UIBarButtonItem.init(customView: backButton)
         self.navigationItem.leftBarButtonItem = leftBarBtnItem
         

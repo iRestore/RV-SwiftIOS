@@ -211,7 +211,16 @@ class ReportData {
         if let poleDetails = data["poleDetails"] as? [String:Any] {
             if let _poleNumber = poleDetails["poleNumber"]  as? Int {
                     self.poleNumber = "\(_poleNumber)"
-                
+            }
+            else  if let _poleNumber = poleDetails["poleNumber"]  as? String {
+                if _poleNumber != "" {
+                    self.poleNumber = "\(_poleNumber)"
+
+                }
+                else{
+                    self.poleNumber = "NA"
+
+                }
             }
             else {
                  self.poleNumber = "NA"
@@ -382,8 +391,8 @@ class PartData {
                 }
    
                 //self.partDislayText = [data valueForKey:@"partLabel"];
-            else if (key == "comments" ){
-                self.comment = data["comments"] as! String
+            else if (key == "comments" || key == "Comments" ){
+                self.comment = data[key] as! String
             }
             else if (key != "partLabel" ){
                 self.metaDataTitles.append(key)

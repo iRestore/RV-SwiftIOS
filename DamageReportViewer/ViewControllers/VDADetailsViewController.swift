@@ -22,6 +22,7 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
     @IBOutlet var  tagView: UIView!
     @IBOutlet var  tagViewHeightConstraint:NSLayoutConstraint!
 
+    @IBOutlet var  tabView: UIView!
     @IBOutlet var  damageDetailsBtn: UIButton!
     @IBOutlet var  damagePartsBtn: UIButton!
     @IBOutlet var  dmgDetailUnderlineView: UIView!
@@ -93,12 +94,28 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
     override func viewDidLoad() {
         navigationBarSettings()
         selectDamageDetails()
+        setShadow(view: self.tabView)
         populateData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
     
         refreshMap()
+    }
+    func setShadow(view:UIView){
+        let height = view.frame.height
+        let width = view.frame.width
+
+        let shadowSize: CGFloat = 15
+        let contactRect = CGRect(x: -shadowSize, y: height - (shadowSize * 0.2), width: width + shadowSize * 2, height: shadowSize)
+        view.layer.shadowPath = UIBezierPath(ovalIn: contactRect).cgPath
+        view.layer.shadowRadius = 2
+        view.layer.shadowOpacity = 1
+        view.layer.shadowOffset = .zero
+        view.layer.shadowColor = UIColor.init("0xD0D0D0").cgColor //F0F0F0
+
+//        view.layer.shadowPath = UIBezierPath(rect: view.bounds).cgPath
+
     }
     func navigationBarSettings() {
 
@@ -108,15 +125,16 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
         
 
         let navigationBarAppearace = UINavigationBar.appearance()
-        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 15.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.black]
-        self.navigationItem.title = NSLocalizedString("Damage Reports", comment: "")
+        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir", size: 20.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.init("0x363636")]
+        self.navigationItem.title = NSLocalizedString("Damage Detail Report", comment: "")
         
         var backButton: UIButton
         var leftBarBtnItem : UIBarButtonItem
         backButton = UIButton.init(type: UIButton.ButtonType.custom)
         backButton.setImage(UIImage.init(named: "back_green"), for: UIControl.State.normal)
         backButton.addTarget(self, action: #selector(backBtnClicked), for: .touchUpInside)
-        backButton.sizeToFit()
+        backButton.frame.size = CGSize.init(width: 50, height: 50)
+        backButton.contentHorizontalAlignment = .left
         leftBarBtnItem = UIBarButtonItem.init(customView: backButton)
         self.navigationItem.leftBarButtonItem = leftBarBtnItem
 
@@ -126,7 +144,7 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
         self.dmgDetailUnderlineView.backgroundColor = UIColor.init("0x2DB2A8")
         
         self.damagePartsBtn.setTitleColor(UIColor.init("0x363636"), for: .normal)
-        self.dmgPartUnderlineView.backgroundColor = UIColor.init("0x363636")
+        self.dmgPartUnderlineView.backgroundColor = .clear //UIColor.init("0x363636")
 
         self.reportDetailsScrollview.isHidden = false
         self.damageDetailsTableView.isHidden = true
@@ -138,7 +156,7 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
         self.dmgPartUnderlineView.backgroundColor = UIColor.init("0x2DB2A8")
         
         self.damageDetailsBtn.setTitleColor(UIColor.init("0x363636"), for: .normal)
-        self.dmgDetailUnderlineView.backgroundColor = UIColor.init("0x363636")
+        self.dmgDetailUnderlineView.backgroundColor = .clear
 
         self.reportDetailsScrollview.isHidden = true
         self.damageDetailsTableView.isHidden = false
@@ -301,8 +319,8 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
             if (Helper.shared.nullToNil(value:_tagArray as AnyObject ) != nil && _tagArray.count ?? 0 > 0 ){
                 
                 let tagListView  = TagListView.init(frame: CGRect.init(x: 0, y: 0, width: self.tagView.frame.width, height: 100))
-                tagListView.textFont = UIFont(name: "Avenir-Book", size: 15.0) ??  UIFont.systemFont(ofSize: 15)
-                tagListView.textColor = .black
+                tagListView.textFont = UIFont(name: "Avenir-Medium", size: 14.0) ??  UIFont.systemFont(ofSize: 15)
+                tagListView.textColor = UIColor.init("0x666666")
                 tagListView.paddingY = 10
                 tagListView.paddingX = 15
 
@@ -310,7 +328,7 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
                 for tag in _tagArray {
                     let tag = tagListView.addTag(tag)
                     tag.cornerRadius = 15
-                    tag.tagBackgroundColor = UIColor.init("0xe7e7e7")
+                    tag.tagBackgroundColor = UIColor.init("0F0F0F0")
                     tag.enableRemoveButton = false
                     tag.enableIconButton = false
                 }
@@ -582,23 +600,31 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
 //    }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as!  DamagePartsTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as!  DamagePartsTableViewCell
         
         let part = self.reportData?.partData[indexPath.row] as? PartData
+        let damageSubType = self.reportData?.damageSubType as? String
+       // print(self.reportData?.damageSubType)
         cell.lblPart.text = part?.partDislayText
         cell.lblComment.text  = part?.comment
         cell.lblType.text = part?.type;
+        if cell.lblType.text == "" || cell.lblType.text == nil {
+            cell.lblTypeTitle.text = ""
+        }
         if (part?.size != nil &&  part?.size != "") {
             cell.lblphaseTitle.text = "Size"
             cell.lblphase.text = part?.size
-
-            }
-            else {
+            
+        }
+        else {
             cell.lblphaseTitle.text = "Phase"
             cell.lblphase.text = part?.phase
-
-
-            }
+        }
+        if cell.lblphase.text == "" || cell.lblphase.text == nil {
+            cell.lblphaseTitle.text = ""
+            //cell.type
+        }
+        
         if (part?.thumbnail1Url != nil &&  part?.thumbnail1Url != "") {
                 
 
@@ -636,18 +662,20 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
             }
             
 
-            var x = 0
-            var y = 10
+        var x = 0
+        var y = 14
 
         var index = 0
         
+        let sortedTitles = part?.metaDataTitles.sorted()
         if part?.metaDataTitles.count ?? 0 > 0 {
-            for title in (part?.metaDataTitles)!     {
+            let partDmgIdKey =  MapViewController.damageSubTypeDmgIdMapDict[damageSubType ?? ""] as? String ?? ""
+            for title in (sortedTitles)!     {
                 
                 if (index%2 == 0 ){
                     x = 10
                     if (index != 0) {
-                        y = y + 80
+                        y = y + 60
                     }
                     
                 }
@@ -656,18 +684,19 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
                     x =  210;
                 }
                 
-                let name = UILabel.init(frame: CGRect.init(x: x, y: y, width: 160, height: 50))
+                let name = UILabel.init(frame: CGRect.init(x: x, y: y, width: 160, height: 22))
                 name.numberOfLines = 0
-                name.text = MapViewController.damageMetaDataDisplayDict[title]
-                name.font = UIFont.init(name: NSLocalizedString("FONT_MEDIUM",  comment: ""), size: 14)
+                let newKey = "\(partDmgIdKey)_\(title)"
+                name.text = MapViewController.damageMetaDataDisplayDict[newKey] //title
+                name.font = UIFont.init(name: "Avenir-Medium", size: 13)
                 cell.partsMetadataView .addSubview(name)
-                name.textColor = UIColor.init("0x000000")
+                name.textColor = UIColor.init("0x999999")
                 
-                let value = UILabel.init(frame: CGRect.init(x: x, y: y + 55, width: 160, height: 20))
+                let value = UILabel.init(frame: CGRect.init(x: x, y: y + 24, width: 160, height: 20))
                 value.text = title
-                value.font = UIFont.init(name: NSLocalizedString("FONT_MEDIUM", comment: ""), size: 14)
+                value.font = UIFont.init(name: "Avenir-Medium", size: 14)
                 cell.partsMetadataView .addSubview(value)
-                value.textColor = UIColor.init("0x535353")
+                value.textColor = UIColor.init("0x666666")
                 let num = part!.metaDataValues[index] as? Int
                 
                 
@@ -682,7 +711,7 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
                 index = index + 1
                 
             }
-            y = y + 90
+            y = y + 60
             cell.partsMetadataViewHeightConstarint.constant = CGFloat(y)
             
         }
@@ -763,19 +792,27 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
     
 }
 class DamagePartsTableViewCell : UITableViewCell {
+    @IBOutlet var  mainView: UIView!
     @IBOutlet var  lblPart: UILabel!
     @IBOutlet var  lblType: UILabel!
     @IBOutlet var  lblphase: UILabel!
-    //@IBOutlet var  lblTitle: UILabel!
+    @IBOutlet var  lblTypeTitle: UILabel!
     @IBOutlet var  lblComment: UILabel!
     @IBOutlet var  lblphaseTitle: UILabel!
     @IBOutlet var  partsMetadataView: UIView!
     @IBOutlet weak var imgViewDmgType: UIImageView!
 
 
-@IBOutlet var  partsMetadataViewHeightConstarint: NSLayoutConstraint!
+    @IBOutlet var  partsMetadataViewHeightConstarint: NSLayoutConstraint!
 
-@IBOutlet var  activityIndicator: UIActivityIndicatorView!
+    @IBOutlet var  activityIndicator: UIActivityIndicatorView!
+    
+    override func awakeFromNib() {
+        self.mainView.layer.borderWidth = 1.0
+        self.mainView.layer.cornerRadius = 5.0
+        self.mainView.layer.borderColor  = UIColor.init("0xF0F0F0").cgColor
+        
+    }
 
 }
 

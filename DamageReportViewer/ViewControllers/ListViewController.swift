@@ -166,7 +166,12 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
                     if let data = document.data() as? [String:Any] {
                         if let key = data["dmgCategoryKey"] as? String {
                             let displayName = data["displayName"] as? String
-//                            print("\(key):\(displayName)")
+                            let  level =  data["level"] as! Int
+                            if level == 2 {
+                                let  dmgId =  data["dmgId"] as! String
+                                MainViewController.damageSubTypeDmgIdMapDict[key] = dmgId
+                            }
+                            print("\(key):\(displayName)")
                             MainViewController.damageTypeSubTypeDisplayNamesDict[key] = displayName
                         }
                          
@@ -193,9 +198,10 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
                     if let data = document.data() as? [String:Any] {
                         if let key = data["dmgCategoryKey"] as? String {
                             let displayName = data["displayName"] as? String
-                            print("\(data):\(displayName)")
-                            
-                            MainViewController.self.damageMetaDataDisplayDict[key] = displayName
+                            if let parentId = data["parentId"] as? String {
+                                let newKey = "\(parentId)_\(key)"
+                                MainViewController.self.damageMetaDataDisplayDict[newKey] = displayName
+                            }
                         }
                          
                         
@@ -332,9 +338,11 @@ class ReportsViewCell : UITableViewCell {
         lblDmgType.text = "\(modelObject.damageTypeDisplayName!)/ \(modelObject.damageSubTypeDisplayName!)"
         if (modelObject.columnValues.count >= 1) {
             self.lblName.text = modelObject.columnValues.first
-            self.SeparatorDamageFld.constant = 2;
-            self.heightConstraintNameFld.constant = 22;
-            self.SeparatorNameFld.constant = 2;
+           // let height = 
+//            self.lblName.backgroundColor = UIColor.red
+            self.SeparatorDamageFld.constant = 2
+            self.heightConstraintNameFld.constant = 40
+            self.SeparatorNameFld.constant = 2
         }
         else  {
             self.SeparatorDamageFld.constant = 0;
@@ -347,11 +355,11 @@ class ReportsViewCell : UITableViewCell {
         if (modelObject.columnValues.count >= 2 ) {
             
             lblEmail.text = modelObject.columnValues[1] as? String
-             self.heightConstraintEmailFld.constant = 22;
-             self.SeparatorEmailFld.constant = 2;
+            self.heightConstraintEmailFld.constant = 22;
+            self.SeparatorEmailFld.constant = 2;
          }else{
-             self.heightConstraintEmailFld.constant = 0;
-             self.SeparatorEmailFld.constant = 0;
+            self.heightConstraintEmailFld.constant = 0;
+            self.SeparatorEmailFld.constant = 0;
          }
         if modelObject.damageType != nil {
             imgViewDmgType.image = UIImage.init(named: modelObject.damageType!)

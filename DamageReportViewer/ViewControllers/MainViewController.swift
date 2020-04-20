@@ -21,7 +21,10 @@ class MainViewController:UIViewController {
     static var isFilterAppliedInTabs = false
     
     static var damageTypeSubTypeDisplayNamesDict = [String:String]()
+    static var damageSubTypeDmgIdMapDict = [String:String]()
+
     static var damageMetaDataDisplayDict = [String:String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
       //  self.navigationController?.isNavigationBarHidden = false

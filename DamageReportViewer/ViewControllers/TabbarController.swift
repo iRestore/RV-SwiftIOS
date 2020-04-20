@@ -17,25 +17,25 @@ class TabbarController: UITabBarController {
     }
 
     func setTabbarItemImages() {
-//        let arrayOfImageNameForSelectedState = ["lid", "activeAvailabilityCheck","activeProfile", "activeNotifications"]
-        let arrayOfImageNameForUnselectedState = ["listView", "mapView"]
+        let arrayOfImageNameForSelectedState = ["listView_Selected_Icon", "mapView_Selected_Icon"]
+        let arrayOfImageNameForUnselectedState = ["listView_Icon", "mapView_Icon"]
         
         if let count = self.tabBar.items?.count {
             for i in 0...(count-1) {
                 
-//                let imageNameForSelectedState   = arrayOfImageNameForSelectedState[i]
+                let imageNameForSelectedState   = arrayOfImageNameForSelectedState[i]
                 let imageNameForUnselectedState = arrayOfImageNameForUnselectedState[i]
                 
-//                self.tabBar.items?[i].selectedImage = UIImage(named: imageNameForSelectedState)?.withRenderingMode(.alwaysOriginal)
+                self.tabBar.items?[i].selectedImage = UIImage(named: imageNameForSelectedState)?.withRenderingMode(.alwaysOriginal)
                 self.tabBar.items?[i].image = UIImage(named: imageNameForUnselectedState)?.withRenderingMode(.alwaysOriginal)
             }
         }
-        
-//        let unselectedColor = UIColor.init(hexColor: "0xd5d5d5")
-//        let selectedColor  = UIColor.init(hexColor: "0x26A69A")
+        //0xd5d5d5
+        let unselectedColor = UIColor.init("0x666666")
+        let selectedColor  =  UIColor.init("0x666666")
 //
-//        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: unselectedColor], for: .normal)
-//        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: selectedColor], for: .selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: unselectedColor], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: selectedColor], for: .selected)
     }
     
     

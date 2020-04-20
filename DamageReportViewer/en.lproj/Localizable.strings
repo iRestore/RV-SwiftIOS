@@ -37,3 +37,6 @@
 
 "VALID_PHONE"     = "Please enter a valid Area Code and Phone number";
 
+"FONT_BOOK" = "AvenirLTStd-Book";
+"FONT_MEDIUM" = "AvenirLTStd-Medium";
+
