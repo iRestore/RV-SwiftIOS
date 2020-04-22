@@ -30,7 +30,7 @@ class TermsConditionsViewController : UIViewController  {
         
         let navigationBarAppearace = UINavigationBar.appearance()
         navigationItem.title = "Terms and Conditions"
-        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 15.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.black]
+        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 20.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.init("0x363636")]
         
         var backButton: UIButton
         var leftBarBtnItem : UIBarButtonItem

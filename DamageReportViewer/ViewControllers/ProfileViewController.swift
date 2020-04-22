@@ -73,7 +73,7 @@ class  ProfileViewController : UIViewController {
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.hidesBackButton = false
         let navigationBarAppearace = UINavigationBar.appearance()
-        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 15.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.black]
+        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 20.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.init("0x363636")]
         self.navigationItem.title = NSLocalizedString("Damage Reports", comment: "")
         
         var backButton: UIButton

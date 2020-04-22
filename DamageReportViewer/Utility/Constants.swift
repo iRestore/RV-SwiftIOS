@@ -17,11 +17,11 @@ struct  Constants
     static let FILTER_VALUE_DICT = "valueDict"
 
     
-    static let FILTER_TABLECELL_NORML_HEIGHT  = 50
+    static let FILTER_TABLECELL_NORML_HEIGHT  = 60
     static let EXTENDING_CELL_HEIGHT   = -1
     static let FILTER_ISACTIVE = "isActive"
     static let dateFormatterKey =  "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-    static let listScreenDateFormat = "MM-dd-yyyy HH:mm:ss"
+    static let listScreenDateFormat = "MM/dd/yyyy HH:mm:ss"
     static let fromDateDisplayFormat = "MM-dd-yyyy"
     static let fromDateValueFormat = "yyyy-mm-dd"
 

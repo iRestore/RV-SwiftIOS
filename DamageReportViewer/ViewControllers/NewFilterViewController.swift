@@ -99,7 +99,7 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
 
         
         let navigationBarAppearace = UINavigationBar.appearance()
-        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 15.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.black]
+        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 20.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.init("0x363636")]
         self.navigationItem.title = "Filter" // NSLocalizedString("Damage Reports", comment: "")
         
         var backButton: UIButton
@@ -190,14 +190,14 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
         
         
         var item14 = CellItem.init(name: "", displayName: "FR Filter", type: "TYPE5", subType:"")
-        item14.rowHeight = 30
+        item14.rowHeight = 35
         item14.iconImageName = "fr_5_tree"
         
         var item15 = CellItem.init(name: "viewAcknowledged", displayName: "Include Acknowledged Reports", type: "TYPE2", subType:"")
         item15.rowHeight = Constants.FILTER_TABLECELL_NORML_HEIGHT
                
         var item16 = CellItem.init(name: "", displayName: "VDA Filter", type: "TYPE5", subType:"")
-        item16.rowHeight = 30
+        item16.rowHeight = 35
         item16.iconImageName = "vda_11_tree"
 
         
@@ -376,7 +376,11 @@ class  NewFilterViewController : UIViewController,UITableViewDelegate,UITableVie
         
     }
     func showDatePicker(keyName:String, date:String) {
-        
+        if datePicker != nil {
+            toolBar?.removeFromSuperview()
+            datePicker?.removeFromSuperview()
+            
+        }
         datePicker = UIDatePicker.init()
         datePicker?.backgroundColor = UIColor.white
         datePicker?.autoresizingMask = .flexibleWidth

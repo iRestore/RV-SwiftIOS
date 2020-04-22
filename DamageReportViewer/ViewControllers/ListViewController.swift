@@ -36,8 +36,6 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
         super.viewDidLoad()
         let prefs : UserDefaults = UserDefaults.standard
         prefs.set(true, forKey: Constants.IS_SIGN_COMPLETED)
-//        FirebaseApp.configure()
-//        Database.database().isPersistenceEnabled = true
         MainViewController.isFilterAppliedInTabs = false
         navBarSettings()
         if Reachability.isConnectedToNetwork () {
@@ -78,6 +76,14 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
     
     override func viewWillAppear(_ animated: Bool) {
         if MainViewController.isFilterAppliedInTabs == true {
+            let filterDict = DataHandler.shared.filterValueDict
+            if(filterDict.count > 1) {
+                self.filterBtn.setImage(UIImage.init(named: "filter_active"), for: .normal)
+
+            }
+            else {
+                self.filterBtn.setImage(UIImage.init(named: "filter"), for: .normal)
+            }
             currentPage = 1
             self.tblView.reloadData()
         }
@@ -87,7 +93,7 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.hidesBackButton = true
         let navigationBarAppearace = UINavigationBar.appearance()
-        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 15.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.black]
+        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 20.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.init("0x363636")]
         self.navigationItem.title = NSLocalizedString("Damage Reports", comment: "")
 
     }
@@ -196,11 +202,13 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
                 MainViewController.self.damageMetaDataDisplayDict.removeAll()
                 for document in documents {
                     if let data = document.data() as? [String:Any] {
-                        if let key = data["dmgCategoryKey"] as? String {
+                        if let key = data["dmgCategoryKey"] as? String ,let sortOrder =  data["sortOrder"] as? String {
                             let displayName = data["displayName"] as? String
                             if let parentId = data["parentId"] as? String {
                                 let newKey = "\(parentId)_\(key)"
                                 MainViewController.self.damageMetaDataDisplayDict[newKey] = displayName
+                                MainViewController.self.metaDataSortOrderDict[newKey] = "\(sortOrder)"
+                                
                             }
                         }
                          
@@ -338,10 +346,14 @@ class ReportsViewCell : UITableViewCell {
         lblDmgType.text = "\(modelObject.damageTypeDisplayName!)/ \(modelObject.damageSubTypeDisplayName!)"
         if (modelObject.columnValues.count >= 1) {
             self.lblName.text = modelObject.columnValues.first
-           // let height = 
-//            self.lblName.backgroundColor = UIColor.red
+            let constraintRect = CGSize(width: self.lblName.frame.width, height: .greatestFiniteMagnitude)
+            let boundingBox = self.lblName.text?.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: self.lblName.font], context: nil)
+            var height = ceil(boundingBox?.height ?? 22)
+            if height > 40 {
+                height = 40
+            }
             self.SeparatorDamageFld.constant = 2
-            self.heightConstraintNameFld.constant = 40
+            self.heightConstraintNameFld.constant = height
             self.SeparatorNameFld.constant = 2
         }
         else  {

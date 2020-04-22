@@ -25,6 +25,14 @@ class OTPViewController: UIViewController ,UITextFieldDelegate {
     var timer : Timer? = nil
     var maintimer : Timer? = nil
     override func viewDidLoad() {
+        self.logoHolderBg.backgroundColor = UIColor.init(patternImage: UIImage.init(named: "logoholder")! )
+        
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentDirectorPath:String = paths[0]
+        let imageName = UserDefaults.standard.object(forKey:"logo" )
+        let newFilePath = documentDirectorPath.appending("/\(imageName!)")
+        let image = UIImage.init(contentsOfFile: newFilePath)
+        self.customerLogoView.image = image
         navigationBarSettings()
         
     }
@@ -38,7 +46,7 @@ class OTPViewController: UIViewController ,UITextFieldDelegate {
         
         let navigationBarAppearace = UINavigationBar.appearance()
         navigationItem.title = "OTP"
-        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 15.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.black]
+        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 20.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.init("0x363636")]
         
         var backButton: UIButton
         var leftBarBtnItem : UIBarButtonItem
@@ -48,7 +56,7 @@ class OTPViewController: UIViewController ,UITextFieldDelegate {
         backButton.sizeToFit()
         leftBarBtnItem = UIBarButtonItem.init(customView: backButton)
         navigationItem.leftBarButtonItem = leftBarBtnItem
-        self.customerLogoView.image = UIImage.init(named: "irestorelogo@2x.png")
+//        self.customerLogoView.image = UIImage.init(named: "irestorelogo@2x.png")
     }
     @objc func backBtnOnClick() -> Void {
         self.maintimer?.invalidate()

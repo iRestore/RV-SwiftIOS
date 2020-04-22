@@ -17,10 +17,10 @@ class SelectLocationCategoryController:UIViewController,UIGestureRecognizerDeleg
      var selectedCategory:String?
      var delegate : LocationCategoryPlacesAPIDelegate?
      var keyName:String = ""
+    var placeHolderText = "Enter value here"
      override func viewDidLoad() {
         navigationBarSettings()
         GMSPlacesClient.provideAPIKey("AIzaSyDyl4k5gUWEubmujgz7hRaggulHMrK0AUA")
-
         lblTitle.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(googleAPi))
         lblTitle.addGestureRecognizer(tap)
@@ -33,10 +33,9 @@ class SelectLocationCategoryController:UIViewController,UIGestureRecognizerDeleg
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationItem.hidesBackButton = false
         self.navigationController?.navigationBar.isTranslucent = false
-        
 
         let navigationBarAppearace = UINavigationBar.appearance()
-        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 15.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.black]
+        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 20.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.init("0x363636")]
         self.navigationItem.title = titleString
         
         var backButton: UIButton
@@ -48,9 +47,18 @@ class SelectLocationCategoryController:UIViewController,UIGestureRecognizerDeleg
         backButton.contentHorizontalAlignment = .left
         leftBarBtnItem = UIBarButtonItem.init(customView: backButton)
         self.navigationItem.leftBarButtonItem = leftBarBtnItem
+        self.lblTitle.font = UIFont.init(name: "Avenir-Medium", size: 15)
+
+        if self.lblTitle.text == "" || self.lblTitle.text == nil {
+            self.lblTitle.text = placeHolderText
+            self.lblTitle.textColor = UIColor.init("0x999999")
+        }
 
     }
     @objc  func backBtnClicked() {
+        if self.lblTitle.text == placeHolderText {
+            self.lblTitle.text = ""
+        }
         self.delegate?.didSelectItemFromLocation(selectedDisplayString: self.lblTitle.text ?? "", keyName: keyName)
         self.navigationController?.popViewController(animated: true)
     }
@@ -110,6 +118,11 @@ class SelectLocationCategoryController:UIViewController,UIGestureRecognizerDeleg
 
          }
          self.lblTitle.text  = text
+        if text != "" || text != nil {
+            self.lblTitle.textColor = UIColor.init("0x666666")
+
+        }
+
         dismiss(animated: true, completion: nil)
 
         

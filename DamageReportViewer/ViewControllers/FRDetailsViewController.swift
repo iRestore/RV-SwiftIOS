@@ -85,7 +85,7 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate,GMSMap
         
 
         let navigationBarAppearace = UINavigationBar.appearance()
-        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir", size: 20.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.init("0x363636")]
+        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 20.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.init("0x363636")]
         self.navigationItem.title = NSLocalizedString("Damage Detail Report", comment: "")
         
         var backButton: UIButton
@@ -169,7 +169,7 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate,GMSMap
             let range = start..<end
             
             let part2 = phone[range]
-            lblPhone.text = "\(part1) \(part2)-\(part3)"
+            lblPhone.text = "(\(part1)) \(part2)-\(part3)"
         }
         
         
@@ -199,67 +199,84 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate,GMSMap
         }
 
         
-//        if var userAddressArray  = self.reportData?.userAddress?.components(separatedBy: ",") {
-//            userAddressArray.removeLast()
-//            var count = 0
-//            var addressString = ""
-//            for st in userAddressArray {
-//                if (count == 1 ) {
-//                    addressString =  addressString.appending("\n")
-//                    
-//                }
-//                else {
-//                    if (count == 1 ) {
-//                        let trimmedSt =  st.trimmingCharacters(in: .whitespaces)
-//                        addressString =  addressString.appending(trimmedSt)
-//                        
-//                    }
-//                    else {
-//                        addressString =  addressString.appending(st)
-//                    }
-//                    
-//                }
-//                count = count + 1
-//                
-//            }
-//            lblUserAddress.text = addressString
-//            
-//        }
-        
-        if var resolvedAddressArray  = self.reportData?.userAddress?.components(separatedBy: ",")
-        {
-            print(resolvedAddressArray)
-            resolvedAddressArray.removeLast()
-            var count = 0
+        if var userAddressArray  = self.reportData?.userAddress?.components(separatedBy: ",") {
+            //userAddressArray.removeLast()
             var addressString = ""
-            for st in resolvedAddressArray {
-                if (count == 1 ) {
+            var index = 0
+            for st in userAddressArray {
+                if (index == 1 ) {
                     addressString =  addressString.appending("\n")
 
                 }
-                
-                if (count == 1 ) {
+                if (index ==  userAddressArray.count - 1) {
+
+                    if (index == 1 ) {
                         let trimmedSt =  st.trimmingCharacters(in: .whitespaces)
                         addressString =  addressString.appending(trimmedSt)
+                        addressString =  addressString.appending(",")
+
+                    }
+                    else {
+                        addressString =  addressString.appending(st)
+                    }
+
 
                 }
                 else {
+                    if (index == 1 ) {
+                        let trimmedSt =  st.trimmingCharacters(in: .whitespaces)
+                        addressString =  addressString.appending(trimmedSt)
+                        addressString =  addressString.appending(",")
+                    }
+                    else {
                         addressString =  addressString.appending(st)
+                        addressString =  addressString.appending(",")
+
+                    }
                 }
-
-                count = count + 1
-
+                index = index + 1
             }
             lblDeviceAddress.text = addressString
-            lblUserAddress.text = addressString //for time being
-
+            print(addressString)
 
         }
         
+//        if var resolvedAddressArray  = self.reportData?.userAddress?.components(separatedBy: ",")
+//        {
+//            print(resolvedAddressArray)
+//            resolvedAddressArray.removeLast()
+//            var count = 0
+//            var addressString = ""
+//            for st in resolvedAddressArray {
+//                if (count == 1 ) {
+//                    addressString =  addressString.appending("\n")
+//
+//                }
+//
+//                if (count == 1 ) {
+//                        let trimmedSt =  st.trimmingCharacters(in: .whitespaces)
+//                        addressString =  addressString.appending(trimmedSt)
+//
+//                }
+//                else {
+//                        addressString =  addressString.appending(st)
+//                }
+//
+//                count = count + 1
+//
+//            }
+//            lblDeviceAddress.text = addressString
+//            lblUserAddress.text = addressString //for time being
+//
+//
+//        }
         
+        if (self.reportData?.columnValues.count ?? 0 >= 1) {
+//            self.lblDeviceAddress.text = self.reportData?.columnValues.first
+            self.lblUserAddress.text = self.reportData?.columnValues.first
+        }
         
         lblLocation.text = self.formatLatLong()
-        
         //check for boolean value
         lblRoadStatus.text  = reportData?.roadBlockedStatus
         lblSafeStatus.text  = reportData?.safeStatus
@@ -592,7 +609,6 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate,GMSMap
                             self.img3View.image = image
 
                         }
-                        //self.mainImgView.image = image
 
                     }
                     else {
@@ -638,6 +654,18 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate,GMSMap
                 if ((error) != nil){
                     print("Failed with error")
                     print("Error: \(error!)")
+                     if (isThumbnail == true ){
+                        if( identifier == 1) {
+                            self.img1View.image = UIImage.init(named: "failedImage")
+                        }
+                        else if( identifier == 2) {
+                           self.img2View.image = UIImage.init(named: "failedImage")
+                        }
+                        else if( identifier == 3) {
+                            self.img3View.image = UIImage.init(named: "failedImage")
+
+                        }
+                    }
                 }
                 else{
                     

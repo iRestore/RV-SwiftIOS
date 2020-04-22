@@ -132,6 +132,7 @@ class ReportData {
 
             if let items = partDetails["damageData"] as?  [[String:Any]] {
                 for item in items {
+                    
                     let data = PartData.init(data: item, metadaata: data)
                     self.partData.append(data)
 //                    PartData *data = [[PartData alloc] initWithData:dict withMetaData:scope.metaDict];

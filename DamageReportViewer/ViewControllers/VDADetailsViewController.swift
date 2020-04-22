@@ -125,7 +125,7 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
         
 
         let navigationBarAppearace = UINavigationBar.appearance()
-        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir", size: 20.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.init("0x363636")]
+        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 20.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.init("0x363636")]
         self.navigationItem.title = NSLocalizedString("Damage Detail Report", comment: "")
         
         var backButton: UIButton
@@ -162,7 +162,7 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
         self.damageDetailsTableView.isHidden = false
         self.damagePartsLabel.isHidden = false
         if let count = self.reportData?.partData.count , let value = self.reportData?.damageSubTypeDisplayName {
-            self.damagePartsLabel.text =  "\(count) \(value) Reports"
+            self.damagePartsLabel.text =  "\(count) \(value) Report(s)"
 
         }
         
@@ -185,7 +185,7 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
             let range = start..<end
             
             let part2 = phone[range]
-            lblPhone.text = "\(part1) \(part2)-\(part3)"
+            lblPhone.text = "(\(part1)) \(part2)-\(part3)"
         }
         if reportData?.imageCount ?? 0 > 0 {
             let image1Url:NSString = reportData?.thumbnail1Path as? NSString ?? ""
@@ -223,9 +223,55 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
         
         lblDamageType.text = "\((reportData?.damageTypeDisplayName)!)"
         lblTitle.text = "\((reportData?.damageSubTypeDisplayName)!)"
-        if (self.reportData?.columnValues.count ?? 0 >= 1) {
-            self.lblDeviceAddress.text = self.reportData?.columnValues.first
+        
+//         lblDeviceAddress.text = self.reportData?.userAddress
+        
+        if var userAddressArray  = self.reportData?.userAddress?.components(separatedBy: ",") {
+            //userAddressArray.removeLast()
+            var addressString = ""
+            var index = 0
+            for st in userAddressArray {
+                if (index == 1 ) {
+                    addressString =  addressString.appending("\n")
+
+                }
+                if (index ==  userAddressArray.count - 1) {
+
+                    if (index == 1 ) {
+                        let trimmedSt =  st.trimmingCharacters(in: .whitespaces)
+                        addressString =  addressString.appending(trimmedSt)
+                        addressString =  addressString.appending(",")
+
+                    }
+                    else {
+                        addressString =  addressString.appending(st)
+                    }
+
+
+                }
+                else {
+                    if (index == 1 ) {
+                        let trimmedSt =  st.trimmingCharacters(in: .whitespaces)
+                        addressString =  addressString.appending(trimmedSt)
+                        addressString =  addressString.appending(",")
+                    }
+                    else {
+                        addressString =  addressString.appending(st)
+                        addressString =  addressString.appending(",")
+
+                    }
+                }
+                index = index + 1
+            }
+            lblDeviceAddress.text = addressString
+            print(addressString)
+
         }
+        
+//        if (self.reportData?.columnValues.count ?? 0 >= 1) {
+//
+//            self.lblDeviceAddress.text = self.reportData?.columnValues.first
+//        }
 
         
         //check for boolean value
@@ -664,18 +710,20 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
 
         var x = 0
         var y = 14
-
         var index = 0
+        var heightVariable = 60.0
         
-        let sortedTitles = part?.metaDataTitles.sorted()
+        
         if part?.metaDataTitles.count ?? 0 > 0 {
-            let partDmgIdKey =  MapViewController.damageSubTypeDmgIdMapDict[damageSubType ?? ""] as? String ?? ""
-            for title in (sortedTitles)!     {
+            let partDmgIdKey =  MapViewController.damageSubTypeDmgIdMapDict[damageSubType ?? ""] ?? ""
+            let sortedTitles =  self.getSortedMetaData(metadataTites:(part?.metaDataTitles)!,parentId:partDmgIdKey)
+
+            for title in (sortedTitles)     {
                 
                 if (index%2 == 0 ){
                     x = 10
                     if (index != 0) {
-                        y = y + 60
+                        y = y + Int(heightVariable)
                     }
                     
                 }
@@ -684,15 +732,24 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
                     x =  210;
                 }
                 
-                let name = UILabel.init(frame: CGRect.init(x: x, y: y, width: 160, height: 22))
-                name.numberOfLines = 0
                 let newKey = "\(partDmgIdKey)_\(title)"
-                name.text = MapViewController.damageMetaDataDisplayDict[newKey] //title
+                let titleText = MapViewController.damageMetaDataDisplayDict[newKey]
+                let constraintRect = CGSize(width: 160.0, height: .greatestFiniteMagnitude)
+                let boundingBox = titleText?.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: self.lblName.font], context: nil)
+                var height = ceil(boundingBox?.height ?? 22.0)
+                if height > CGFloat(heightVariable) {
+                    height = CGFloat(heightVariable)
+                }
+                let name = UILabel.init(frame: CGRect.init(x: x, y: y, width: 160, height: Int(height)))
+                
+                 name.numberOfLines = 0
+               
+                name.text = titleText
                 name.font = UIFont.init(name: "Avenir-Medium", size: 13)
                 cell.partsMetadataView .addSubview(name)
                 name.textColor = UIColor.init("0x999999")
                 
-                let value = UILabel.init(frame: CGRect.init(x: x, y: y + 24, width: 160, height: 20))
+                let value = UILabel.init(frame: CGRect.init(x: x, y: y + Int(height) , width: 160, height: 20))
                 value.text = title
                 value.font = UIFont.init(name: "Avenir-Medium", size: 14)
                 cell.partsMetadataView .addSubview(value)
@@ -700,7 +757,7 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
                 let num = part!.metaDataValues[index] as? Int
                 
                 
-                
+                heightVariable = Double(  Int(height) + 34)
                 
                 if (num == 0) {
                     value.text = "No"
@@ -717,6 +774,41 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
         }
             return cell
 
+    }
+    func getSortedMetaData(metadataTites:[String],parentId:String) -> [String] {
+        
+        var metadataAray  = [String]()
+        var orderArray = [String]()
+
+        for key in metadataTites {
+            let newKey = "\(parentId)_\(key)" //"\(key)_\(parentId)"
+            if let order  =  MainViewController.self.metaDataSortOrderDict[newKey] as? String {
+                orderArray.append(order)
+            }
+        }
+        orderArray = orderArray.sorted {$0.localizedStandardCompare($1) == .orderedAscending}
+               
+        for order in orderArray {
+                   if let keys = (MainViewController.self.metaDataSortOrderDict as NSDictionary).allKeys(for: order) as? [String] {
+                    
+                    for key in keys {
+                       var dict = [String:Any]()
+                        let _key = "\(parentId)_"
+                        if key.contains(_key) {
+                            let newKey = key.replacingOccurrences(of: _key, with:"")
+                            metadataAray.append(newKey)
+                            break
+
+                        }
+                        //let partValue  = metadataDict[newKey]
+                        //dict[newKey] = partValue
+        
+                    }
+                   }
+
+        }
+        return metadataAray
+        
     }
   
     //MARK: Location Delegates

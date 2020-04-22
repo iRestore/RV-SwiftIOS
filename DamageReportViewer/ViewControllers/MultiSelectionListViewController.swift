@@ -73,7 +73,7 @@ class MultiSelectionListViewController:UITableViewController,UISearchResultsUpda
 
         
          let navigationBarAppearace = UINavigationBar.appearance()
-         navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 15.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.black]
+        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 20.0) as Any, NSAttributedString.Key.foregroundColor : UIColor.init("0x363636")]
         self.navigationItem.title = titleString // NSLocalizedString("Damage Reports", comment: "")
          
          var backButton: UIButton
@@ -155,7 +155,8 @@ class MultiSelectionListViewController:UITableViewController,UISearchResultsUpda
         
         if let displayName = displayName as? String {
             cell.textLabel?.text = displayName
-            cell.textLabel?.font = UIFont(name: "Avenir-Book", size: 15)
+            cell.textLabel?.textColor = UIColor.init(named: "0x666666")
+            cell.textLabel?.font = UIFont(name: "Avenir-Medium", size: 15)
             cell.textLabel?.numberOfLines = 0
             if let items = self.selectedDisplayItems as? [String] {
                 let subString = cell.textLabel?.text as! String
