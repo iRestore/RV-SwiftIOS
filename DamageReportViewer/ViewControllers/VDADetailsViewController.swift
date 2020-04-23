@@ -80,6 +80,8 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
     @IBOutlet var  tapToExpandPhotoBottomConstraint:NSLayoutConstraint!
     @IBOutlet var  poleDetailsHeightConstraint:NSLayoutConstraint!
     @IBOutlet var  addressViewHeightConstraint:NSLayoutConstraint!
+    @IBOutlet var  userDetailsHeightConstant:NSLayoutConstraint!
+
     @IBOutlet var  scrollViewConstraint:NSLayoutConstraint!
     
 
@@ -355,7 +357,10 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
         self.poleDetailsHeightConstraint.constant = self.tagView.frame.origin.y + self.tagViewHeightConstraint.constant + 5
         
         self.addressViewHeightConstraint.constant = self.lblDate.frame.origin.y + self.lblDate.frame.size.height + 2
-
+        
+        self.userDetailsHeightConstant.constant  = self.lblPhone.frame.origin.y + self.lblPhone.frame.size.height + 20
+        
+        self.scrollViewConstraint.constant = self.poleDetailsHeightConstraint.constant + self.addressViewHeightConstraint.constant + self.userDetailsHeightConstant.constant + 350
         
     }
     
@@ -713,7 +718,12 @@ class VDADetailsViewController: UIViewController,UITableViewDelegate,UITableView
         var index = 0
         var heightVariable = 60.0
         
-        
+        for view in cell.partsMetadataView.subviews {
+            if view != cell.metadataSeperatorLine {
+                view.removeFromSuperview()
+
+            }
+        }
         if part?.metaDataTitles.count ?? 0 > 0 {
             let partDmgIdKey =  MapViewController.damageSubTypeDmgIdMapDict[damageSubType ?? ""] ?? ""
             let sortedTitles =  self.getSortedMetaData(metadataTites:(part?.metaDataTitles)!,parentId:partDmgIdKey)
@@ -892,6 +902,8 @@ class DamagePartsTableViewCell : UITableViewCell {
     @IBOutlet var  lblComment: UILabel!
     @IBOutlet var  lblphaseTitle: UILabel!
     @IBOutlet var  partsMetadataView: UIView!
+    @IBOutlet var  metadataSeperatorLine: UIView!
+
     @IBOutlet weak var imgViewDmgType: UIImageView!
 
 

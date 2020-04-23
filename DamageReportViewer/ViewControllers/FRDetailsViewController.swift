@@ -237,9 +237,13 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate,GMSMap
                 index = index + 1
             }
             lblDeviceAddress.text = addressString
+            self.lblUserAddress.text =   addressString
+
+
             print(addressString)
 
         }
+        
         
 //        if var resolvedAddressArray  = self.reportData?.userAddress?.components(separatedBy: ",")
 //        {
@@ -271,10 +275,7 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate,GMSMap
 //
 //        }
         
-        if (self.reportData?.columnValues.count ?? 0 >= 1) {
-//            self.lblDeviceAddress.text = self.reportData?.columnValues.first
-            self.lblUserAddress.text = self.reportData?.columnValues.first
-        }
+
         
         lblLocation.text = self.formatLatLong()
         //check for boolean value
@@ -578,6 +579,7 @@ class FRDetailsViewController: UIViewController,CLLocationManagerDelegate,GMSMap
                 return;   // return if image is not available for that thumbnail.
             }
             else {
+                self.downloadImage(path: image2Url.lastPathComponent,isThumbnail:false,identifier:-1)
                 //self.downloadImage(path:image2Url.lastPathComponent )//gree
 
             }

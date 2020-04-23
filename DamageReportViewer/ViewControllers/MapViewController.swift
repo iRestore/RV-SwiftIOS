@@ -38,17 +38,13 @@ class MapViewController: MainViewController,GMSMapViewDelegate,FilterReportsDele
     }
     
     func enableCurrentLocation() {
-        
-        if(locationManager == nil) {
-            
+        locationManager.requestAlwaysAuthorization()
+        locationManager.delegate = self
+        if CLLocationManager.locationServicesEnabled() {
             locationManager.requestAlwaysAuthorization()
-            locationManager.delegate = self
-            if CLLocationManager.locationServicesEnabled() {
-                locationManager.requestAlwaysAuthorization()
-                locationManager.startUpdatingLocation()
-            }
-            
+            locationManager.startUpdatingLocation()
         }
+
         if let latLong = self.getAddressDict() as? CLLocation  {
             currentLocation = latLong
         }

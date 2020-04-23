@@ -2581,7 +2581,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phase" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cya-W7-rhE">
-                                                            <rect key="frame" x="325" y="31.5" width="35" height="20"/>
+                                                            <rect key="frame" x="248" y="31.5" width="35" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="OlL-EL-53x"/>
                                                             </constraints>
@@ -2599,7 +2599,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTn-4d-z8J">
-                                                            <rect key="frame" x="325" y="52.5" width="30" height="20"/>
+                                                            <rect key="frame" x="248" y="52.5" width="30" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="Q6Q-0S-9Hg"/>
                                                             </constraints>
@@ -2623,7 +2623,6 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                                                         <constraint firstAttribute="trailing" secondItem="Psg-5l-D0P" secondAttribute="trailing" constant="10" id="HBf-lu-PAi"/>
                                                         <constraint firstItem="qH9-Ux-Upd" firstAttribute="top" secondItem="VBk-ln-Whc" secondAttribute="bottom" constant="5" id="HOU-FU-xat"/>
                                                         <constraint firstAttribute="trailing" secondItem="FT7-6u-kSn" secondAttribute="trailing" id="P2q-mI-pyh"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Cya-W7-rhE" secondAttribute="trailing" constant="15" id="P7K-cM-fnR"/>
                                                         <constraint firstItem="cTn-4d-z8J" firstAttribute="top" secondItem="x0d-UE-c9x" secondAttribute="top" id="SG0-CV-Laf"/>
                                                         <constraint firstItem="FT7-6u-kSn" firstAttribute="top" secondItem="TRN-l6-yjY" secondAttribute="bottom" constant="2" id="W7E-bo-IVh"/>
                                                         <constraint firstItem="y1W-0q-Ux2" firstAttribute="leading" secondItem="nrY-ZM-rLQ" secondAttribute="leading" id="Yna-0q-7t6"/>
@@ -2632,12 +2631,13 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                                                         <constraint firstItem="HVJ-hh-cLR" firstAttribute="leading" secondItem="y1W-0q-Ux2" secondAttribute="trailing" constant="20" id="dvh-A0-Fi2"/>
                                                         <constraint firstItem="FT7-6u-kSn" firstAttribute="leading" secondItem="nrY-ZM-rLQ" secondAttribute="leading" id="f8s-4u-EjD"/>
                                                         <constraint firstAttribute="trailing" secondItem="VBk-ln-Whc" secondAttribute="trailing" id="iGI-A3-tg5"/>
-                                                        <constraint firstItem="cTn-4d-z8J" firstAttribute="leading" secondItem="Cya-W7-rhE" secondAttribute="leading" id="mh4-lA-KD0"/>
                                                         <constraint firstItem="xSQ-aj-brP" firstAttribute="leading" secondItem="nrY-ZM-rLQ" secondAttribute="leading" constant="10" id="mpM-ZV-EhS"/>
                                                         <constraint firstItem="y1W-0q-Ux2" firstAttribute="top" secondItem="VBk-ln-Whc" secondAttribute="bottom" id="nfC-eT-i9r"/>
                                                         <constraint firstItem="TRN-l6-yjY" firstAttribute="leading" secondItem="nrY-ZM-rLQ" secondAttribute="leading" id="qeJ-G2-EME"/>
                                                         <constraint firstAttribute="bottom" secondItem="Psg-5l-D0P" secondAttribute="bottom" constant="5" id="rjb-il-TxG"/>
+                                                        <constraint firstItem="Cya-W7-rhE" firstAttribute="leading" secondItem="HVJ-hh-cLR" secondAttribute="trailing" constant="100" id="vXr-xR-lZD"/>
                                                         <constraint firstItem="xSQ-aj-brP" firstAttribute="top" secondItem="FT7-6u-kSn" secondAttribute="bottom" constant="15" id="xJS-p8-UGi"/>
+                                                        <constraint firstItem="cTn-4d-z8J" firstAttribute="leading" secondItem="Cya-W7-rhE" secondAttribute="leading" id="xxl-6E-6nT"/>
                                                         <constraint firstItem="Psg-5l-D0P" firstAttribute="leading" secondItem="nrY-ZM-rLQ" secondAttribute="leading" constant="10" id="zlq-oQ-aZG"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
@@ -2666,6 +2666,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                                             <outlet property="lblphase" destination="cTn-4d-z8J" id="b0l-dP-kFb"/>
                                             <outlet property="lblphaseTitle" destination="Cya-W7-rhE" id="29z-Ua-igh"/>
                                             <outlet property="mainView" destination="nrY-ZM-rLQ" id="Cgm-Ez-uBV"/>
+                                            <outlet property="metadataSeperatorLine" destination="Dzx-BM-wfK" id="h0r-yn-LPU"/>
                                             <outlet property="partsMetadataView" destination="FT7-6u-kSn" id="NzT-uD-TJf"/>
                                             <outlet property="partsMetadataViewHeightConstarint" destination="3tA-W8-iRW" id="sYE-5g-MIL"/>
                                         </connections>
@@ -2730,6 +2731,7 @@ Our Privacy Policy may change from time to time. We will post any privacy policy
                         <outlet property="tagView" destination="q5K-GM-8F6" id="dVz-3s-5Hu"/>
                         <outlet property="tagViewHeightConstraint" destination="lGN-Pt-Wo6" id="aTm-Wj-6Kx"/>
                         <outlet property="tags" destination="ruo-i7-0TX" id="Y1Q-3e-nTA"/>
+                        <outlet property="userDetailsHeightConstant" destination="SuZ-SQ-LlB" id="DqE-Th-tat"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ev-S5-6Ll" userLabel="First Responder" sceneMemberID="firstResponder"/>
