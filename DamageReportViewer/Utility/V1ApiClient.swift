@@ -29,7 +29,7 @@ class V1ApiClient {
     init() {
         if Bundle.main.infoDictionary != nil {
             let serverParam = Environment().configuration(PlistKey.V1API)
-            v1Domain = ("https://\(serverParam).irestore.info")// infodict["V1_API"] as! String
+            v1Domain = ("https://\(serverParam)")
         }
         else{
             v1Domain = ""

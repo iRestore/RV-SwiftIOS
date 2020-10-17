@@ -8,5 +8,5 @@
 
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
-v1_API =  api
+v1_API =  api.irestore.info
 v2_API =  api-qam.irestore.info

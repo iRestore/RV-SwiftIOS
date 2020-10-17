@@ -8,5 +8,5 @@
 
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
-v1_API =  api-beta
+v1_API =  api-beta.irestore.info
 v2_API =  h4jfshb9ii.execute-api.us-west-1.amazonaws.com/beta-env

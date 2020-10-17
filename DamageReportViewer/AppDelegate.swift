@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = true
         MSAppCenter.start("a59fe333-26a5-4ae0-8eda-a4294075690d", withServices:[ MSAnalytics.self, MSCrashes.self ])
+
         if #available(iOS 13.0, *) {
 
             UIApplication.shared.registerForRemoteNotifications()

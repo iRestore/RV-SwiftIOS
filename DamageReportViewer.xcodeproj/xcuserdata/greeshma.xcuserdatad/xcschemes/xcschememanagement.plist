@@ -12,12 +12,17 @@
 		<key>DamageReportViewer_Beta.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>39</integer>
+			<integer>3</integer>
 		</dict>
 		<key>DamageReportViewer_Dev.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
+		</dict>
+		<key>DamageReportViewer_PreProd.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>40</integer>
 		</dict>
 		<key>DamageReportViewer_QA.xcscheme_^#shared#^_</key>
 		<dict>

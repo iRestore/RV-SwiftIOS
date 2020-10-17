@@ -48,7 +48,7 @@ class ListViewController: MainViewController,UITableViewDelegate,UITableViewData
                 let dateString = dateFormatter.string(from: date)
                 DataHandler.shared.filterValueDict["toDate"] = dateString
                 
-                guard let thirtyDaysBeforeToday = Calendar.current.date(byAdding: .month, value: -1, to: Date()) else { return  }
+                guard let thirtyDaysBeforeToday = Calendar.current.date(byAdding: .month, value: -5, to: Date()) else { return  }
                 let dateString1 = dateFormatter.string(from: thirtyDaysBeforeToday)
                 DataHandler.shared.filterValueDict["fromDate"] = dateString1
                 

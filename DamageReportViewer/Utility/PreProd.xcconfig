@@ -1,12 +1,12 @@
 //
-//  QA.xcconfig
+//  PreProd.Config.xcconfig
 //  DamageReportViewer
 //
-//  Created by Greeshma Mullakkara on 08/01/20.
+//  Created by Greeshma Mullakkara on 25/09/20.
 //  Copyright © 2020 iRestoreApp. All rights reserved.
 //
 
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
-v1_API =  api-qa.irestore.info
-v2_API =  iphqxtpmzf.execute-api.us-west-1.amazonaws.com/qa
+v1_API =  demo-preprod-v2-ui.irestore.info:3021
+v2_API =  ghrkg0c4s7.execute-api.us-west-1.amazonaws.com/pre-prod
